@@ -483,7 +483,7 @@
                       border-collapse: collapse;
                       font-family: Helvetica, Arial, sans-serif;
                       color: #003057;
-                      width: 580px;
+                      width: 100%;
                       max-width: 580px;
                     "
                   >
@@ -512,7 +512,7 @@
                                     style="text-decoration: none; display: block; line-height: 0"
                                   >
                                     <img
-                                      src="https://raw.githubusercontent.com/idg-it/Email/main/assets/idg-logo.png"
+                                      src="assets/idg-logo.png"
                                       nosend="1"
                                       border="0"
                                       width="114"
@@ -562,7 +562,7 @@
                                           style="width: 20px; padding: 1px 2px 3px 0; font-size: 0; line-height: 0"
                                         >
                                           <img
-                                            src="https://raw.githubusercontent.com/idg-it/Email/main/assets/icon-location.png"
+                                            src="assets/icon-location.png"
                                             nosend="1"
                                             border="0"
                                             width="14"
@@ -617,7 +617,7 @@
                                                     href="tel:+97145144958"
                                                     style="text-decoration: none; border: 0; display: block; line-height: 0"
                                                     ><img
-                                                      src="https://raw.githubusercontent.com/idg-it/Email/main/assets/icon-phone.png"
+                                                      src="assets/icon-phone.png"
                                                       nosend="1"
                                                       border="0"
                                                       width="13"
@@ -659,7 +659,7 @@
                                                     rel="noopener noreferrer"
                                                     style="text-decoration: none; border: 0; display: block; line-height: 0"
                                                     ><img
-                                                      src="https://raw.githubusercontent.com/idg-it/Email/main/assets/icon-linkedin.png"
+                                                      src="assets/icon-linkedin.png"
                                                       nosend="1"
                                                       border="0"
                                                       width="14"
@@ -708,7 +708,7 @@
                                                     rel="noopener noreferrer"
                                                     style="text-decoration: none; border: 0; display: block; line-height: 0"
                                                     ><img
-                                                      src="https://raw.githubusercontent.com/idg-it/Email/main/assets/icon-mobile.png"
+                                                      src="assets/icon-mobile.png"
                                                       nosend="1"
                                                       border="0"
                                                       width="13"
@@ -753,7 +753,7 @@
                                                     rel="noopener noreferrer"
                                                     style="text-decoration: none; border: 0; display: block; line-height: 0"
                                                     ><img
-                                                      src="https://raw.githubusercontent.com/idg-it/Email/main/assets/icon-web.png"
+                                                      src="assets/icon-web.png"
                                                       nosend="1"
                                                       border="0"
                                                       width="13"
@@ -795,7 +795,7 @@
                                                   style="width: 20px; padding: 0 2px 0 0; font-size: 0; line-height: 0"
                                                 >
                                                   <img
-                                                    src="https://raw.githubusercontent.com/idg-it/Email/main/assets/icon-email.png"
+                                                    src="assets/icon-email.png"
                                                     nosend="1"
                                                     border="0"
                                                     width="13"
@@ -818,7 +818,7 @@
                                                     line-height: 14.5px;
                                                     color: #003057;
                                                     padding: 0;
-                                                    white-space: nowrap;
+                                                    word-break: break-word;
                                                   "
                                                 >
                                                   <a
@@ -1008,8 +1008,35 @@
         return "tel:" + cleaned;
       }
 
+      const FALLBACK_PAGES_URL = "https://frenzelrgferrer.github.io/idg-esignature/";
+
+      function getAssetBaseUrl() {
+        if (window.location.protocol === "http:" || window.location.protocol === "https:") {
+          return new URL("assets/", window.location.href).href;
+        }
+        return "assets/";
+      }
+
+      function escapeHtml(str) {
+        return str
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function getExportSignatureHtml() {
+        const html = signaturePreview.innerHTML.trim();
+        const exportBase =
+          window.location.protocol === "http:" || window.location.protocol === "https:"
+            ? new URL("assets/", window.location.href).href
+            : FALLBACK_PAGES_URL + "assets/";
+        return html.replace(/src=["']assets\/([^"']+)["']/gi, `src="${exportBase}$1"`);
+      }
+
       // Standard Corporate Banners: White MSS on Top, Partner Entities on Bottom
       function renderBanners() {
+        const assetBase = getAssetBaseUrl();
         bannersContainer.innerHTML = `
           <table
             cellpadding="0"
@@ -1027,7 +1054,7 @@
                     style="display: block; text-decoration: none"
                   >
                     <img
-                      src="https://raw.githubusercontent.com/idg-it/Email/main/assets/banner-mss-white.png"
+                      src="${assetBase}banner-mss-white.png"
                       nosend="1"
                       border="0"
                       width="580"
@@ -1070,7 +1097,7 @@
                             style="display: block; text-decoration: none"
                           >
                             <img
-                              src="https://raw.githubusercontent.com/idg-it/Email/main/assets/banner-icoca.png"
+                              src="${assetBase}banner-icoca.png"
                               nosend="1"
                               border="0"
                               width="195"
@@ -1109,7 +1136,7 @@
                             style="display: block; text-decoration: none"
                           >
                             <img
-                              src="https://raw.githubusercontent.com/idg-it/Email/main/assets/banner-ungc.png"
+                              src="${assetBase}banner-ungc.png"
                               nosend="1"
                               border="0"
                               width="182"
@@ -1148,7 +1175,7 @@
                             style="display: block; text-decoration: none"
                           >
                             <img
-                              src="https://raw.githubusercontent.com/idg-it/Email/main/assets/banner-cyber.png"
+                              src="${assetBase}banner-cyber.png"
                               nosend="1"
                               border="0"
                               width="195"
@@ -1179,11 +1206,11 @@
         const jobTitle = inputTitle.value.trim();
 
         if (inputName.value.trim() && jobTitle) {
-          displayNameRole.innerHTML = `${fullName}&nbsp;&middot;&nbsp;${jobTitle}`;
+          displayNameRole.textContent = `${fullName}\u00a0\u00b7\u00a0${jobTitle}`;
         } else if (inputName.value.trim()) {
           displayNameRole.textContent = fullName;
         } else {
-          displayNameRole.innerHTML = `[Full Name]&nbsp;&middot;&nbsp;[Job Title]`;
+          displayNameRole.textContent = `[Full Name]\u00a0\u00b7\u00a0[Job Title]`;
         }
 
         const selectedLoc = selectLocation.value;
@@ -1298,12 +1325,14 @@
         }).observe(previewBox);
       }
 
+      let toastTimer;
       function showToast(msg) {
         const toast = document.getElementById("toast");
         const toastMsg = document.getElementById("toastMsg");
         toastMsg.textContent = msg;
         toast.style.display = "flex";
-        setTimeout(() => {
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
           toast.style.display = "none";
         }, 3200);
       }
@@ -1318,10 +1347,11 @@
         const prevOrigin = scaler.style.transformOrigin;
         scaler.style.transform = "none";
 
+        const exportHtml = getExportSignatureHtml();
         let copied = false;
         try {
           if (navigator.clipboard && window.ClipboardItem) {
-            const htmlBlob = new Blob([preview.innerHTML], { type: "text/html" });
+            const htmlBlob = new Blob([exportHtml], { type: "text/html" });
             const textBlob = new Blob([preview.innerText], { type: "text/plain" });
             await navigator.clipboard.write([
               new ClipboardItem({
@@ -1336,8 +1366,10 @@
         }
 
         if (!copied) {
-          // Fallback: DOM selection copy
+          // Fallback: DOM selection copy (ensure absolute URLs for email clients)
           try {
+            const originalHtml = preview.innerHTML;
+            preview.innerHTML = exportHtml;
             const range = document.createRange();
             range.selectNodeContents(preview);
             const sel = window.getSelection();
@@ -1345,6 +1377,7 @@
             sel.addRange(range);
             copied = document.execCommand("copy");
             sel.removeAllRanges();
+            preview.innerHTML = originalHtml;
           } catch (e) {
             console.error("execCommand fallback failed:", e);
           }
@@ -1355,7 +1388,7 @@
         scaler.style.transformOrigin = prevOrigin;
 
         if (copied) {
-          showToast("Formatted signature copied! Ready to paste into Apple Mail.");
+          showToast("Formatted signature copied! Ready to paste into Gmail, Outlook, or Apple Mail.");
         } else {
           showToast("Could not auto-copy. Please select and copy manually.");
         }
@@ -1373,7 +1406,7 @@
           .replace(/(^-|-$)/g, "") || "idg-signature";
         const filename = `${safeFilename}.html`;
 
-        const preview = document.getElementById("signaturePreview");
+        const exportHtml = getExportSignatureHtml();
         const fullHtmlDocument = `<!doctype html>
 <html lang="en">
   <head>
@@ -1383,7 +1416,7 @@
       name="format-detection"
       content="telephone=no, date=no, address=no, email=no"
     />
-    <title>${rawName} - Email Signature</title>
+    <title>${escapeHtml(rawName)} - Email Signature</title>
     <style type="text/css">
       a[x-apple-data-detectors],
       u + #body a,
@@ -1399,6 +1432,7 @@
     </style>
   </head>
   <body
+    id="body"
     style="
       margin: 0;
       padding: 14px;
@@ -1408,7 +1442,7 @@
       -ms-text-size-adjust: 100%;
     "
   >
-${preview.innerHTML.trim()}
+${exportHtml}
   </body>
 </html>`;
 
@@ -1427,13 +1461,13 @@ ${preview.innerHTML.trim()}
 
       // Copy Raw HTML Code
       document.getElementById("btnCopyCode").addEventListener("click", async () => {
-        const preview = document.getElementById("signaturePreview");
+        const exportHtml = getExportSignatureHtml();
         try {
-          await navigator.clipboard.writeText(preview.innerHTML);
+          await navigator.clipboard.writeText(exportHtml);
           showToast("Raw HTML code copied to clipboard!");
         } catch (e) {
           const ta = document.createElement("textarea");
-          ta.value = preview.innerHTML;
+          ta.value = exportHtml;
           document.body.appendChild(ta);
           ta.select();
           document.execCommand("copy");
@@ -1443,6 +1477,15 @@ ${preview.innerHTML.trim()}
       });
 
       // Initial execution
+      if (window.location.protocol === "http:" || window.location.protocol === "https:") {
+        const assetBase = getAssetBaseUrl();
+        signaturePreview.querySelectorAll("img").forEach((img) => {
+          const rawSrc = img.getAttribute("src");
+          if (rawSrc && rawSrc.startsWith("assets/")) {
+            img.src = assetBase + rawSrc.slice("assets/".length);
+          }
+        });
+      }
       updateSignature();
       setTimeout(adjustPreviewScaling, 150);
       window.addEventListener("load", adjustPreviewScaling);
