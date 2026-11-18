@@ -70,7 +70,6 @@
         font-size: 13px;
       }
 
-      /* LAYOUT GRID: minmax(0, 1fr) is critical to prevent CSS grid blow-out */
       .layout-grid {
         display: grid;
         grid-template-columns: minmax(0, 1fr);
@@ -85,7 +84,6 @@
         }
       }
 
-      /* CARDS */
       .card {
         background: var(--idg-card);
         border: 1px solid var(--idg-border);
@@ -93,7 +91,7 @@
         padding: 16px;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         width: 100%;
-        min-width: 0; /* Prevents card from expanding past screen */
+        min-width: 0;
         overflow: hidden;
       }
       @media (min-width: 768px) {
@@ -117,7 +115,6 @@
         margin: 0;
       }
 
-      /* FORM INPUTS */
       .form-group {
         margin-bottom: 12px;
       }
@@ -134,7 +131,7 @@
         width: 100%;
         min-height: 44px;
         padding: 10px 12px;
-        font-size: 16px; /* Prevents iOS auto-zoom */
+        font-size: 16px;
         border: 1px solid var(--idg-border);
         border-radius: 8px;
         color: #0f172a;
@@ -157,7 +154,6 @@
         box-shadow: 0 0 0 3px rgba(0, 48, 87, 0.12);
       }
 
-      /* BUTTONS */
       .actions {
         margin-top: 16px;
         display: flex;
@@ -205,7 +201,6 @@
         background: #e2e8f0;
       }
 
-      /* PREVIEW CONTROLS */
       .preview-controls {
         display: flex;
         align-items: center;
@@ -230,7 +225,6 @@
         border-color: var(--idg-navy);
       }
 
-      /* PREVIEW CONTAINER */
       .preview-box {
         background: #ffffff;
         border: 1px dashed #cbd5e1;
@@ -248,13 +242,12 @@
       }
       .preview-scaler {
         transform-origin: top left;
-        width: 580px; /* Fixed signature target width */
+        width: 580px;
       }
       #signaturePreview {
         width: 580px;
       }
 
-      /* INSTRUCTIONS CALLOUT */
       .instructions {
         margin-top: 16px;
         background: #f0f7ff;
@@ -300,7 +293,6 @@
         line-height: 1.35;
       }
 
-      /* TOAST NOTIFICATION */
       .toast {
         position: fixed;
         bottom: 16px;
@@ -343,7 +335,7 @@
       </header>
 
       <div class="layout-grid">
-        <!-- FORM PANEL -->
+
         <div class="card">
           <div class="card-header">
             <h2 class="card-title">Employee Details</h2>
@@ -437,7 +429,6 @@
           </div>
         </div>
 
-        <!-- PREVIEW PANEL -->
         <div class="card">
           <div class="card-header">
             <h2 class="card-title">Live Preview</h2>
@@ -475,7 +466,7 @@
             <div class="preview-viewport" id="previewViewport">
               <div class="preview-scaler" id="previewScaler">
                 <div id="signaturePreview">
-                  <!-- SIGNATURE BLOCK CONTENT (STRICT CORPORATE 580PX TABLE) -->
+
                   <table
                     role="presentation"
                     cellpadding="0"
@@ -490,7 +481,7 @@
                     "
                   >
                     <tbody>
-                      <!-- IDG LOGO & CONTACT INFO SIDE-BY-SIDE -->
+
                       <tr>
                         <td style="padding: 0 0 5px 0">
                           <table
@@ -501,7 +492,7 @@
                           >
                             <tbody>
                               <tr>
-                                <!-- LEFT COLUMN: IDG Logo (Balanced 114x105, flush with text block) -->
+
                                 <td
                                   valign="top"
                                   align="left"
@@ -531,7 +522,6 @@
                                   </a>
                                 </td>
 
-                                <!-- RIGHT COLUMN: IDG Office & Contact Details -->
                                 <td valign="top" style="padding: 0">
                                   <table
                                     cellpadding="0"
@@ -608,7 +598,7 @@
                                             style="border-collapse: collapse"
                                           >
                                             <tbody>
-                                              <!-- ROW 1: Phone (Landline) | LinkedIn -->
+
                                               <tr>
                                                 <td
                                                   valign="middle"
@@ -697,7 +687,6 @@
                                                 </td>
                                               </tr>
 
-                                              <!-- ROW 2: Mobile | Website -->
                                               <tr>
                                                 <td
                                                   valign="middle"
@@ -790,7 +779,6 @@
                                                 </td>
                                               </tr>
 
-                                              <!-- ROW 3: Email -->
                                               <tr>
                                                 <td
                                                   valign="middle"
@@ -844,7 +832,6 @@
                         </td>
                       </tr>
 
-                      <!-- DISCLAIMERS -->
                       <tr>
                         <td style="padding: 0 0 4px 0">
                           <div
@@ -893,10 +880,9 @@
                         </td>
                       </tr>
 
-                      <!-- CERTIFICATION BANNERS -->
                       <tr>
                         <td style="padding: 0" id="bannersContainer">
-                          <!-- RENDERED BY JS -->
+
                         </td>
                       </tr>
                     </tbody>
@@ -929,7 +915,6 @@
       </div>
     </div>
 
-    <!-- TOAST NOTIFICATION -->
     <div class="toast" id="toast">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <polyline points="20 6 9 17 4 12"></polyline>
@@ -963,7 +948,6 @@
 
       let autoFitEnabled = true;
 
-      // Official Corporate Entities
       const ENTITIES = {
         uae: {
           country: "United Arab Emirates",
@@ -990,15 +974,15 @@
       function sanitizePhoneForWhatsApp(phone) {
         let digits = phone.replace(/[^0-9]/g, "");
         if (!digits) return "https://wa.me/";
-        // Strip international prefix '00' if entered (e.g. 00971 -> 971, 00964 -> 964)
+
         if (digits.startsWith("00")) {
           digits = digits.substring(2);
         }
-        // Auto-convert local UAE mobile format (e.g. 058xxxxxxx -> 97158xxxxxxx)
+
         if (digits.startsWith("05") && digits.length === 10) {
           digits = "971" + digits.substring(1);
         }
-        // Auto-convert local Iraq mobile format (e.g. 0788xxxxxxx -> 964788xxxxxxx)
+
         if (digits.startsWith("07") && digits.length === 11) {
           digits = "964" + digits.substring(1);
         }
@@ -1036,7 +1020,6 @@
         return html.replace(/src=["']assets\/([^"']+)["']/gi, `src="${exportBase}$1"`);
       }
 
-      // Standard Corporate Banners: White MSS on Top, Partner Entities on Bottom
       function renderBanners() {
         const assetBase = getAssetBaseUrl();
         bannersContainer.innerHTML = `
@@ -1239,19 +1222,17 @@
         adjustPreviewScaling();
       }
 
-      // Responsive preview scaling calculation
       function adjustPreviewScaling() {
         if (!previewBox || !previewViewport || !previewScaler || !signaturePreview) return;
-        
-        // Use clientWidth of the outer preview-box (excluding padding)
+
         const boxStyles = window.getComputedStyle(previewBox);
         const paddingLeft = parseFloat(boxStyles.paddingLeft) || 10;
         const paddingRight = parseFloat(boxStyles.paddingRight) || 10;
         const availableWidth = previewBox.clientWidth - (paddingLeft + paddingRight);
-        const targetWidth = 580; // Standard email signature table width
+        const targetWidth = 580;
 
         if (autoFitEnabled) {
-          // Always reset horizontal scroll so returning to Fit Screen never displays shifted/cut-off content
+
           previewViewport.scrollLeft = 0;
           previewViewport.scrollTop = 0;
           previewBox.scrollLeft = 0;
@@ -1261,7 +1242,7 @@
             previewScaler.style.transform = `scale(${scale})`;
             previewScaler.style.transformOrigin = "top left";
             previewScaler.style.width = `${targetWidth}px`;
-            
+
             const unscaledHeight = signaturePreview.offsetHeight || 380;
             const scaledHeight = Math.ceil(unscaledHeight * scale);
             previewViewport.style.height = `${scaledHeight}px`;
@@ -1303,7 +1284,6 @@
       inputLandline.addEventListener("input", updateSignature);
       inputEmail.addEventListener("input", updateSignature);
 
-      // Auto-update landline when changing entity/country if blank or previous default
       selectLocation.addEventListener("change", () => {
         const newLocation = selectLocation.value;
         const prevEntity = ENTITIES[previousLocation];
@@ -1319,8 +1299,7 @@
 
       window.addEventListener("resize", adjustPreviewScaling);
       window.addEventListener("orientationchange", () => setTimeout(adjustPreviewScaling, 150));
-      
-      // ResizeObserver automatically detects container width changes (e.g. keyboard open/close, view toggle)
+
       if (window.ResizeObserver && previewBox) {
         new ResizeObserver(() => {
           adjustPreviewScaling();
@@ -1339,12 +1318,10 @@
         }, 3200);
       }
 
-      // Copy Formatted Signature (Rich HTML)
       document.getElementById("btnCopySignature").addEventListener("click", async () => {
         const preview = document.getElementById("signaturePreview");
         const scaler = document.getElementById("previewScaler");
 
-        // Temporarily reset transform so fallback selection NEVER copies scaled CSS styles
         const prevTransform = scaler.style.transform;
         const prevOrigin = scaler.style.transformOrigin;
         scaler.style.transform = "none";
@@ -1368,7 +1345,7 @@
         }
 
         if (!copied) {
-          // Fallback: DOM selection copy (ensure absolute URLs for email clients)
+
           try {
             const originalHtml = preview.innerHTML;
             preview.innerHTML = exportHtml;
@@ -1385,7 +1362,6 @@
           }
         }
 
-        // Restore scale view
         scaler.style.transform = prevTransform;
         scaler.style.transformOrigin = prevOrigin;
 
@@ -1396,10 +1372,9 @@
         }
       });
 
-      // Download Standalone .HTML File named after employee
       document.getElementById("btnDownloadHtml").addEventListener("click", () => {
         const rawName = inputName.value.trim() || "IDG Security Signature";
-        // Clean filename (e.g. "Donnica Yagao" -> "donnica-yagao.html")
+
         const safeFilename = rawName
           .toLowerCase()
           .normalize("NFD")
@@ -1461,7 +1436,6 @@ ${exportHtml}
         showToast(`Downloaded ${filename}!`);
       });
 
-      // Copy Raw HTML Code
       document.getElementById("btnCopyCode").addEventListener("click", async () => {
         const exportHtml = getExportSignatureHtml();
         try {
@@ -1478,7 +1452,6 @@ ${exportHtml}
         }
       });
 
-      // Initial execution
       if (window.location.protocol === "http:" || window.location.protocol === "https:") {
         const assetBase = getAssetBaseUrl();
         signaturePreview.querySelectorAll("img").forEach((img) => {
