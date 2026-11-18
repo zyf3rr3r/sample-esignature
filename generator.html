@@ -1244,20 +1244,20 @@
         displayMobileLink.href = waLink;
         displayMobileIconLink.href = waLink;
 
-        const landlineText = inputLandline.value.trim();
-        displayLandlineLink.style.display = "";
-        displayLandlineIconLink.style.display = "block";
+        const landlineText = inputLandline.value.trim() || entityData.defaultLandline;
         if (landlineText) {
           displayLandlineLink.textContent = landlineText;
-          displayLandlineLink.style.color = "#003057";
           const telLink = sanitizePhoneForTel(landlineText);
           displayLandlineLink.href = telLink;
           displayLandlineIconLink.href = telLink;
+          displayLandlineLink.style.display = "";
+          displayLandlineIconLink.style.display = "block";
         } else {
           displayLandlineLink.textContent = "[Office Phone]";
-          displayLandlineLink.style.color = "#64748b";
           displayLandlineLink.removeAttribute("href");
           displayLandlineIconLink.removeAttribute("href");
+          displayLandlineLink.style.display = "";
+          displayLandlineIconLink.style.display = "block";
         }
 
         const emailText = inputEmail.value.trim() || "donnica.yagao@idg-security.com";
