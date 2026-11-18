@@ -1110,7 +1110,14 @@
       }
 
       function getExportSignatureHtml() {
-        const html = signaturePreview.innerHTML.trim();
+        const clone = signaturePreview.cloneNode(true);
+        const landlineLink = clone.querySelector("#displayLandlineLink");
+        const landlineIcon = clone.querySelector("#displayLandlineIconLink");
+        if (landlineLink && landlineLink.textContent.trim() === "[Office Phone]") {
+          if (landlineLink.parentElement) landlineLink.parentElement.innerHTML = "&nbsp;";
+          if (landlineIcon && landlineIcon.parentElement) landlineIcon.parentElement.innerHTML = "&nbsp;";
+        }
+        const html = clone.innerHTML.trim();
         const exportBase =
           window.location.protocol === "http:" || window.location.protocol === "https:"
             ? new URL("assets/", window.location.href).href
@@ -1407,6 +1414,9 @@
         if (!inputLandline.value.trim() || inputLandline.value.trim() === prevEntity.defaultLandline.trim()) {
           inputLandline.value = nextEntity.defaultLandline;
         }
+        inputLandline.placeholder = nextEntity.defaultLandline
+          ? `e.g. ${nextEntity.defaultLandline.trim()}`
+          : `Enter ${nextEntity.country} office phone (optional)`;
 
         previousLocation = newLocation;
         updateSignature();
