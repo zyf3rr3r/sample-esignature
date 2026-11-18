@@ -224,6 +224,50 @@
         color: #ffffff;
         border-color: var(--idg-navy);
       }
+      .tip-wrap {
+        position: relative;
+        display: inline-flex;
+      }
+      .tip-wrap::after {
+        content: attr(data-tip);
+        position: absolute;
+        top: calc(100% + 6px);
+        right: 0;
+        width: 210px;
+        background: #0f172a;
+        color: #f8fafc;
+        font-size: 11.5px;
+        font-weight: 500;
+        line-height: 1.35;
+        padding: 7px 10px;
+        border-radius: 6px;
+        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.15s ease;
+        z-index: 50;
+        white-space: normal;
+        text-align: left;
+      }
+      .tip-wrap:hover::after,
+      .tip-wrap:focus-within::after {
+        opacity: 1;
+        visibility: visible;
+      }
+      .preview-box.dark-preview {
+        background: #18181b;
+        border-color: #3f3f46;
+      }
+      .preview-box.dark-preview #signaturePreview td,
+      .preview-box.dark-preview #signaturePreview div,
+      .preview-box.dark-preview #signaturePreview a,
+      .preview-box.dark-preview #signaturePreview span {
+        color: #e2e8f0 !important;
+      }
+      .preview-box.dark-preview #signaturePreview div[style*="15803d"] {
+        color: #4ade80 !important;
+      }
 
       .preview-box {
         background: #ffffff;
@@ -463,6 +507,16 @@
                 </svg>
                 <span>100% Size</span>
               </button>
+              <span class="tip-wrap" data-tip="Check how your signature looks in dark mode email apps.">
+                <button
+                  type="button"
+                  class="toggle-btn"
+                  id="btnDarkMode"
+                  aria-pressed="false"
+                >
+                  <span>Dark Mode</span>
+                </button>
+              </span>
             </div>
           </div>
 
@@ -1322,6 +1376,13 @@
         btnActualSize.classList.add("active");
         btnFitScreen.classList.remove("active");
         adjustPreviewScaling();
+      });
+
+      const btnDarkMode = document.getElementById("btnDarkMode");
+      btnDarkMode.addEventListener("click", () => {
+        const isDark = previewBox.classList.toggle("dark-preview");
+        btnDarkMode.classList.toggle("active", isDark);
+        btnDarkMode.setAttribute("aria-pressed", String(isDark));
       });
 
       inputName.addEventListener("input", updateSignature);
