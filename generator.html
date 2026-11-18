@@ -368,6 +368,10 @@
               <option value="uae" selected>United Arab Emirates (Dubai)</option>
               <option value="iraq">Iraq (Baghdad)</option>
               <option value="usa">United States (Virginia)</option>
+              <option value="myanmar">Myanmar (Yangon)</option>
+              <option value="afghanistan">Afghanistan (Kabul)</option>
+              <option value="india">India (Dehradun)</option>
+              <option value="nepal">Nepal (Lalitpur)</option>
             </select>
           </div>
 
@@ -974,6 +978,30 @@
           entityName: "IDG Americas Inc.",
           addressHtml: '<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" style="color: #003057; text-decoration: none">164&#8203;0 Bo&#8203;ro Pla&#8203;ce, 4th Fl&#8203;oor Mc&#8203;Lean, Vir&#8203;ginia 221&#8203;02,<br />Uni&#8203;ted Sta&#8203;tes of Ame&#8203;rica</a>',
           defaultLandline: "+1 (703) "
+        },
+        myanmar: {
+          country: "Myanmar",
+          entityName: "IDG Myanmar Co Ltd.",
+          addressHtml: '<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" style="color: #003057; text-decoration: none">No. 5/35, Thi&#8203;ri Go&#8203;ne Hou&#8203;sing, Qua&#8203;rter 16, Thin&#8203;gangyun Tow&#8203;nship<br />Yan&#8203;gon, Myan&#8203;mar 110&#8203;71</a>',
+          defaultLandline: ""
+        },
+        afghanistan: {
+          country: "Afghanistan",
+          entityName: "IDG Security (Afghanistan) Ltd",
+          addressHtml: '<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" style="color: #003057; text-decoration: none">Pu&#8203;le Char&#8203;khi Ro&#8203;ad, Ou&#8203;dh Khel, ne&#8203;xt to UN&#8203;OCA Com&#8203;pound<br />Ka&#8203;bul, Afgha&#8203;nistan</a>',
+          defaultLandline: ""
+        },
+        india: {
+          country: "India",
+          entityName: "IDG India (Dehradun Office)",
+          addressHtml: '<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" style="color: #003057; text-decoration: none">63B, Nim&#8203;buwala, Gar&#8203;hi Ca&#8203;ntt<br />Dehra&#8203;dun, Uttara&#8203;khand, In&#8203;dia</a>',
+          defaultLandline: ""
+        },
+        nepal: {
+          country: "Nepal",
+          entityName: "IDG Nepal",
+          addressHtml: '<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" style="color: #003057; text-decoration: none">Nakhi&#8203;pot - 14<br />Lalit&#8203;pur Metro&#8203;politan Ci&#8203;ty, Ne&#8203;pal</a>',
+          defaultLandline: ""
         }
       };
 
@@ -1216,11 +1244,19 @@
         displayMobileLink.href = waLink;
         displayMobileIconLink.href = waLink;
 
-        const landlineText = inputLandline.value.trim() || entityData.defaultLandline;
-        displayLandlineLink.textContent = landlineText;
-        const telLink = sanitizePhoneForTel(landlineText);
-        displayLandlineLink.href = telLink;
-        displayLandlineIconLink.href = telLink;
+        const landlineText = inputLandline.value.trim();
+        if (landlineText) {
+          displayLandlineLink.textContent = landlineText;
+          const telLink = sanitizePhoneForTel(landlineText);
+          displayLandlineLink.href = telLink;
+          displayLandlineIconLink.href = telLink;
+          displayLandlineLink.style.display = "";
+          displayLandlineIconLink.style.display = "block";
+        } else {
+          displayLandlineLink.textContent = "";
+          displayLandlineLink.style.display = "none";
+          displayLandlineIconLink.style.display = "none";
+        }
 
         const emailText = inputEmail.value.trim() || "donnica.yagao@idg-security.com";
         displayEmailLink.textContent = emailText;
