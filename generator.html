@@ -103,6 +103,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        flex-wrap: wrap;
         margin-bottom: 14px;
         padding-bottom: 10px;
         border-bottom: 1px solid #f1f5f9;
@@ -204,8 +205,9 @@
       .preview-controls {
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
         gap: 6px;
-        flex-shrink: 0;
+        max-width: 100%;
       }
       .toggle-btn {
         background: #f1f5f9;
@@ -254,6 +256,12 @@
       .tip-wrap:focus-within::after {
         opacity: 1;
         visibility: visible;
+      }
+      @media (max-width: 480px) {
+        .tip-wrap::after {
+          right: auto;
+          left: 0;
+        }
       }
       .preview-box.dark-preview {
         background: #18181b;
