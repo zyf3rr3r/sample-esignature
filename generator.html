@@ -1245,17 +1245,19 @@
         displayMobileIconLink.href = waLink;
 
         const landlineText = inputLandline.value.trim();
+        displayLandlineLink.style.display = "";
+        displayLandlineIconLink.style.display = "block";
         if (landlineText) {
           displayLandlineLink.textContent = landlineText;
+          displayLandlineLink.style.color = "#003057";
           const telLink = sanitizePhoneForTel(landlineText);
           displayLandlineLink.href = telLink;
           displayLandlineIconLink.href = telLink;
-          displayLandlineLink.style.display = "";
-          displayLandlineIconLink.style.display = "block";
         } else {
-          displayLandlineLink.textContent = "";
-          displayLandlineLink.style.display = "none";
-          displayLandlineIconLink.style.display = "none";
+          displayLandlineLink.textContent = "[Office Phone]";
+          displayLandlineLink.style.color = "#64748b";
+          displayLandlineLink.removeAttribute("href");
+          displayLandlineIconLink.removeAttribute("href");
         }
 
         const emailText = inputEmail.value.trim() || "donnica.yagao@idg-security.com";
