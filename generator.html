@@ -301,6 +301,140 @@
       #signaturePreview {
         width: 580px;
       }
+      .compare-wrapper {
+        width: 100%;
+        min-width: 0;
+      }
+      .compare-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 12px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #e2e8f0;
+      }
+      .preview-box.dark-preview .compare-bar {
+        border-bottom-color: #3f3f46;
+      }
+      .compare-info {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .compare-pill {
+        display: inline-flex;
+        align-items: center;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--idg-navy);
+        background: #e0f2fe;
+        padding: 3px 8px;
+        border-radius: 4px;
+      }
+      .preview-box.dark-preview .compare-pill {
+        background: #1e293b;
+        color: #38bdf8;
+      }
+      .btn-subtle {
+        background: #f1f5f9;
+        color: #334155;
+        border: 1px solid #cbd5e1;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 4px 8px;
+        border-radius: 4px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        transition: background 0.15s ease;
+      }
+      .btn-subtle:hover {
+        background: #e2e8f0;
+      }
+      .preview-box.dark-preview .btn-subtle {
+        background: #27272a;
+        color: #e4e4e7;
+        border-color: #3f3f46;
+      }
+      .preview-box.dark-preview .btn-subtle:hover {
+        background: #3f3f46;
+      }
+      .compare-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        width: 100%;
+      }
+      .compare-pane {
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        padding: 10px;
+        background: #ffffff;
+        width: 100%;
+        overflow-x: auto;
+      }
+      .preview-box.dark-preview .compare-pane {
+        background: #18181b;
+        border-color: #3f3f46;
+      }
+      .compare-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 10.5px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        padding: 2px 7px;
+        border-radius: 3px;
+        margin-bottom: 8px;
+      }
+      .compare-tag .tag-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+      }
+      .before-tag {
+        background: #f1f5f9;
+        color: #475569;
+      }
+      .before-tag .tag-dot {
+        background: #64748b;
+      }
+      .after-tag {
+        background: #dcfce7;
+        color: #166534;
+      }
+      .after-tag .tag-dot {
+        background: #16a34a;
+      }
+      .preview-box.dark-preview .before-tag {
+        background: #27272a;
+        color: #a1a1aa;
+      }
+      .preview-box.dark-preview .after-tag {
+        background: #052e16;
+        color: #4ade80;
+      }
+      .compare-frame {
+        width: 580px;
+        min-width: 580px;
+      }
+      .preview-box.dark-preview .compare-frame td,
+      .preview-box.dark-preview .compare-frame div,
+      .preview-box.dark-preview .compare-frame a,
+      .preview-box.dark-preview .compare-frame span {
+        color: #e2e8f0 !important;
+      }
+      .preview-box.dark-preview .compare-frame div[style*="15803d"] {
+        color: #4ade80 !important;
+      }
 
       .instructions {
         margin-top: 16px;
@@ -380,6 +514,15 @@
         }
       }
     </style>
+    <script src="assets/assets-inline.js"></script>
+    <script src="assets/html2canvas.min.js"></script>
+    <script>
+      if (typeof html2canvas === "undefined") {
+        var s = document.createElement("script");
+        s.src = "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js";
+        document.head.appendChild(s);
+      }
+    </script>
   </head>
   <body>
     <div class="page-wrapper">
@@ -420,6 +563,7 @@
             <label for="officeLocation">Office Location (Country)</label>
             <select id="officeLocation">
               <option value="uae" selected>United Arab Emirates (Dubai)</option>
+              <option value="idg_group">IDG Group (Dubai, UAE)</option>
               <option value="iraq">Iraq (Baghdad)</option>
               <option value="usa">United States (Virginia)</option>
               <option value="myanmar">Myanmar (Yangon)</option>
@@ -527,10 +671,68 @@
                   <span>Dark Mode</span>
                 </button>
               </span>
+              <span class="tip-wrap" data-tip="Compare current edits side-by-side with previous snapshot.">
+                <button
+                  type="button"
+                  class="toggle-btn"
+                  id="btnCompare"
+                  aria-pressed="false"
+                >
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -1px; margin-right: 3px;" aria-hidden="true">
+                    <path d="M16 3h5v5"></path>
+                    <path d="M4 20L21 3"></path>
+                    <path d="M21 16v5h-5"></path>
+                    <path d="M15 15l6 6"></path>
+                    <path d="M4 4l5 5"></path>
+                  </svg>
+                  <span>Compare</span>
+                </button>
+              </span>
+              <span class="tip-wrap" data-tip="Copy preview image to clipboard for easy sharing.">
+                <button
+                  type="button"
+                  class="toggle-btn"
+                  id="btnCopyImage"
+                >
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -1px; margin-right: 3px;" aria-hidden="true">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                    <circle cx="12" cy="13" r="4"></circle>
+                  </svg>
+                  <span>Copy Image</span>
+                </button>
+              </span>
             </div>
           </div>
 
           <div class="preview-box">
+            <div id="compareWrapper" class="compare-wrapper" style="display: none;">
+              <div class="compare-bar">
+                <div class="compare-info">
+                  <span class="compare-pill">Side-by-Side Review</span>
+                  <span id="compareTimestamp" style="color: var(--idg-muted); font-size: 11.5px;">Original snapshot</span>
+                </div>
+                <button type="button" class="btn-subtle" id="btnPinBefore" title="Update the 'Before' snapshot with current edits">
+                  📌 Set Current as "Before"
+                </button>
+              </div>
+              <div class="compare-grid" id="compareGrid">
+                <div class="compare-pane">
+                  <div class="compare-tag before-tag">
+                    <span class="tag-dot"></span>
+                    <span>BEFORE (Previous)</span>
+                  </div>
+                  <div class="compare-frame" id="beforePreview"></div>
+                </div>
+                <div class="compare-pane">
+                  <div class="compare-tag after-tag">
+                    <span class="tag-dot"></span>
+                    <span>AFTER (Updated)</span>
+                  </div>
+                  <div class="compare-frame" id="afterPreview"></div>
+                </div>
+              </div>
+            </div>
+
             <div class="preview-viewport" id="previewViewport">
               <div class="preview-scaler" id="previewScaler">
                 <div id="signaturePreview">
@@ -577,6 +779,7 @@
                                     style="text-decoration: none; display: block; line-height: 0"
                                   >
                                     <img
+                                      id="displayMainLogo"
                                       src="assets/idg-logo.png"
                                       nosend="1"
                                       border="0"
@@ -1007,6 +1210,7 @@
       const inputEmail = document.getElementById("email");
 
       const displayNameRole = document.getElementById("displayNameRole");
+      const displayMainLogo = document.getElementById("displayMainLogo");
       const displayEntityAddress = document.getElementById("displayEntityAddress");
       const displayMobileLink = document.getElementById("displayMobileLink");
       const displayMobileIconLink = document.getElementById("displayMobileIconLink");
@@ -1028,6 +1232,19 @@
         uae: {
           country: "United Arab Emirates",
           entityName: "IDG Group DMCC",
+          logoFile: "idg-logo.png",
+          logoAlt: "IDG Security",
+          addressHtml: '<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" style="color: #003057; text-decoration: none">Unit 15&#8203;01, The Do&#8203;me Tow&#8203;er, Clu&#8203;ster N, Jum&#8203;eirah La&#8203;ke Tow&#8203;ers<br />Du&#8203;bai, Uni&#8203;ted Ar&#8203;ab Emi&#8203;rates</a>',
+          defaultLandline: "+971 (04) 514 4958"
+        },
+        idg_group: {
+          country: "United Arab Emirates",
+          entityName: "IDG Group DMCC",
+          logoFile: "idg-group-logo.png",
+          logoAlt: "IDG Group",
+          logoWidth: 148,
+          logoHeight: 105,
+          logoTopPad: 0,
           addressHtml: '<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" style="color: #003057; text-decoration: none">Unit 15&#8203;01, The Do&#8203;me Tow&#8203;er, Clu&#8203;ster N, Jum&#8203;eirah La&#8203;ke Tow&#8203;ers<br />Du&#8203;bai, Uni&#8203;ted Ar&#8203;ab Emi&#8203;rates</a>',
           defaultLandline: "+971 (04) 514 4958"
         },
@@ -1307,6 +1524,25 @@
 
         const selectedLoc = selectLocation.value;
         const entityData = ENTITIES[selectedLoc] || ENTITIES.uae;
+        const logoFile = entityData.logoFile || "idg-logo.png";
+        const logoAlt = entityData.logoAlt || "IDG Security";
+        const logoW = entityData.logoWidth || 114;
+        const logoH = entityData.logoHeight || 105;
+        const logoTopPad = entityData.logoTopPad || 0;
+        if (displayMainLogo) {
+          displayMainLogo.src = getAssetBaseUrl() + logoFile;
+          displayMainLogo.alt = logoAlt;
+          displayMainLogo.title = logoAlt;
+          displayMainLogo.width = logoW;
+          displayMainLogo.height = logoH;
+          displayMainLogo.style.width = `${logoW}px`;
+          displayMainLogo.style.height = `${logoH}px`;
+          const logoTd = displayMainLogo.closest("td");
+          if (logoTd) {
+            logoTd.style.width = `${logoW}px`;
+            logoTd.style.padding = `${logoTopPad}px 14px 0 0`;
+          }
+        }
         displayEntityAddress.innerHTML = entityData.addressHtml;
 
         const mobileText = inputMobile.value.trim() || "+971 58 218 0369";
@@ -1337,6 +1573,10 @@
 
         renderBanners();
         adjustPreviewScaling();
+        const afterFrame = document.getElementById("afterPreview");
+        if (afterFrame && isCompareMode) {
+          afterFrame.innerHTML = signaturePreview.innerHTML;
+        }
       }
 
       function adjustPreviewScaling() {
@@ -1401,6 +1641,160 @@
         btnDarkMode.classList.toggle("active", isDark);
         btnDarkMode.setAttribute("aria-pressed", String(isDark));
       });
+
+      let beforeSnapshotHtml = "";
+      let isCompareMode = false;
+
+      function captureBeforeSnapshot() {
+        const preview = document.getElementById("signaturePreview");
+        if (!preview) return;
+        beforeSnapshotHtml = preview.innerHTML;
+        const beforeFrame = document.getElementById("beforePreview");
+        if (beforeFrame) {
+          beforeFrame.innerHTML = beforeSnapshotHtml;
+        }
+        const timestamp = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+        const compTs = document.getElementById("compareTimestamp");
+        if (compTs) {
+          compTs.textContent = `Snapshot pinned at ${timestamp}`;
+        }
+      }
+
+      const btnCompare = document.getElementById("btnCompare");
+      const compareWrapper = document.getElementById("compareWrapper");
+      if (btnCompare && compareWrapper) {
+        btnCompare.addEventListener("click", () => {
+          isCompareMode = !isCompareMode;
+          btnCompare.classList.toggle("active", isCompareMode);
+          btnCompare.setAttribute("aria-pressed", String(isCompareMode));
+          if (isCompareMode) {
+            if (!beforeSnapshotHtml) {
+              captureBeforeSnapshot();
+            }
+            const afterFrame = document.getElementById("afterPreview");
+            if (afterFrame) {
+              afterFrame.innerHTML = signaturePreview.innerHTML;
+            }
+            previewViewport.style.display = "none";
+            compareWrapper.style.display = "block";
+          } else {
+            compareWrapper.style.display = "none";
+            previewViewport.style.display = "block";
+            adjustPreviewScaling();
+          }
+        });
+      }
+
+      const btnPinBefore = document.getElementById("btnPinBefore");
+      if (btnPinBefore) {
+        btnPinBefore.addEventListener("click", () => {
+          captureBeforeSnapshot();
+          showToast("Current signature pinned as 'Before' snapshot!");
+        });
+      }
+
+      const btnCopyImage = document.getElementById("btnCopyImage");
+      if (btnCopyImage) {
+        btnCopyImage.addEventListener("click", async () => {
+          if (typeof html2canvas !== "function") {
+            showToast("Image capture library still loading, please retry in a second.");
+            return;
+          }
+
+          const prevTransform = previewScaler ? previewScaler.style.transform : "";
+          const prevOrigin = previewScaler ? previewScaler.style.transformOrigin : "";
+          if (previewScaler) {
+            previewScaler.style.transform = "none";
+          }
+
+          const target = isCompareMode
+            ? document.getElementById("compareGrid")
+            : document.getElementById("signaturePreview");
+
+          if (!target) return;
+
+          const originalSrcs = new Map();
+          if (window.INLINE_ASSETS) {
+            target.querySelectorAll("img").forEach((img) => {
+              const rawSrc = img.getAttribute("src") || "";
+              const filename = rawSrc.split("/").pop().split("?")[0];
+              if (window.INLINE_ASSETS[filename]) {
+                originalSrcs.set(img, img.src);
+                img.src = window.INLINE_ASSETS[filename];
+              }
+            });
+          }
+
+          showToast("Rendering preview image...");
+
+          try {
+            const isDark = previewBox.classList.contains("dark-preview");
+            const canvas = await html2canvas(target, {
+              scale: 2,
+              useCORS: true,
+              backgroundColor: isDark ? "#18181b" : "#ffffff",
+              logging: false,
+            });
+
+            originalSrcs.forEach((src, img) => {
+              img.src = src;
+            });
+            if (previewScaler) {
+              previewScaler.style.transform = prevTransform;
+              previewScaler.style.transformOrigin = prevOrigin;
+            }
+
+            canvas.toBlob(async (blob) => {
+              if (!blob) {
+                showToast("Could not generate image.");
+                return;
+              }
+
+              let copied = false;
+              if (navigator.clipboard && window.ClipboardItem) {
+                try {
+                  await navigator.clipboard.write([
+                    new ClipboardItem({ "image/png": blob }),
+                  ]);
+                  copied = true;
+                } catch (e) {
+                  console.warn("Clipboard write rejected, downloading PNG fallback:", e);
+                }
+              }
+
+              if (copied) {
+                showToast(
+                  isCompareMode
+                    ? "Comparison image copied to clipboard! Ready to paste (Ctrl+V)."
+                    : "Preview image copied to clipboard! Ready to paste (Ctrl+V)."
+                );
+              } else {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = isCompareMode
+                  ? "idg-signature-comparison.png"
+                  : "idg-signature-preview.png";
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                showToast("Saved preview as PNG image!");
+              }
+            }, "image/png");
+          } catch (err) {
+            originalSrcs.forEach((src, img) => {
+              img.src = src;
+            });
+            if (previewScaler) {
+              previewScaler.style.transform = prevTransform;
+              previewScaler.style.transformOrigin = prevOrigin;
+            }
+            console.error("html2canvas error:", err);
+            showToast("Could not render image. Please try again.");
+          }
+        });
+      }
 
       inputName.addEventListener("input", updateSignature);
       inputTitle.addEventListener("input", updateSignature);
@@ -1589,6 +1983,7 @@ ${exportHtml}
         });
       }
       updateSignature();
+      captureBeforeSnapshot();
       setTimeout(adjustPreviewScaling, 150);
       window.addEventListener("load", adjustPreviewScaling);
 
