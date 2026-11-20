@@ -254,10 +254,14 @@
         white-space: normal;
         text-align: left;
       }
-      .tip-wrap:hover::after,
-      .tip-wrap:focus-within::after {
+      .tip-wrap:hover::after {
         opacity: 1;
         visibility: visible;
+      }
+      .tip-wrap:active::after,
+      .tip-wrap.tip-dismiss::after {
+        opacity: 0 !important;
+        visibility: hidden !important;
       }
       @media (max-width: 340px) {
         .tip-wrap::after {
@@ -1311,7 +1315,7 @@
         return "tel:" + cleaned;
       }
 
-      const FALLBACK_PAGES_URL = "https://frenzelrgferrer.github.io/idg-esignature/";
+      const EXPORT_ASSET_BASE_URL = "https://frenzelrgferrer.github.io/idg-esignature/assets/";
 
       function getAssetBaseUrl() {
         if (window.location.protocol === "http:" || window.location.protocol === "https:") {
@@ -1336,12 +1340,12 @@
           if (landlineLink.parentElement) landlineLink.parentElement.innerHTML = "&nbsp;";
           if (landlineIcon && landlineIcon.parentElement) landlineIcon.parentElement.innerHTML = "&nbsp;";
         }
-        const html = clone.innerHTML.trim();
-        const exportBase =
-          window.location.protocol === "http:" || window.location.protocol === "https:"
-            ? new URL("assets/", window.location.href).href
-            : FALLBACK_PAGES_URL + "assets/";
-        return html.replace(/src=["']assets\/([^"']+)["']/gi, `src="${exportBase}$1"`);
+        clone.querySelectorAll("img").forEach((img) => {
+          const rawSrc = img.getAttribute("src") || "";
+          const filename = rawSrc.split("/").pop().split("?")[0];
+          img.setAttribute("src", EXPORT_ASSET_BASE_URL + filename);
+        });
+        return clone.innerHTML.trim();
       }
 
       function renderBanners() {
@@ -1642,6 +1646,18 @@
         btnDarkMode.setAttribute("aria-pressed", String(isDark));
       });
 
+      document.querySelectorAll(".tip-wrap").forEach((wrap) => {
+        const btn = wrap.querySelector("button");
+        if (!btn) return;
+        btn.addEventListener("click", () => {
+          wrap.classList.add("tip-dismiss");
+          btn.blur();
+        });
+        wrap.addEventListener("mouseleave", () => {
+          wrap.classList.remove("tip-dismiss");
+        });
+      });
+
       let beforeSnapshotHtml = "";
       let isCompareMode = false;
 
@@ -1693,13 +1709,21 @@
         });
       }
 
+      let isRenderingImage = false;
       const btnCopyImage = document.getElementById("btnCopyImage");
       if (btnCopyImage) {
         btnCopyImage.addEventListener("click", async () => {
+          if (isRenderingImage) return;
+
           if (typeof html2canvas !== "function") {
             showToast("Image capture library still loading, please retry in a second.");
             return;
           }
+
+          isRenderingImage = true;
+          btnCopyImage.style.opacity = "0.6";
+          btnCopyImage.style.pointerEvents = "none";
+          showToast("Rendering preview image...");
 
           const prevTransform = previewScaler ? previewScaler.style.transform : "";
           const prevOrigin = previewScaler ? previewScaler.style.transformOrigin : "";
@@ -1711,7 +1735,12 @@
             ? document.getElementById("compareGrid")
             : document.getElementById("signaturePreview");
 
-          if (!target) return;
+          if (!target) {
+            isRenderingImage = false;
+            btnCopyImage.style.opacity = "";
+            btnCopyImage.style.pointerEvents = "";
+            return;
+          }
 
           const originalSrcs = new Map();
           if (window.INLINE_ASSETS) {
@@ -1725,13 +1754,25 @@
             });
           }
 
-          showToast("Rendering preview image...");
+          const imgPromises = Array.from(target.querySelectorAll("img")).map((img) => {
+            if (img.complete) return Promise.resolve();
+            if (typeof img.decode === "function") {
+              return img.decode().catch(() => {});
+            }
+            return new Promise((resolve) => {
+              img.onload = resolve;
+              img.onerror = resolve;
+              setTimeout(resolve, 300);
+            });
+          });
+          await Promise.allSettled(imgPromises);
 
           try {
             const isDark = previewBox.classList.contains("dark-preview");
             const canvas = await html2canvas(target, {
               scale: 2,
               useCORS: true,
+              allowTaint: false,
               backgroundColor: isDark ? "#18181b" : "#ffffff",
               logging: false,
             });
@@ -1745,6 +1786,10 @@
             }
 
             canvas.toBlob(async (blob) => {
+              isRenderingImage = false;
+              btnCopyImage.style.opacity = "";
+              btnCopyImage.style.pointerEvents = "";
+
               if (!blob) {
                 showToast("Could not generate image.");
                 return;
@@ -1790,6 +1835,9 @@
               previewScaler.style.transform = prevTransform;
               previewScaler.style.transformOrigin = prevOrigin;
             }
+            isRenderingImage = false;
+            btnCopyImage.style.opacity = "";
+            btnCopyImage.style.pointerEvents = "";
             console.error("html2canvas error:", err);
             showToast("Could not render image. Please try again.");
           }
