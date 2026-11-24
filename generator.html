@@ -1256,7 +1256,11 @@
           country: "Iraq",
           entityName: "IDG for Security Services and Private Guards LLC",
           addressHtml: '<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" style="color: #003057; text-decoration: none">Vil&#8203;la 66, Str&#8203;eet 1, Dis&#8203;trict 609, Hun&#8203;ting Club Str&#8203;eet<br />Al Man&#8203;sour, Bagh&#8203;dad, Ir&#8203;aq</a>',
-          defaultLandline: "+964 788 000 5202"
+          defaultLandline: "+964 788 000 5202",
+          stackNameRole: true,
+          jobTitleSuffix: " - Iraq",
+          fullMssBanner: true,
+          logoTopPad: 6
         },
         usa: {
           country: "United States",
@@ -1350,6 +1354,12 @@
 
       function renderBanners() {
         const assetBase = getAssetBaseUrl();
+        const selectedLoc = selectLocation.value;
+        const entityData = ENTITIES[selectedLoc] || ENTITIES.uae;
+        const mssSrc = entityData.fullMssBanner ? "banner-mss-white.png" : "banner-mss-3iso.png";
+        const mssWidth = entityData.fullMssBanner ? "580" : "315";
+        const mssHeight = entityData.fullMssBanner ? "44" : "64";
+        const mssWidthCss = entityData.fullMssBanner ? "100%" : "315px; max-width: 100%";
         bannersContainer.innerHTML = `
           <table
             cellpadding="0"
@@ -1367,16 +1377,16 @@
                     style="display: block; text-decoration: none"
                   >
                     <img
-                      src="${assetBase}banner-mss-white.png"
+                      src="${assetBase}${mssSrc}"
                       nosend="1"
                       border="0"
-                      width="580"
-                      height="44"
+                      width="${mssWidth}"
+                      height="${mssHeight}"
                       alt="MSS Global Certifications"
                       title="MSS Global Certifications"
                       style="
                         display: block;
-                        width: 100%;
+                        width: ${mssWidthCss};
                         height: auto;
                         border: 0;
                       "
@@ -1518,16 +1528,37 @@
         const fullName = inputName.value.trim() || "[Full Name]";
         const jobTitle = inputTitle.value.trim();
 
-        if (inputName.value.trim() && jobTitle) {
-          displayNameRole.textContent = `${fullName}\u00a0\u00b7\u00a0${jobTitle}`;
-        } else if (inputName.value.trim()) {
-          displayNameRole.textContent = fullName;
-        } else {
-          displayNameRole.textContent = `[Full Name]\u00a0\u00b7\u00a0[Job Title]`;
-        }
-
         const selectedLoc = selectLocation.value;
         const entityData = ENTITIES[selectedLoc] || ENTITIES.uae;
+
+        displayNameRole.textContent = "";
+        if (entityData.stackNameRole) {
+          displayNameRole.style.padding = "0 0 5px 0";
+          displayNameRole.style.lineHeight = "16px";
+          displayNameRole.appendChild(document.createTextNode(inputName.value.trim() ? fullName : "[Full Name]"));
+          if (jobTitle || !inputName.value.trim()) {
+            displayNameRole.appendChild(document.createElement("br"));
+            const titleSpan = document.createElement("span");
+            titleSpan.style.fontSize = "12.5px";
+            titleSpan.style.lineHeight = "15px";
+            titleSpan.style.fontWeight = "bold";
+            titleSpan.style.color = "#003057";
+            const baseTitle = jobTitle || "[Job Title]";
+            const suffix = entityData.jobTitleSuffix || "";
+            titleSpan.textContent = suffix && !/\biraq$/i.test(baseTitle) ? baseTitle + suffix : baseTitle;
+            displayNameRole.appendChild(titleSpan);
+          }
+        } else {
+          displayNameRole.style.padding = "0 0 7px 0";
+          displayNameRole.style.lineHeight = "16px";
+          if (inputName.value.trim() && jobTitle) {
+            displayNameRole.textContent = `${fullName}\u00a0\u00b7\u00a0${jobTitle}`;
+          } else if (inputName.value.trim()) {
+            displayNameRole.textContent = fullName;
+          } else {
+            displayNameRole.textContent = `[Full Name]\u00a0\u00b7\u00a0[Job Title]`;
+          }
+        }
         const logoFile = entityData.logoFile || "idg-logo.png";
         const logoAlt = entityData.logoAlt || "IDG Security";
         const logoW = entityData.logoWidth || 114;
