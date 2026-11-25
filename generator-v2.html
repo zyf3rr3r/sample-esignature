@@ -1,0 +1,2733 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=5.0"
+    />
+    <title>IDG Security - Email Signature Studio</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <link rel="apple-touch-icon" href="assets/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --idg-navy: #003057;
+        --idg-navy-deep: #00213d;
+        --idg-navy-hover: #0a4676;
+        --idg-gold: #a68246;
+        --idg-gold-soft: #f7f2e8;
+        --idg-canvas: #f2f4f7;
+        --idg-surface: #ffffff;
+        --idg-surface-muted: #f7f9fb;
+        --idg-border: #d5dde6;
+        --idg-border-strong: #b6c4d4;
+        --idg-ink: #0d1b2a;
+        --idg-ink-secondary: #435568;
+        --idg-success: #157347;
+        --idg-success-bg: #eaf6ef;
+        --idg-error: #b42318;
+        --idg-error-bg: #fef3f2;
+        --idg-error-border: #fecdca;
+        --radius-sm: 6px;
+        --radius-md: 8px;
+        --radius-lg: 10px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      ::selection {
+        background: rgba(0, 48, 87, 0.16);
+        color: var(--idg-navy-deep);
+      }
+
+      html {
+        width: 100%;
+        scrollbar-color: #b6c4d4 transparent;
+        scrollbar-width: thin;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        background-color: var(--idg-canvas);
+        color: var(--idg-ink);
+        font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 14px;
+        line-height: 1.5;
+        caret-color: var(--idg-navy);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .skip-link {
+        position: absolute;
+        left: 16px;
+        top: -48px;
+        background: var(--idg-navy);
+        color: #ffffff;
+        padding: 10px 14px;
+        border-radius: var(--radius-sm);
+        font-weight: 600;
+        font-size: 13px;
+        text-decoration: none;
+        z-index: 200;
+        transition: top 0.15s ease;
+      }
+
+      .skip-link:focus {
+        top: 12px;
+        outline: 2px solid var(--idg-gold);
+        outline-offset: 2px;
+      }
+
+      .topbar {
+        background: var(--idg-navy-deep);
+        color: #ffffff;
+        border-bottom: 2px solid var(--idg-gold);
+      }
+
+      .topbar-inner {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 14px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px 20px;
+      }
+
+      @media (min-width: 768px) {
+        .topbar-inner {
+          padding: 16px 24px;
+        }
+      }
+
+      .brand-block {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+        max-width: 100%;
+      }
+
+      .brand-block > div {
+        min-width: 0;
+      }
+
+      .brand-crest {
+        width: 38px;
+        height: 38px;
+        border-radius: var(--radius-sm);
+        background: #ffffff;
+        padding: 3px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .brand-crest img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+      }
+
+      .brand-title {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+        color: #ffffff;
+      }
+
+      @media (min-width: 768px) {
+        .brand-title {
+          font-size: 22px;
+        }
+      }
+
+      .brand-subtitle {
+        margin: 2px 0 0 0;
+        font-size: 12.5px;
+        color: #c7d6e6;
+      }
+
+      .entity-context {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 6px 8px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: var(--radius-md);
+        padding: 8px 12px;
+        max-width: 100%;
+      }
+
+      .entity-context-label {
+        font-size: 12px;
+        color: #bfd0e2;
+        font-weight: 500;
+      }
+
+      .entity-context-name {
+        font-size: 13px;
+        font-weight: 600;
+        color: #ffffff;
+      }
+
+      .entity-rule-tag {
+        display: inline-flex;
+        align-items: center;
+        font-size: 12px;
+        font-weight: 600;
+        color: #f6e7c8;
+        background: rgba(166, 130, 70, 0.24);
+        border: 1px solid rgba(246, 231, 200, 0.35);
+        border-radius: 4px;
+        padding: 2px 8px;
+      }
+
+      .workspace {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 18px 14px 48px 14px;
+      }
+
+      @media (min-width: 768px) {
+        .workspace {
+          padding: 24px 24px 56px 24px;
+        }
+      }
+
+      .layout-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 20px;
+        width: 100%;
+      }
+
+      @media (min-width: 960px) {
+        .layout-grid {
+          grid-template-columns: 376px minmax(0, 1fr);
+          align-items: start;
+          gap: 24px;
+        }
+      }
+
+      .panel {
+        background: var(--idg-surface);
+        border: 1px solid var(--idg-border);
+        border-radius: var(--radius-lg);
+        box-shadow: 0 2px 8px rgba(13, 27, 42, 0.05);
+        width: 100%;
+        min-width: 0;
+      }
+
+      .panel-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px 10px;
+        padding: 14px 18px;
+        border-bottom: 1px solid var(--idg-border);
+        background: var(--idg-surface);
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      }
+
+      .panel-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--idg-navy-deep);
+        margin: 0;
+        letter-spacing: -0.01em;
+      }
+
+      .panel-body {
+        padding: 16px 18px 20px 18px;
+        min-width: 0;
+        max-width: 100%;
+      }
+
+      .form-tools {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .btn-ghost {
+        background: var(--idg-surface-muted);
+        color: var(--idg-navy);
+        border: 1px solid var(--idg-border);
+        border-radius: var(--radius-sm);
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 5px 9px;
+        min-height: 30px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        white-space: nowrap;
+        transition: background-color 0.15s ease, border-color 0.15s ease;
+      }
+
+      .btn-ghost:hover {
+        background: #eaf0f6;
+        border-color: var(--idg-border-strong);
+      }
+
+      .form-group {
+        margin-bottom: 14px;
+      }
+
+      .form-group:last-of-type {
+        margin-bottom: 0;
+      }
+
+      .label-row {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 5px;
+      }
+
+      label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--idg-ink);
+      }
+
+      .field-hint {
+        font-size: 12px;
+        color: var(--idg-ink-secondary);
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"],
+      select {
+        width: 100%;
+        min-height: 44px;
+        padding: 9px 12px;
+        font-family: inherit;
+        font-size: 15px;
+        font-variant-numeric: tabular-nums;
+        border: 1px solid var(--idg-border-strong);
+        border-radius: var(--radius-md);
+        color: var(--idg-ink);
+        background: #ffffff;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      }
+
+      input::placeholder {
+        color: #667788;
+      }
+
+      @media (min-width: 768px) {
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select {
+          font-size: 14px;
+          min-height: 40px;
+        }
+      }
+
+      input:focus-visible,
+      select:focus-visible,
+      button:focus-visible,
+      a:focus-visible {
+        outline: 2px solid var(--idg-navy);
+        outline-offset: 2px;
+      }
+
+      input:focus,
+      select:focus {
+        border-color: var(--idg-navy);
+        box-shadow: 0 0 0 3px rgba(0, 48, 87, 0.12);
+      }
+
+      input[aria-invalid="true"] {
+        border-color: var(--idg-error);
+        background-color: #fffbfa;
+      }
+
+      input[aria-invalid="true"]:focus {
+        box-shadow: 0 0 0 3px rgba(180, 35, 24, 0.14);
+      }
+
+      .field-error {
+        display: none;
+        margin-top: 5px;
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--idg-error);
+      }
+
+      .field-error.visible {
+        display: block;
+      }
+
+      .entity-note-box {
+        margin-top: 6px;
+        padding: 8px 10px;
+        border-radius: var(--radius-sm);
+        background: var(--idg-gold-soft);
+        border: 1px solid #e4d4b7;
+        font-size: 12px;
+        color: #5b4319;
+        display: none;
+      }
+
+      .entity-note-box.visible {
+        display: block;
+      }
+
+      .actions-block {
+        margin-top: 20px;
+        padding-top: 16px;
+        border-top: 1px solid var(--idg-border);
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        min-height: 44px;
+        padding: 10px 16px;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        border-radius: var(--radius-md);
+        border: 1px solid transparent;
+        cursor: pointer;
+        transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+        text-align: center;
+        width: 100%;
+      }
+
+      .btn:active {
+        transform: translateY(1px);
+      }
+
+      .btn-primary {
+        background: var(--idg-navy);
+        color: #ffffff;
+      }
+
+      .btn-primary:hover {
+        background: var(--idg-navy-hover);
+      }
+
+      .btn-secondary-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      @media (max-width: 420px) {
+        .btn-secondary-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .btn-secondary {
+        background: var(--idg-surface-muted);
+        color: var(--idg-ink);
+        border-color: var(--idg-border-strong);
+        font-size: 13px;
+        padding: 9px 12px;
+      }
+
+      .btn-secondary:hover {
+        background: #eaf0f6;
+      }
+
+      .action-caption {
+        margin: 2px 0 0 0;
+        font-size: 12px;
+        color: var(--idg-ink-secondary);
+      }
+
+      .preview-toolbar {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .toolbar-group {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .toolbar-divider {
+        width: 1px;
+        height: 22px;
+        background: var(--idg-border);
+        margin: 0 4px;
+      }
+
+      .toggle-btn {
+        background: var(--idg-surface-muted);
+        border: 1px solid var(--idg-border);
+        border-radius: var(--radius-sm);
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--idg-ink-secondary);
+        padding: 6px 10px;
+        cursor: pointer;
+        min-height: 34px;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        white-space: nowrap;
+        transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+      }
+
+      .toggle-btn:hover {
+        background: #eaf0f6;
+        color: var(--idg-ink);
+      }
+
+      .toggle-btn.active {
+        background: var(--idg-navy);
+        color: #ffffff;
+        border-color: var(--idg-navy);
+      }
+
+      @media (max-width: 640px) {
+        .toolbar-divider {
+          display: none;
+        }
+        .toggle-btn,
+        .btn-ghost {
+          min-height: 40px;
+          padding: 7px 11px;
+        }
+      }
+
+      .tip-wrap {
+        position: relative;
+        display: inline-flex;
+      }
+
+      .tip-wrap::after {
+        content: attr(data-tip);
+        position: absolute;
+        top: calc(100% + 6px);
+        right: 0;
+        width: 220px;
+        max-width: calc(100vw - 48px);
+        background: var(--idg-ink);
+        color: #f8fafc;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1.4;
+        padding: 8px 10px;
+        border-radius: var(--radius-sm);
+        box-shadow: 0 6px 16px rgba(13, 27, 42, 0.22);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.15s ease;
+        z-index: 60;
+        white-space: normal;
+        text-align: left;
+      }
+
+      .tip-wrap:hover::after,
+      .tip-wrap:focus-within::after {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .tip-wrap.tip-dismiss::after {
+        opacity: 0 !important;
+        visibility: hidden !important;
+      }
+
+      .preview-stage {
+        background: #ffffff;
+        border: 1px solid var(--idg-border);
+        border-radius: var(--radius-md);
+        padding: 12px;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        overflow: hidden;
+        transition: background-color 0.18s ease, border-color 0.18s ease;
+      }
+
+      @media (min-width: 768px) {
+        .preview-stage {
+          padding: 16px;
+        }
+      }
+
+      .preview-stage.dark-preview {
+        background: #18181b;
+        border-color: #3f3f46;
+      }
+
+      .preview-stage.dark-preview #signaturePreview td,
+      .preview-stage.dark-preview #signaturePreview div,
+      .preview-stage.dark-preview #signaturePreview a,
+      .preview-stage.dark-preview #signaturePreview span,
+      .preview-stage.dark-preview .compare-frame td,
+      .preview-stage.dark-preview .compare-frame div,
+      .preview-stage.dark-preview .compare-frame a,
+      .preview-stage.dark-preview .compare-frame span {
+        color: #e2e8f0 !important;
+      }
+
+      .preview-stage.dark-preview #signaturePreview div[style*="15803d"],
+      .preview-stage.dark-preview .compare-frame div[style*="15803d"] {
+        color: #4ade80 !important;
+      }
+
+      .dark-mode-note {
+        display: none;
+        margin-top: 10px;
+        padding: 8px 12px;
+        border-radius: var(--radius-sm);
+        background: #27272a;
+        border: 1px solid #3f3f46;
+        color: #d4d4d8;
+        font-size: 12px;
+      }
+
+      .preview-stage.dark-preview .dark-mode-note {
+        display: block;
+      }
+
+      .preview-viewport {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        position: relative;
+        overflow: hidden;
+        contain: inline-size;
+      }
+
+      .preview-scaler {
+        transform-origin: top left;
+        width: 580px;
+      }
+
+      #signaturePreview {
+        width: 580px;
+      }
+
+      .compare-wrapper {
+        width: 100%;
+        min-width: 0;
+      }
+
+      .compare-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 14px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--idg-border);
+      }
+
+      .preview-stage.dark-preview .compare-bar {
+        border-bottom-color: #3f3f46;
+      }
+
+      .compare-meta {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .compare-heading {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--idg-navy);
+        background: #e6eff8;
+        padding: 5px 10px;
+        border-radius: var(--radius-sm);
+      }
+
+      .preview-stage.dark-preview .compare-heading {
+        background: #1e293b;
+        color: #93c5fd;
+      }
+
+      .compare-timestamp {
+        font-size: 12px;
+        color: var(--idg-ink-secondary);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .preview-stage.dark-preview .compare-timestamp {
+        color: #a1a1aa;
+      }
+
+      .compare-status-hint {
+        margin: 0 0 12px 0;
+        font-size: 12px;
+        color: var(--idg-ink-secondary);
+      }
+
+      .preview-stage.dark-preview .compare-status-hint {
+        color: #a1a1aa;
+      }
+
+      .compare-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        width: 100%;
+      }
+
+      .compare-pane {
+        border: 1px solid var(--idg-border);
+        border-radius: var(--radius-md);
+        padding: 12px;
+        background: #ffffff;
+        width: 100%;
+        overflow-x: auto;
+      }
+
+      .preview-stage.dark-preview .compare-pane {
+        background: #18181b;
+        border-color: #3f3f46;
+      }
+
+      .compare-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 5px 10px;
+        border-radius: var(--radius-sm);
+        margin-bottom: 10px;
+      }
+
+      .compare-tag .tag-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+      }
+
+      .before-tag {
+        background: #eef2f6;
+        color: #334155;
+      }
+
+      .before-tag .tag-dot {
+        background: #64748b;
+      }
+
+      .after-tag {
+        background: var(--idg-success-bg);
+        color: #14532d;
+      }
+
+      .after-tag .tag-dot {
+        background: var(--idg-success);
+      }
+
+      .preview-stage.dark-preview .before-tag {
+        background: #27272a;
+        color: #d4d4d8;
+      }
+
+      .preview-stage.dark-preview .after-tag {
+        background: #052e16;
+        color: #86efac;
+      }
+
+      .compare-frame {
+        width: 580px;
+        min-width: 580px;
+      }
+
+      .preflight-bar {
+        margin-top: 14px;
+        padding: 10px 14px;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--idg-border);
+        background: var(--idg-surface-muted);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px 16px;
+        font-size: 12.5px;
+      }
+
+      .preflight-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        font-weight: 600;
+        color: var(--idg-ink);
+      }
+
+      .preflight-status.is-ready {
+        color: var(--idg-success);
+      }
+
+      .preflight-status.is-warn {
+        color: #9a5b13;
+      }
+
+      .preflight-meta {
+        font-size: 12px;
+        color: var(--idg-ink-secondary);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .setup-card {
+        margin-top: 16px;
+        border: 1px solid var(--idg-border);
+        border-radius: var(--radius-md);
+        background: var(--idg-surface-muted);
+        overflow: hidden;
+      }
+
+      .setup-tabs {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 10px 14px;
+        border-bottom: 1px solid var(--idg-border);
+        background: #eef3f8;
+      }
+
+      .setup-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--idg-navy-deep);
+        margin: 0;
+      }
+
+      .tablist {
+        display: inline-flex;
+        gap: 4px;
+      }
+
+      .tab-btn {
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: var(--radius-sm);
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--idg-ink-secondary);
+        padding: 6px 11px;
+        min-height: 32px;
+        cursor: pointer;
+        transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+      }
+
+      .tab-btn:hover {
+        background: rgba(0, 48, 87, 0.06);
+        color: var(--idg-navy);
+      }
+
+      .tab-btn[aria-selected="true"] {
+        background: #ffffff;
+        color: var(--idg-navy);
+        border-color: var(--idg-border-strong);
+      }
+
+      .setup-panel {
+        padding: 14px 16px;
+        font-size: 13px;
+        line-height: 1.5;
+        color: var(--idg-ink);
+      }
+
+      .setup-panel[hidden] {
+        display: none;
+      }
+
+      .setup-panel ol {
+        margin: 0;
+        padding-left: 18px;
+      }
+
+      .setup-panel li {
+        margin-bottom: 6px;
+      }
+
+      .setup-panel li:last-child {
+        margin-bottom: 0;
+      }
+
+      .setup-note {
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid var(--idg-border);
+        font-size: 12px;
+        color: var(--idg-ink-secondary);
+      }
+
+      .toast {
+        position: fixed;
+        bottom: 18px;
+        left: 16px;
+        right: 16px;
+        max-width: 460px;
+        margin: 0 auto;
+        background: var(--idg-success);
+        color: #ffffff;
+        padding: 12px 16px;
+        border-radius: var(--radius-md);
+        font-size: 13.5px;
+        font-weight: 600;
+        box-shadow: 0 8px 24px rgba(13, 27, 42, 0.24);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        z-index: 1000;
+        text-align: left;
+      }
+
+      .toast.toast-info {
+        background: var(--idg-navy);
+      }
+
+      .toast.toast-error {
+        background: var(--idg-error);
+      }
+
+      .toast svg {
+        flex-shrink: 0;
+      }
+    </style>
+    <script src="assets/assets-inline.js"></script>
+    <script src="assets/html2canvas.min.js"></script>
+    <script>
+      if (typeof html2canvas === "undefined") {
+        var s = document.createElement("script");
+        s.src = "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js";
+        document.head.appendChild(s);
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#mainWorkspace">Skip to signature workspace</a>
+
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand-block">
+          <div class="brand-crest">
+            <img src="assets/idg-logo.png" alt="IDG Security crest" width="32" height="32" />
+          </div>
+          <div>
+            <h1 class="brand-title">IDG Security Signature Studio</h1>
+            <p class="brand-subtitle">Corporate email signature builder across global IDG entities</p>
+          </div>
+        </div>
+
+        <div class="entity-context" aria-live="polite">
+          <span class="entity-context-label">Active entity:</span>
+          <span class="entity-context-name" id="activeEntityName">IDG Group DMCC</span>
+          <span class="entity-rule-tag" id="activeEntityRule">3-ISO MSS Banner</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="workspace" id="mainWorkspace">
+      <div class="layout-grid">
+        <section class="panel" aria-labelledby="detailsHeading">
+          <div class="panel-header">
+            <h2 class="panel-title" id="detailsHeading">Employee Details</h2>
+            <div class="form-tools">
+              <button type="button" class="btn-ghost" id="btnLoadSample">Load Sample</button>
+              <button type="button" class="btn-ghost" id="btnNextEmployee">Next Employee</button>
+            </div>
+          </div>
+
+          <div class="panel-body">
+            <div class="form-group">
+              <div class="label-row">
+                <label for="officeLocation">Office Location (Entity)</label>
+              </div>
+              <select id="officeLocation">
+                <option value="uae" selected>United Arab Emirates (Dubai)</option>
+                <option value="idg_group">IDG Group (Dubai, UAE)</option>
+                <option value="iraq">Iraq (Baghdad)</option>
+                <option value="usa">United States (Virginia)</option>
+                <option value="myanmar">Myanmar (Yangon)</option>
+                <option value="afghanistan">Afghanistan (Kabul)</option>
+                <option value="india">India (Dehradun)</option>
+                <option value="nepal">Nepal (Lalitpur)</option>
+              </select>
+              <div class="entity-note-box" id="entityNoteBox"></div>
+            </div>
+
+            <div class="form-group">
+              <div class="label-row">
+                <label for="fullName">Full Name</label>
+                <span class="field-hint">Required</span>
+              </div>
+              <input
+                type="text"
+                id="fullName"
+                value=""
+                placeholder="e.g. Tariq Al-Mansoor"
+                autocomplete="name"
+                aria-describedby="errFullName"
+              />
+              <div class="field-error" id="errFullName" role="alert"></div>
+            </div>
+
+            <div class="form-group">
+              <div class="label-row">
+                <label for="jobTitle">Job Title</label>
+                <span class="field-hint">Required</span>
+              </div>
+              <input
+                type="text"
+                id="jobTitle"
+                value=""
+                placeholder="e.g. Operations Manager"
+                aria-describedby="errJobTitle"
+              />
+              <div class="field-error" id="errJobTitle" role="alert"></div>
+            </div>
+
+            <div class="form-group">
+              <div class="label-row">
+                <label for="mobile">Mobile / WhatsApp Number</label>
+                <span class="field-hint">Optional</span>
+              </div>
+              <input
+                type="tel"
+                id="mobile"
+                value=""
+                placeholder="e.g. +971 50 123 4567"
+                autocomplete="tel"
+                aria-describedby="errMobile"
+              />
+              <div class="field-error" id="errMobile" role="alert"></div>
+            </div>
+
+            <div class="form-group">
+              <div class="label-row">
+                <label for="landline">Landline (Office Phone)</label>
+                <span class="field-hint">Optional</span>
+              </div>
+              <input
+                type="tel"
+                id="landline"
+                value="+971 (04) 514 4958"
+                placeholder="e.g. +971 (04) 514 4958"
+                aria-describedby="errLandline"
+              />
+              <div class="field-error" id="errLandline" role="alert"></div>
+            </div>
+
+            <div class="form-group">
+              <div class="label-row">
+                <label for="email">IDG Email Address</label>
+                <span class="field-hint">Required</span>
+              </div>
+              <input
+                type="email"
+                id="email"
+                value=""
+                placeholder="e.g. name@idg-security.com"
+                autocomplete="email"
+                aria-describedby="errEmail"
+              />
+              <div class="field-error" id="errEmail" role="alert"></div>
+            </div>
+
+            <div class="actions-block">
+              <button type="button" class="btn btn-primary" id="btnCopySignature">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Formatted Signature</span>
+              </button>
+
+              <div class="btn-secondary-grid">
+                <button type="button" class="btn btn-secondary" id="btnDownloadHtml">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  <span>Download .HTML</span>
+                </button>
+                <button type="button" class="btn btn-secondary" id="btnCopyCode">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="16 18 22 12 16 6"></polyline>
+                    <polyline points="8 6 2 12 8 18"></polyline>
+                  </svg>
+                  <span>Copy Raw HTML</span>
+                </button>
+              </div>
+              <p class="action-caption">Use Copy Formatted for direct paste, or Download .HTML to send an employee their ready-to-open signature file.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="previewHeading">
+          <div class="panel-header">
+            <h2 class="panel-title" id="previewHeading">Live Signature Preview</h2>
+            <div class="preview-toolbar">
+              <div class="toolbar-group" role="group" aria-label="Preview zoom">
+                <button type="button" class="toggle-btn active" id="btnFitScreen" aria-pressed="true">Fit Screen</button>
+                <button type="button" class="toggle-btn" id="btnActualSize" aria-pressed="false">100% Size</button>
+              </div>
+
+              <span class="toolbar-divider" aria-hidden="true"></span>
+
+              <div class="toolbar-group" role="group" aria-label="Preview inspection modes">
+                <span class="tip-wrap" data-tip="Simulate dark-mode email clients against a dark canvas.">
+                  <button type="button" class="toggle-btn" id="btnDarkMode" aria-pressed="false">Dark Mode</button>
+                </span>
+                <span class="tip-wrap" data-tip="Pin a baseline snapshot and compare edits above and below.">
+                  <button type="button" class="toggle-btn" id="btnCompare" aria-pressed="false">Compare</button>
+                </span>
+              </div>
+
+              <span class="toolbar-divider" aria-hidden="true"></span>
+
+              <span class="tip-wrap" data-tip="Copy a 2x PNG image of the preview (or comparison) to share for approval.">
+                <button type="button" class="toggle-btn" id="btnCopyImage">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                    <polyline points="21 15 16 10 5 21"></polyline>
+                  </svg>
+                  <span>Copy Image</span>
+                </button>
+              </span>
+            </div>
+          </div>
+
+          <div class="panel-body">
+            <div class="preview-stage" id="previewBox">
+              <div class="compare-wrapper" id="compareWrapper" style="display: none">
+                <div class="compare-bar">
+                  <div class="compare-meta">
+                    <span class="compare-heading">Before / After Snapshot</span>
+                    <span class="compare-timestamp" id="compareTimestamp">Baseline captured on load</span>
+                  </div>
+                  <button type="button" class="btn-ghost" id="btnPinBefore">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M12 17v5"></path>
+                      <path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"></path>
+                    </svg>
+                    <span>Set Current as Before</span>
+                  </button>
+                </div>
+                <p class="compare-status-hint" id="compareStatusHint">Edit any field on the left to inspect differences between the pinned baseline and the updated signature.</p>
+                <div class="compare-grid" id="compareGrid">
+                  <div class="compare-pane">
+                    <div class="compare-tag before-tag">
+                      <span class="tag-dot" aria-hidden="true"></span>
+                      <span>Before (Pinned Baseline)</span>
+                    </div>
+                    <div class="compare-frame" id="beforePreview"></div>
+                  </div>
+                  <div class="compare-pane">
+                    <div class="compare-tag after-tag">
+                      <span class="tag-dot" aria-hidden="true"></span>
+                      <span>After (Current Edit)</span>
+                    </div>
+                    <div class="compare-frame" id="afterPreview"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="preview-viewport" id="previewViewport" aria-label="Rendered email signature preview">
+                <div class="preview-scaler" id="previewScaler">
+                  <div id="signaturePreview">
+                    <table
+                      role="presentation"
+                      width="580"
+                      cellpadding="0"
+                      cellspacing="0"
+                      border="0"
+                      style="
+                        border-collapse: collapse;
+                        font-family: Helvetica, Arial, sans-serif;
+                        color: #003057;
+                        width: 580px;
+                        min-width: 580px;
+                        max-width: 580px;
+                        -webkit-text-size-adjust: 100%;
+                        -ms-text-size-adjust: 100%;
+                      "
+                    >
+                      <tbody>
+                        <tr>
+                          <td style="padding: 0 0 5px 0">
+                            <table
+                              cellpadding="0"
+                              cellspacing="0"
+                              border="0"
+                              style="width: 100%; border-collapse: collapse"
+                            >
+                              <tbody>
+                                <tr>
+                                  <td
+                                    valign="top"
+                                    align="left"
+                                    style="width: 114px; padding: 0 14px 0 0; font-size: 0; line-height: 0"
+                                  >
+                                    <a
+                                      href="https://idg-security.com/"
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      tabindex="-1"
+                                      style="text-decoration: none; display: block; line-height: 0"
+                                    >
+                                      <img
+                                        id="displayMainLogo"
+                                        src="assets/idg-logo.png"
+                                        nosend="1"
+                                        border="0"
+                                        width="114"
+                                        height="105"
+                                        alt="IDG Security"
+                                        title="IDG Security"
+                                        style="
+                                          display: block;
+                                          width: 114px;
+                                          height: 105px;
+                                          border: 0;
+                                        "
+                                      />
+                                    </a>
+                                  </td>
+
+                                  <td valign="top" style="padding: 0">
+                                    <table
+                                      cellpadding="0"
+                                      cellspacing="0"
+                                      border="0"
+                                      style="width: 100%; border-collapse: collapse"
+                                    >
+                                      <tbody>
+                                        <tr>
+                                          <td
+                                            id="displayNameRole"
+                                            colspan="2"
+                                            valign="top"
+                                            style="
+                                              font-family: Helvetica, Arial, sans-serif;
+                                              font-size: 13.5px;
+                                              line-height: 16px;
+                                              font-weight: bold;
+                                              color: #003057;
+                                              letter-spacing: 0.2px;
+                                              padding: 0 0 7px 0;
+                                            "
+                                          >
+                                            [Full Name]&nbsp;&middot;&nbsp;[Job Title]
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td
+                                            valign="top"
+                                            style="width: 20px; padding: 1px 2px 3px 0; font-size: 0; line-height: 0"
+                                          >
+                                            <img
+                                              src="assets/icon-location.png"
+                                              nosend="1"
+                                              border="0"
+                                              width="14"
+                                              height="15"
+                                              alt="Location"
+                                              style="
+                                                display: block;
+                                                width: 14px;
+                                                height: 15px;
+                                                border: 0;
+                                              "
+                                            />
+                                          </td>
+                                          <td
+                                            id="displayEntityAddress"
+                                            valign="top"
+                                            style="
+                                              font-family: Helvetica, Arial, sans-serif;
+                                              font-size: 11px;
+                                              line-height: 14.5px;
+                                              color: #003057;
+                                              padding: 0 0 3px 0;
+                                            "
+                                          >
+                                            <a
+                                              href="https://idg-security.com/"
+                                              target="_blank"
+                                              rel="noopener noreferrer"
+                                              tabindex="-1"
+                                              style="color: #003057; text-decoration: none"
+                                              >Unit 15&#8203;01, The Do&#8203;me Tow&#8203;er, Clu&#8203;ster N, Jum&#8203;eirah La&#8203;ke Tow&#8203;ers<br />Du&#8203;bai, Uni&#8203;ted Ar&#8203;ab Emi&#8203;rates</a
+                                            >
+                                          </td>
+                                        </tr>
+
+                                        <tr>
+                                          <td colspan="2" style="padding: 0; font-size: 0; line-height: 0">
+                                            <table
+                                              cellpadding="0"
+                                              cellspacing="0"
+                                              border="0"
+                                              style="border-collapse: collapse"
+                                            >
+                                              <tbody>
+                                                <tr>
+                                                  <td
+                                                    valign="middle"
+                                                    style="width: 20px; padding: 0 2px 3px 0; font-size: 0; line-height: 0"
+                                                  >
+                                                    <a
+                                                      id="displayLandlineIconLink"
+                                                      href="tel:+97145144958"
+                                                      tabindex="-1"
+                                                      style="text-decoration: none; border: 0; display: block; line-height: 0"
+                                                      ><img
+                                                        src="assets/icon-phone.png"
+                                                        nosend="1"
+                                                        border="0"
+                                                        width="13"
+                                                        height="13"
+                                                        alt="Phone"
+                                                        style="
+                                                          display: block;
+                                                          width: 13px;
+                                                          height: 13px;
+                                                          border: 0;
+                                                        "
+                                                    /></a>
+                                                  </td>
+                                                  <td
+                                                    valign="middle"
+                                                    style="
+                                                      font-family: Helvetica, Arial, sans-serif;
+                                                      font-size: 11px;
+                                                      line-height: 14.5px;
+                                                      color: #003057;
+                                                      padding: 0 32px 3px 0;
+                                                      white-space: nowrap;
+                                                    "
+                                                  >
+                                                    <a
+                                                      id="displayLandlineLink"
+                                                      href="tel:+97145144958"
+                                                      tabindex="-1"
+                                                      style="color: #003057; text-decoration: none"
+                                                      >+971 (04) 514 4958</a
+                                                    >
+                                                  </td>
+                                                  <td
+                                                    valign="middle"
+                                                    style="width: 20px; padding: 0 2px 3px 0; font-size: 0; line-height: 0"
+                                                  >
+                                                    <a
+                                                      href="https://www.linkedin.com/company/idg-security/"
+                                                      target="_blank"
+                                                      rel="noopener noreferrer"
+                                                      tabindex="-1"
+                                                      style="text-decoration: none; border: 0; display: block; line-height: 0"
+                                                      ><img
+                                                        src="assets/icon-linkedin.png"
+                                                        nosend="1"
+                                                        border="0"
+                                                        width="14"
+                                                        height="13"
+                                                        alt="LinkedIn"
+                                                        title="LinkedIn"
+                                                        style="
+                                                          display: block;
+                                                          width: 14px;
+                                                          height: 13px;
+                                                          border: 0;
+                                                        "
+                                                    /></a>
+                                                  </td>
+                                                  <td
+                                                    valign="middle"
+                                                    style="
+                                                      font-family: Helvetica, Arial, sans-serif;
+                                                      font-size: 11px;
+                                                      line-height: 14.5px;
+                                                      color: #003057;
+                                                      padding: 0 0 3px 0;
+                                                      white-space: nowrap;
+                                                    "
+                                                  >
+                                                    <a
+                                                      href="https://www.linkedin.com/company/idg-security/"
+                                                      target="_blank"
+                                                      rel="noopener noreferrer"
+                                                      tabindex="-1"
+                                                      style="color: #003057; text-decoration: none"
+                                                      >IDG Security</a
+                                                    >
+                                                  </td>
+                                                </tr>
+
+                                                <tr>
+                                                  <td
+                                                    valign="middle"
+                                                    style="width: 20px; padding: 0 2px 3px 0; font-size: 0; line-height: 0"
+                                                  >
+                                                    <a
+                                                      id="displayMobileIconLink"
+                                                      href="https://wa.me/"
+                                                      target="_blank"
+                                                      rel="noopener noreferrer"
+                                                      tabindex="-1"
+                                                      style="text-decoration: none; border: 0; display: block; line-height: 0"
+                                                      ><img
+                                                        src="assets/icon-mobile.png"
+                                                        nosend="1"
+                                                        border="0"
+                                                        width="13"
+                                                        height="13"
+                                                        alt="WhatsApp"
+                                                        title="WhatsApp"
+                                                        style="
+                                                          display: block;
+                                                          width: 13px;
+                                                          height: 13px;
+                                                          border: 0;
+                                                        "
+                                                    /></a>
+                                                  </td>
+                                                  <td
+                                                    valign="middle"
+                                                    style="
+                                                      font-family: Helvetica, Arial, sans-serif;
+                                                      font-size: 11px;
+                                                      line-height: 14.5px;
+                                                      color: #003057;
+                                                      padding: 0 32px 3px 0;
+                                                      white-space: nowrap;
+                                                    "
+                                                  >
+                                                    <a
+                                                      id="displayMobileLink"
+                                                      href="https://wa.me/"
+                                                      target="_blank"
+                                                      rel="noopener noreferrer"
+                                                      tabindex="-1"
+                                                      style="color: #003057; text-decoration: none"
+                                                      >[Mobile / WhatsApp]</a
+                                                    >
+                                                  </td>
+                                                  <td
+                                                    valign="middle"
+                                                    style="width: 20px; padding: 0 2px 3px 0; font-size: 0; line-height: 0"
+                                                  >
+                                                    <a
+                                                      href="https://idg-security.com/"
+                                                      target="_blank"
+                                                      rel="noopener noreferrer"
+                                                      tabindex="-1"
+                                                      style="text-decoration: none; border: 0; display: block; line-height: 0"
+                                                      ><img
+                                                        src="assets/icon-web.png"
+                                                        nosend="1"
+                                                        border="0"
+                                                        width="13"
+                                                        height="13"
+                                                        alt="Web"
+                                                        style="
+                                                          display: block;
+                                                          width: 13px;
+                                                          height: 13px;
+                                                          border: 0;
+                                                        "
+                                                    /></a>
+                                                  </td>
+                                                  <td
+                                                    valign="middle"
+                                                    style="
+                                                      font-family: Helvetica, Arial, sans-serif;
+                                                      font-size: 11px;
+                                                      line-height: 14.5px;
+                                                      color: #003057;
+                                                      padding: 0 0 3px 0;
+                                                      white-space: nowrap;
+                                                    "
+                                                  >
+                                                    <a
+                                                      href="https://idg-security.com/"
+                                                      target="_blank"
+                                                      rel="noopener noreferrer"
+                                                      tabindex="-1"
+                                                      style="color: #003057; text-decoration: none"
+                                                      >www.idg-security.com</a
+                                                    >
+                                                  </td>
+                                                </tr>
+
+                                                <tr>
+                                                  <td
+                                                    valign="middle"
+                                                    style="width: 20px; padding: 0 2px 0 0; font-size: 0; line-height: 0"
+                                                  >
+                                                    <img
+                                                      src="assets/icon-email.png"
+                                                      nosend="1"
+                                                      border="0"
+                                                      width="13"
+                                                      height="10"
+                                                      alt="Email"
+                                                      style="
+                                                        display: block;
+                                                        width: 13px;
+                                                        height: 10px;
+                                                        border: 0;
+                                                      "
+                                                    />
+                                                  </td>
+                                                  <td
+                                                    colspan="3"
+                                                    valign="middle"
+                                                    style="
+                                                      font-family: Helvetica, Arial, sans-serif;
+                                                      font-size: 11px;
+                                                      line-height: 14.5px;
+                                                      color: #003057;
+                                                      padding: 0;
+                                                      word-break: break-word;
+                                                    "
+                                                  >
+                                                    <a
+                                                      id="displayEmailLink"
+                                                      href="mailto:"
+                                                      tabindex="-1"
+                                                      style="color: #003057; text-decoration: none"
+                                                      >[Email Address]</a
+                                                    >
+                                                  </td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td style="padding: 0 0 4px 0">
+                            <div
+                              style="
+                                font-family: Helvetica, Arial, sans-serif;
+                                font-size: 10.5px;
+                                line-height: 1.25;
+                                font-weight: normal;
+                                font-style: italic;
+                                color: #003057;
+                                margin: 0 0 2px 0;
+                              "
+                            >
+                              An ISO 9001:2015 Certified Company
+                            </div>
+                            <div
+                              align="justify"
+                              style="
+                                font-family: Helvetica, Arial, sans-serif;
+                                font-size: 10px;
+                                line-height: 1.4;
+                                color: #475569;
+                                text-align: justify;
+                                margin: 0 0 3px 0;
+                              "
+                            >
+                              This email is intended only for the named recipient(s) above and
+                              may contain information that is privileged, confidential and/or
+                              exempt from disclosure under applicable law. If you have received
+                              this message in error, or are not the named recipient(s), please
+                              immediately notify the sender and permanently delete this email
+                              message and any attachments, without retaining a copy.
+                            </div>
+                            <div
+                              style="
+                                font-family: Helvetica, Arial, sans-serif;
+                                font-size: 10px;
+                                line-height: 1.4;
+                                font-weight: normal;
+                                color: #15803d;
+                                margin: 0;
+                              "
+                            >
+                              Please consider the environment before printing this email.
+                            </div>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td style="padding: 0" id="bannersContainer"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <div class="dark-mode-note">
+                Dark-mode preview simulates inverted text on dark canvas. Individual mail apps (Outlook, Apple Mail, Gmail) invert white-background certification banners differently.
+              </div>
+            </div>
+
+            <div class="preflight-bar" aria-live="polite">
+              <span class="preflight-status is-warn" id="preflightStatus">Enter Full Name, Job Title, and Email to export</span>
+              <span class="preflight-meta" id="preflightMeta">Links ready: 0</span>
+            </div>
+
+            <div class="setup-card">
+              <div class="setup-tabs">
+                <h3 class="setup-title">Installation Guide</h3>
+                <div class="tablist" role="tablist" aria-label="Email client instructions">
+                  <button type="button" class="tab-btn" role="tab" id="tabOutlook" aria-selected="true" aria-controls="panelOutlook">Outlook</button>
+                  <button type="button" class="tab-btn" role="tab" id="tabApple" aria-selected="false" aria-controls="panelApple">Apple Mail</button>
+                  <button type="button" class="tab-btn" role="tab" id="tabGmail" aria-selected="false" aria-controls="panelGmail">Gmail</button>
+                </div>
+              </div>
+
+              <div class="setup-panel" role="tabpanel" id="panelOutlook" aria-labelledby="tabOutlook">
+                <ol>
+                  <li>Click <strong>Copy Formatted Signature</strong> (or open the downloaded <code>.html</code> file and press <strong>Ctrl + A</strong>, then <strong>Ctrl + C</strong>).</li>
+                  <li>In Outlook, go to <strong>Settings &gt; Accounts &gt; Signatures</strong> (or <strong>File &gt; Options &gt; Mail &gt; Signatures</strong> in Classic Outlook).</li>
+                  <li>Create a new signature, paste (<strong>Ctrl + V</strong>), assign it to new messages and replies, and click <strong>Save</strong>.</li>
+                </ol>
+              </div>
+
+              <div class="setup-panel" role="tabpanel" id="panelApple" aria-labelledby="tabApple" hidden>
+                <ol>
+                  <li>Click <strong>Copy Formatted Signature</strong>.</li>
+                  <li>In Apple Mail, open <strong>Settings &gt; Signatures</strong> and click <strong>+</strong>.</li>
+                  <li>Select all (<strong>Cmd + A</strong>), delete default text, and paste (<strong>Cmd + V</strong>).</li>
+                  <li><strong>Uncheck</strong> <em>Always match my default message font</em> at the bottom.</li>
+                </ol>
+                <div class="setup-note">
+                  Images appear as blank boxes inside Apple Mail Settings, but load properly when composing new emails.
+                </div>
+              </div>
+
+              <div class="setup-panel" role="tabpanel" id="panelGmail" aria-labelledby="tabGmail" hidden>
+                <ol>
+                  <li>Click <strong>Copy Formatted Signature</strong>.</li>
+                  <li>In Gmail, open <strong>Settings (gear icon) &gt; See all settings &gt; General &gt; Signature</strong>.</li>
+                  <li>Click <strong>Create new</strong>, paste (<strong>Ctrl + V</strong> or <strong>Cmd + V</strong>), set as default, and click <strong>Save Changes</strong> at the bottom.</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true">
+      <span id="toastIcon" aria-hidden="true"></span>
+      <span id="toastMsg">Signature copied to clipboard.</span>
+    </div>
+
+    <script>
+      const inputName = document.getElementById("fullName");
+      const inputTitle = document.getElementById("jobTitle");
+      const selectLocation = document.getElementById("officeLocation");
+      const inputMobile = document.getElementById("mobile");
+      const inputLandline = document.getElementById("landline");
+      const inputEmail = document.getElementById("email");
+
+      const errFullName = document.getElementById("errFullName");
+      const errJobTitle = document.getElementById("errJobTitle");
+      const errMobile = document.getElementById("errMobile");
+      const errLandline = document.getElementById("errLandline");
+      const errEmail = document.getElementById("errEmail");
+
+      const activeEntityName = document.getElementById("activeEntityName");
+      const activeEntityRule = document.getElementById("activeEntityRule");
+      const entityNoteBox = document.getElementById("entityNoteBox");
+      const preflightStatus = document.getElementById("preflightStatus");
+      const preflightMeta = document.getElementById("preflightMeta");
+
+      const displayNameRole = document.getElementById("displayNameRole");
+      const displayMainLogo = document.getElementById("displayMainLogo");
+      const displayEntityAddress = document.getElementById("displayEntityAddress");
+      const displayMobileLink = document.getElementById("displayMobileLink");
+      const displayMobileIconLink = document.getElementById("displayMobileIconLink");
+      const displayLandlineLink = document.getElementById("displayLandlineLink");
+      const displayLandlineIconLink = document.getElementById("displayLandlineIconLink");
+      const displayEmailLink = document.getElementById("displayEmailLink");
+      const bannersContainer = document.getElementById("bannersContainer");
+
+      const previewBox = document.getElementById("previewBox");
+      const previewViewport = document.getElementById("previewViewport");
+      const previewScaler = document.getElementById("previewScaler");
+      const signaturePreview = document.getElementById("signaturePreview");
+      const btnFitScreen = document.getElementById("btnFitScreen");
+      const btnActualSize = document.getElementById("btnActualSize");
+
+      let autoFitEnabled = true;
+
+      const ENTITIES = {
+        uae: {
+          country: "United Arab Emirates",
+          entityName: "IDG Group DMCC",
+          logoFile: "idg-logo.png",
+          logoAlt: "IDG Security",
+          ruleLabel: "3-ISO MSS Banner",
+          ruleNote: "",
+          addressHtml: '<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #003057; text-decoration: none">Unit 15&#8203;01, The Do&#8203;me Tow&#8203;er, Clu&#8203;ster N, Jum&#8203;eirah La&#8203;ke Tow&#8203;ers<br />Du&#8203;bai, Uni&#8203;ted Ar&#8203;ab Emi&#8203;rates</a>',
+          defaultLandline: "+971 (04) 514 4958",
+          landlinePlaceholder: "e.g. +971 (04) 514 4958"
+        },
+        idg_group: {
+          country: "United Arab Emirates",
+          entityName: "IDG Group DMCC",
+          logoFile: "idg-group-logo.png",
+          logoAlt: "IDG Group",
+          logoWidth: 148,
+          logoHeight: 105,
+          logoTopPad: 0,
+          ruleLabel: "IDG Group Logo · 3-ISO",
+          ruleNote: "Uses the IDG Group corporate logo and the 3-ISO certification banner.",
+          addressHtml: '<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #003057; text-decoration: none">Unit 15&#8203;01, The Do&#8203;me Tow&#8203;er, Clu&#8203;ster N, Jum&#8203;eirah La&#8203;ke Tow&#8203;ers<br />Du&#8203;bai, Uni&#8203;ted Ar&#8203;ab Emi&#8203;rates</a>',
+          defaultLandline: "+971 (04) 514 4958",
+          landlinePlaceholder: "e.g. +971 (04) 514 4958"
+        },
+        iraq: {
+          country: "Iraq",
+          entityName: "IDG for Security Services and Private Guards LLC",
+          ruleLabel: "Stacked Title · 5-ISO MSS",
+          ruleNote: "Iraq rules active: Job Title stacks beneath Full Name with '- Iraq' appended automatically, and displays the full 5-ISO MSS banner (including ISO 14001 and 45001).",
+          addressHtml: '<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #003057; text-decoration: none">Vil&#8203;la 66, Str&#8203;eet 1, Dis&#8203;trict 609, Hun&#8203;ting Club Str&#8203;eet<br />Al Man&#8203;sour, Bagh&#8203;dad, Ir&#8203;aq</a>',
+          defaultLandline: "+964 788 000 5202",
+          landlinePlaceholder: "e.g. +964 788 000 5202",
+          stackNameRole: true,
+          jobTitleSuffix: " - Iraq",
+          fullMssBanner: true,
+          logoTopPad: 6
+        },
+        usa: {
+          country: "United States",
+          entityName: "IDG Americas Inc.",
+          ruleLabel: "3-ISO MSS Banner",
+          ruleNote: "",
+          addressHtml: '<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #003057; text-decoration: none">164&#8203;0 Bo&#8203;ro Pla&#8203;ce, 4th Fl&#8203;oor Mc&#8203;Lean, Vir&#8203;ginia 221&#8203;02,<br />Uni&#8203;ted Sta&#8203;tes of Ame&#8203;rica</a>',
+          defaultLandline: "",
+          landlinePlaceholder: "e.g. +1 (703) 555-0100 (optional)"
+        },
+        myanmar: {
+          country: "Myanmar",
+          entityName: "IDG Myanmar Co Ltd.",
+          ruleLabel: "3-ISO MSS Banner",
+          ruleNote: "",
+          addressHtml: '<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #003057; text-decoration: none">No. 5/35, Thi&#8203;ri Go&#8203;ne Hou&#8203;sing, Qua&#8203;rter 16, Thin&#8203;gangyun Tow&#8203;nship<br />Yan&#8203;gon, Myan&#8203;mar 110&#8203;71</a>',
+          defaultLandline: "",
+          landlinePlaceholder: "Enter Myanmar office phone (optional)"
+        },
+        afghanistan: {
+          country: "Afghanistan",
+          entityName: "IDG Security (Afghanistan) Ltd",
+          ruleLabel: "3-ISO MSS Banner",
+          ruleNote: "",
+          addressHtml: '<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #003057; text-decoration: none">Pu&#8203;le Char&#8203;khi Ro&#8203;ad, Ou&#8203;dh Khel, ne&#8203;xt to UN&#8203;OCA Com&#8203;pound<br />Ka&#8203;bul, Afgha&#8203;nistan</a>',
+          defaultLandline: "",
+          landlinePlaceholder: "Enter Afghanistan office phone (optional)"
+        },
+        india: {
+          country: "India",
+          entityName: "IDG India (Dehradun Office)",
+          ruleLabel: "3-ISO MSS Banner",
+          ruleNote: "",
+          addressHtml: '<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #003057; text-decoration: none">63B, Nim&#8203;buwala, Gar&#8203;hi Ca&#8203;ntt<br />Dehra&#8203;dun, Uttara&#8203;khand, In&#8203;dia</a>',
+          defaultLandline: "",
+          landlinePlaceholder: "Enter India office phone (optional)"
+        },
+        nepal: {
+          country: "Nepal",
+          entityName: "IDG Nepal",
+          ruleLabel: "3-ISO MSS Banner",
+          ruleNote: "",
+          addressHtml: '<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #003057; text-decoration: none">Nakhi&#8203;pot - 14<br />Lalit&#8203;pur Metro&#8203;politan Ci&#8203;ty, Ne&#8203;pal</a>',
+          defaultLandline: "",
+          landlinePlaceholder: "Enter Nepal office phone (optional)"
+        }
+      };
+
+      let previousLocation = "uae";
+      const EXPORT_ASSET_BASE_URL = "https://frenzelrgferrer.github.io/idg-esignature/assets/";
+
+      function sanitizePhoneForWhatsApp(phone) {
+        let digits = phone.replace(/[^0-9]/g, "");
+        if (!digits) return "";
+        if (digits.startsWith("00")) {
+          digits = digits.substring(2);
+        }
+        if (digits.startsWith("05") && digits.length === 10) {
+          digits = "971" + digits.substring(1);
+        }
+        if (digits.startsWith("07") && digits.length === 11) {
+          digits = "964" + digits.substring(1);
+        }
+        return "https://wa.me/" + digits;
+      }
+
+      function sanitizePhoneForTel(phone) {
+        const cleaned = phone.replace(/[\s()-]/g, "");
+        return "tel:" + cleaned;
+      }
+
+      function getAssetBaseUrl() {
+        if (window.location.protocol === "http:" || window.location.protocol === "https:") {
+          return new URL("assets/", window.location.href).href;
+        }
+        return "assets/";
+      }
+
+      function escapeHtml(str) {
+        return str
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function setFieldError(inputEl, errEl, message) {
+        if (message) {
+          inputEl.setAttribute("aria-invalid", "true");
+          errEl.textContent = message;
+          errEl.classList.add("visible");
+        } else {
+          inputEl.removeAttribute("aria-invalid");
+          errEl.textContent = "";
+          errEl.classList.remove("visible");
+        }
+      }
+
+      function validateForm(showErrors) {
+        const nameVal = inputName.value.trim();
+        const titleVal = inputTitle.value.trim();
+        const emailVal = inputEmail.value.trim();
+        const mobileVal = inputMobile.value.trim();
+        const landlineVal = inputLandline.value.trim();
+
+        let firstInvalid = null;
+
+        const nameErr = !nameVal ? "Enter the employee's full name before exporting." : "";
+        const titleErr = !titleVal ? "Enter the employee's job title before exporting." : "";
+        const emailErr = !emailVal
+          ? "Enter an IDG email address before exporting."
+          : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)
+            ? "Enter a valid email address (for example, name@idg-security.com)."
+            : "";
+
+        const mobileDigits = mobileVal.replace(/[^0-9]/g, "");
+        const mobileErr = mobileVal && mobileDigits.length < 7
+          ? "Mobile number looks incomplete. Include at least 7 digits or leave blank."
+          : "";
+
+        const landlineDigits = landlineVal.replace(/[^0-9]/g, "");
+        const landlineErr = landlineVal && landlineDigits.length < 7
+          ? "Office phone looks incomplete. Include at least 7 digits or leave blank."
+          : "";
+
+        if (showErrors) {
+          setFieldError(inputName, errFullName, nameErr);
+          setFieldError(inputTitle, errJobTitle, titleErr);
+          setFieldError(inputEmail, errEmail, emailErr);
+          setFieldError(inputMobile, errMobile, mobileErr);
+          setFieldError(inputLandline, errLandline, landlineErr);
+        }
+
+        if (nameErr) firstInvalid = firstInvalid || inputName;
+        if (titleErr) firstInvalid = firstInvalid || inputTitle;
+        if (mobileErr) firstInvalid = firstInvalid || inputMobile;
+        if (landlineErr) firstInvalid = firstInvalid || inputLandline;
+        if (emailErr) firstInvalid = firstInvalid || inputEmail;
+
+        return {
+          valid: !firstInvalid,
+          firstInvalid
+        };
+      }
+
+      function updatePreflight() {
+        const check = validateForm(false);
+        const linkCount =
+          2 +
+          (inputEmail.value.trim() ? 1 : 0) +
+          (inputMobile.value.trim() ? 1 : 0) +
+          (inputLandline.value.trim() ? 1 : 0);
+
+        if (check.valid) {
+          preflightStatus.textContent = "Ready to export";
+          preflightStatus.className = "preflight-status is-ready";
+        } else {
+          preflightStatus.textContent = "Complete required fields (Full Name, Job Title, valid Email) to export";
+          preflightStatus.className = "preflight-status is-warn";
+        }
+        preflightMeta.textContent = `Active links: ${linkCount}`;
+      }
+
+      function getExportSignatureHtml() {
+        const clone = signaturePreview.cloneNode(true);
+        clone.querySelectorAll("[tabindex]").forEach((el) => el.removeAttribute("tabindex"));
+
+        const landlineLink = clone.querySelector("#displayLandlineLink");
+        const landlineIcon = clone.querySelector("#displayLandlineIconLink");
+        if (landlineLink && landlineLink.textContent.trim() === "[Office Phone]") {
+          if (landlineLink.parentElement) landlineLink.parentElement.innerHTML = "&nbsp;";
+          if (landlineIcon && landlineIcon.parentElement) landlineIcon.parentElement.innerHTML = "&nbsp;";
+        }
+
+        const mobileLink = clone.querySelector("#displayMobileLink");
+        const mobileIcon = clone.querySelector("#displayMobileIconLink");
+        if (mobileLink && mobileLink.textContent.trim() === "[Mobile / WhatsApp]") {
+          if (mobileLink.parentElement) mobileLink.parentElement.innerHTML = "&nbsp;";
+          if (mobileIcon && mobileIcon.parentElement) mobileIcon.parentElement.innerHTML = "&nbsp;";
+        }
+
+        clone.querySelectorAll("img").forEach((img) => {
+          const rawSrc = img.getAttribute("src") || "";
+          const filename = rawSrc.split("/").pop().split("?")[0];
+          img.setAttribute("src", EXPORT_ASSET_BASE_URL + filename);
+        });
+        return clone.innerHTML.trim();
+      }
+
+      function renderBanners() {
+        const assetBase = getAssetBaseUrl();
+        const selectedLoc = selectLocation.value;
+        const entityData = ENTITIES[selectedLoc] || ENTITIES.uae;
+        const isFull = Boolean(entityData.fullMssBanner);
+        if (isFull) {
+          bannersContainer.innerHTML = `
+          <table
+            width="580"
+            cellpadding="0"
+            cellspacing="0"
+            border="0"
+            style="width: 100%; max-width: 580px; border-collapse: collapse"
+          >
+            <tbody>
+              <tr>
+                <td valign="top" style="padding: 0 0 4px 0">
+                  <a
+                    href="https://www.mssglobal.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    tabindex="-1"
+                    style="display: block; text-decoration: none"
+                  >
+                    <img
+                      src="${assetBase}banner-mss-white.png"
+                      nosend="1"
+                      border="0"
+                      width="580"
+                      height="44"
+                      alt="MSS Global Certifications"
+                      title="MSS Global Certifications"
+                      style="display: block; width: 100%; height: auto; border: 0"
+                    />
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top" style="padding: 0">
+                  <table
+                    width="580"
+                    cellpadding="0"
+                    cellspacing="0"
+                    border="0"
+                    style="width: 100%; border-collapse: collapse; table-layout: fixed"
+                  >
+                    <tbody>
+                      <tr>
+                        <td width="195" valign="top" style="width: 33.62%; padding: 0">
+                          <a href="https://icoca.ch/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="display: block; text-decoration: none">
+                            <img src="${assetBase}banner-icoca.png" nosend="1" border="0" width="195" height="44" alt="ICoCA - The Responsible Security Association" title="ICoCA - The Responsible Security Association" style="display: block; width: 100%; height: auto; border: 0" />
+                          </a>
+                        </td>
+                        <td width="4" style="width: 0.69%; padding: 0; font-size: 1px; line-height: 1px">&nbsp;</td>
+                        <td width="182" valign="top" style="width: 31.38%; padding: 0">
+                          <a href="https://unglobalcompact.org/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="display: block; text-decoration: none">
+                            <img src="${assetBase}banner-ungc.png" nosend="1" border="0" width="182" height="44" alt="United Nations Global Compact" title="United Nations Global Compact" style="display: block; width: 100%; height: auto; border: 0" />
+                          </a>
+                        </td>
+                        <td width="4" style="width: 0.69%; padding: 0; font-size: 1px; line-height: 1px">&nbsp;</td>
+                        <td width="195" valign="top" style="width: 33.62%; padding: 0">
+                          <a href="https://www.ncsc.gov.uk/cyberessentials/overview" target="_blank" rel="noopener noreferrer" tabindex="-1" style="display: block; text-decoration: none">
+                            <img src="${assetBase}banner-cyber.png" nosend="1" border="0" width="195" height="44" alt="Cyber Essentials" title="Cyber Essentials" style="display: block; width: 100%; height: auto; border: 0" />
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        `;
+          return;
+        }
+        bannersContainer.innerHTML = `
+          <table
+            width="476"
+            cellpadding="0"
+            cellspacing="0"
+            border="0"
+            style="width: 476px; max-width: 100%; border-collapse: collapse; table-layout: fixed"
+          >
+            <tbody>
+              <tr>
+                <td width="226" valign="top" style="width: 47.48%; padding: 0">
+                  <a href="https://www.mssglobal.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="display: block; text-decoration: none">
+                    <img src="${assetBase}banner-mss-3iso.png" nosend="1" border="0" width="226" height="46" alt="MSS Global Certifications" title="MSS Global Certifications" style="display: block; width: 100%; height: auto; border: 0" />
+                  </a>
+                </td>
+                <td width="4" style="width: 0.84%; padding: 0; font-size: 1px; line-height: 1px">&nbsp;</td>
+                <td width="80" valign="top" style="width: 16.81%; padding: 0">
+                  <a href="https://icoca.ch/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="display: block; text-decoration: none">
+                    <img src="${assetBase}banner-icoca-tile.png" nosend="1" border="0" width="80" height="46" alt="ICoCA - The Responsible Security Association" title="ICoCA - The Responsible Security Association" style="display: block; width: 100%; height: auto; border: 0" />
+                  </a>
+                </td>
+                <td width="3" style="width: 0.63%; padding: 0; font-size: 1px; line-height: 1px">&nbsp;</td>
+                <td width="80" valign="top" style="width: 16.81%; padding: 0">
+                  <a href="https://unglobalcompact.org/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="display: block; text-decoration: none">
+                    <img src="${assetBase}banner-ungc-tile.png" nosend="1" border="0" width="80" height="46" alt="United Nations Global Compact" title="United Nations Global Compact" style="display: block; width: 100%; height: auto; border: 0" />
+                  </a>
+                </td>
+                <td width="3" style="width: 0.63%; padding: 0; font-size: 1px; line-height: 1px">&nbsp;</td>
+                <td width="80" valign="top" style="width: 16.80%; padding: 0">
+                  <a href="https://www.ncsc.gov.uk/cyberessentials/overview" target="_blank" rel="noopener noreferrer" tabindex="-1" style="display: block; text-decoration: none">
+                    <img src="${assetBase}banner-cyber-tile.png" nosend="1" border="0" width="80" height="46" alt="Cyber Essentials" title="Cyber Essentials" style="display: block; width: 100%; height: auto; border: 0" />
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        `;
+      }
+
+      function updateSignature() {
+        const fullName = inputName.value.trim() || "[Full Name]";
+        const jobTitle = inputTitle.value.trim();
+
+        const selectedLoc = selectLocation.value;
+        const entityData = ENTITIES[selectedLoc] || ENTITIES.uae;
+
+        activeEntityName.textContent = entityData.entityName;
+        activeEntityRule.textContent = entityData.ruleLabel;
+        if (entityData.ruleNote) {
+          entityNoteBox.textContent = entityData.ruleNote;
+          entityNoteBox.classList.add("visible");
+        } else {
+          entityNoteBox.textContent = "";
+          entityNoteBox.classList.remove("visible");
+        }
+
+        displayNameRole.textContent = "";
+        if (entityData.stackNameRole) {
+          displayNameRole.style.padding = "0 0 5px 0";
+          displayNameRole.style.lineHeight = "16px";
+          displayNameRole.appendChild(document.createTextNode(inputName.value.trim() ? fullName : "[Full Name]"));
+          if (jobTitle || !inputName.value.trim()) {
+            displayNameRole.appendChild(document.createElement("br"));
+            const titleSpan = document.createElement("span");
+            titleSpan.style.fontSize = "12.5px";
+            titleSpan.style.lineHeight = "15px";
+            titleSpan.style.fontWeight = "bold";
+            titleSpan.style.color = "#003057";
+            const baseTitle = jobTitle || "[Job Title]";
+            const suffix = entityData.jobTitleSuffix || "";
+            titleSpan.textContent = suffix && !/\biraq\b/i.test(baseTitle) ? baseTitle + suffix : baseTitle;
+            displayNameRole.appendChild(titleSpan);
+          }
+        } else {
+          displayNameRole.style.padding = "0 0 7px 0";
+          displayNameRole.style.lineHeight = "16px";
+          if (inputName.value.trim() && jobTitle) {
+            displayNameRole.textContent = `${fullName}\u00a0\u00b7\u00a0${jobTitle}`;
+          } else if (inputName.value.trim()) {
+            displayNameRole.textContent = fullName;
+          } else {
+            displayNameRole.textContent = `[Full Name]\u00a0\u00b7\u00a0[Job Title]`;
+          }
+        }
+
+        const logoFile = entityData.logoFile || "idg-logo.png";
+        const logoAlt = entityData.logoAlt || "IDG Security";
+        const logoW = entityData.logoWidth || 114;
+        const logoH = entityData.logoHeight || 105;
+        const logoTopPad = entityData.logoTopPad || 0;
+        if (displayMainLogo) {
+          displayMainLogo.src = getAssetBaseUrl() + logoFile;
+          displayMainLogo.alt = logoAlt;
+          displayMainLogo.title = logoAlt;
+          displayMainLogo.width = logoW;
+          displayMainLogo.height = logoH;
+          displayMainLogo.style.width = `${logoW}px`;
+          displayMainLogo.style.height = `${logoH}px`;
+          const logoTd = displayMainLogo.closest("td");
+          if (logoTd) {
+            logoTd.style.width = `${logoW}px`;
+            logoTd.style.padding = `${logoTopPad}px 14px 0 0`;
+          }
+        }
+        displayEntityAddress.innerHTML = entityData.addressHtml;
+
+        const mobileText = inputMobile.value.trim();
+        if (mobileText) {
+          displayMobileLink.textContent = mobileText;
+          const waLink = sanitizePhoneForWhatsApp(mobileText);
+          displayMobileLink.href = waLink;
+          displayMobileIconLink.href = waLink;
+        } else {
+          displayMobileLink.textContent = "[Mobile / WhatsApp]";
+          displayMobileLink.removeAttribute("href");
+          displayMobileIconLink.removeAttribute("href");
+        }
+
+        const landlineText = inputLandline.value.trim();
+        if (landlineText) {
+          displayLandlineLink.textContent = landlineText;
+          const telLink = sanitizePhoneForTel(landlineText);
+          displayLandlineLink.href = telLink;
+          displayLandlineIconLink.href = telLink;
+        } else {
+          displayLandlineLink.textContent = "[Office Phone]";
+          displayLandlineLink.removeAttribute("href");
+          displayLandlineIconLink.removeAttribute("href");
+        }
+
+        const emailText = inputEmail.value.trim();
+        if (emailText) {
+          displayEmailLink.textContent = emailText;
+          displayEmailLink.href = "mailto:" + emailText;
+        } else {
+          displayEmailLink.textContent = "[Email Address]";
+          displayEmailLink.removeAttribute("href");
+        }
+
+        renderBanners();
+        adjustPreviewScaling();
+        updatePreflight();
+
+        const afterFrame = document.getElementById("afterPreview");
+        if (afterFrame && isCompareMode) {
+          afterFrame.innerHTML = signaturePreview.innerHTML;
+          updateCompareHint();
+        }
+      }
+
+      function adjustPreviewScaling() {
+        if (!previewBox || !previewViewport || !previewScaler || !signaturePreview) return;
+
+        const boxStyles = window.getComputedStyle(previewBox);
+        const paddingLeft = parseFloat(boxStyles.paddingLeft) || 16;
+        const paddingRight = parseFloat(boxStyles.paddingRight) || 16;
+        const availableWidth = previewBox.clientWidth - (paddingLeft + paddingRight);
+        const targetWidth = 580;
+
+        if (autoFitEnabled) {
+          previewViewport.scrollLeft = 0;
+          previewViewport.scrollTop = 0;
+          previewBox.scrollLeft = 0;
+
+          if (availableWidth < targetWidth && availableWidth > 0) {
+            const scale = availableWidth / targetWidth;
+            previewScaler.style.transform = `scale(${scale})`;
+            previewScaler.style.transformOrigin = "top left";
+            previewScaler.style.width = `${targetWidth}px`;
+            const unscaledHeight = signaturePreview.offsetHeight || 360;
+            previewViewport.style.height = `${Math.ceil(unscaledHeight * scale)}px`;
+            previewViewport.style.overflow = "hidden";
+          } else {
+            previewScaler.style.transform = "none";
+            previewScaler.style.width = "580px";
+            previewViewport.style.height = "auto";
+            previewViewport.style.overflow = "hidden";
+          }
+        } else {
+          previewScaler.style.transform = "none";
+          previewScaler.style.width = "580px";
+          previewViewport.style.height = "auto";
+          previewViewport.style.overflowX = "auto";
+        }
+      }
+
+      btnFitScreen.addEventListener("click", () => {
+        autoFitEnabled = true;
+        btnFitScreen.classList.add("active");
+        btnFitScreen.setAttribute("aria-pressed", "true");
+        btnActualSize.classList.remove("active");
+        btnActualSize.setAttribute("aria-pressed", "false");
+        adjustPreviewScaling();
+      });
+
+      btnActualSize.addEventListener("click", () => {
+        autoFitEnabled = false;
+        btnActualSize.classList.add("active");
+        btnActualSize.setAttribute("aria-pressed", "true");
+        btnFitScreen.classList.remove("active");
+        btnFitScreen.setAttribute("aria-pressed", "false");
+        adjustPreviewScaling();
+      });
+
+      const btnDarkMode = document.getElementById("btnDarkMode");
+      btnDarkMode.addEventListener("click", () => {
+        const isDark = previewBox.classList.toggle("dark-preview");
+        btnDarkMode.classList.toggle("active", isDark);
+        btnDarkMode.setAttribute("aria-pressed", String(isDark));
+      });
+
+      document.querySelectorAll(".tip-wrap").forEach((wrap) => {
+        const btn = wrap.querySelector("button");
+        if (!btn) return;
+        btn.addEventListener("click", () => {
+          wrap.classList.add("tip-dismiss");
+        });
+        wrap.addEventListener("mouseleave", () => {
+          wrap.classList.remove("tip-dismiss");
+        });
+        btn.addEventListener("blur", () => {
+          wrap.classList.remove("tip-dismiss");
+        });
+      });
+
+      let beforeSnapshotHtml = "";
+      let isCompareMode = false;
+
+      function updateCompareHint() {
+        const hint = document.getElementById("compareStatusHint");
+        if (!hint) return;
+        if (beforeSnapshotHtml === signaturePreview.innerHTML) {
+          hint.textContent = "Baseline and current edit match. Change any field on the left to preview differences.";
+        } else {
+          hint.textContent = "Showing changes against your pinned baseline. Click Copy Image to export both panes together.";
+        }
+      }
+
+      function captureBeforeSnapshot() {
+        beforeSnapshotHtml = signaturePreview.innerHTML;
+        const beforeFrame = document.getElementById("beforePreview");
+        if (beforeFrame) {
+          beforeFrame.innerHTML = beforeSnapshotHtml;
+        }
+        const timestamp = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+        const compTs = document.getElementById("compareTimestamp");
+        if (compTs) {
+          compTs.textContent = `Pinned at ${timestamp}`;
+        }
+        updateCompareHint();
+      }
+
+      const btnCompare = document.getElementById("btnCompare");
+      const compareWrapper = document.getElementById("compareWrapper");
+      btnCompare.addEventListener("click", () => {
+        isCompareMode = !isCompareMode;
+        btnCompare.classList.toggle("active", isCompareMode);
+        btnCompare.setAttribute("aria-pressed", String(isCompareMode));
+        if (isCompareMode) {
+          if (!beforeSnapshotHtml) {
+            captureBeforeSnapshot();
+          }
+          const afterFrame = document.getElementById("afterPreview");
+          if (afterFrame) {
+            afterFrame.innerHTML = signaturePreview.innerHTML;
+          }
+          updateCompareHint();
+          previewViewport.style.display = "none";
+          compareWrapper.style.display = "block";
+        } else {
+          compareWrapper.style.display = "none";
+          previewViewport.style.display = "block";
+          adjustPreviewScaling();
+        }
+      });
+
+      document.getElementById("btnPinBefore").addEventListener("click", () => {
+        captureBeforeSnapshot();
+        showToast("Current signature pinned as Before baseline.", "info");
+      });
+
+      document.getElementById("btnLoadSample").addEventListener("click", () => {
+        const loc = selectLocation.value;
+        const sampleMap = {
+          iraq: {
+            name: "Tariq Al-Bayati",
+            title: "Operations Manager",
+            mobile: "+964 780 555 0142",
+            email: "tariq.albayati@idg-security.com"
+          },
+          usa: {
+            name: "Jordan Ellis",
+            title: "Program Director",
+            mobile: "+1 (703) 555-0194",
+            email: "jordan.ellis@idg-security.com"
+          }
+        };
+        const sample = sampleMap[loc] || {
+          name: "Samira Haddad",
+          title: "Regional Operations Coordinator",
+          mobile: "+971 50 555 0188",
+          email: "samira.haddad@idg-security.com"
+        };
+        inputName.value = sample.name;
+        inputTitle.value = sample.title;
+        inputMobile.value = sample.mobile;
+        inputEmail.value = sample.email;
+        validateForm(true);
+        updateSignature();
+        showToast("Loaded sample employee details.", "info");
+      });
+
+      document.getElementById("btnNextEmployee").addEventListener("click", () => {
+        inputName.value = "";
+        inputTitle.value = "";
+        inputMobile.value = "";
+        inputEmail.value = "";
+        [
+          [inputName, errFullName],
+          [inputTitle, errJobTitle],
+          [inputMobile, errMobile],
+          [inputLandline, errLandline],
+          [inputEmail, errEmail]
+        ].forEach(([inp, err]) => setFieldError(inp, err, ""));
+        updateSignature();
+        inputName.focus();
+        showToast("Cleared employee fields. Entity and office landline kept.", "info");
+      });
+
+      const tabButtons = Array.from(document.querySelectorAll('[role="tab"]'));
+      tabButtons.forEach((tab, index) => {
+        tab.addEventListener("click", () => {
+          tabButtons.forEach((other) => {
+            const isSelected = other === tab;
+            other.setAttribute("aria-selected", String(isSelected));
+            const panel = document.getElementById(other.getAttribute("aria-controls"));
+            if (panel) panel.hidden = !isSelected;
+          });
+        });
+        tab.addEventListener("keydown", (e) => {
+          if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+            e.preventDefault();
+            const nextIndex = (index + (e.key === "ArrowRight" ? 1 : -1) + tabButtons.length) % tabButtons.length;
+            tabButtons[nextIndex].focus();
+            tabButtons[nextIndex].click();
+          }
+        });
+      });
+
+      let isRenderingImage = false;
+      const btnCopyImage = document.getElementById("btnCopyImage");
+      btnCopyImage.addEventListener("click", async () => {
+        if (isRenderingImage) return;
+        if (typeof html2canvas !== "function") {
+          showToast("Image capture library is still loading. Try again in a moment.", "error");
+          return;
+        }
+
+        isRenderingImage = true;
+        btnCopyImage.style.opacity = "0.6";
+        btnCopyImage.style.pointerEvents = "none";
+        showToast("Rendering preview image...", "info");
+
+        const prevTransform = previewScaler ? previewScaler.style.transform : "";
+        const prevOrigin = previewScaler ? previewScaler.style.transformOrigin : "";
+        if (previewScaler) {
+          previewScaler.style.transform = "none";
+        }
+
+        const target = isCompareMode
+          ? document.getElementById("compareGrid")
+          : document.getElementById("signaturePreview");
+
+        if (!target) {
+          isRenderingImage = false;
+          btnCopyImage.style.opacity = "";
+          btnCopyImage.style.pointerEvents = "";
+          return;
+        }
+
+        const originalSrcs = new Map();
+        if (window.INLINE_ASSETS) {
+          target.querySelectorAll("img").forEach((img) => {
+            const rawSrc = img.getAttribute("src") || "";
+            const filename = rawSrc.split("/").pop().split("?")[0];
+            if (window.INLINE_ASSETS[filename]) {
+              originalSrcs.set(img, img.src);
+              img.src = window.INLINE_ASSETS[filename];
+            }
+          });
+        }
+
+        const imgPromises = Array.from(target.querySelectorAll("img")).map((img) => {
+          if (img.complete) return Promise.resolve();
+          if (typeof img.decode === "function") {
+            return img.decode().catch(() => {});
+          }
+          return new Promise((resolve) => {
+            img.onload = resolve;
+            img.onerror = resolve;
+            setTimeout(resolve, 300);
+          });
+        });
+        await Promise.allSettled(imgPromises);
+
+        try {
+          const isDark = previewBox.classList.contains("dark-preview");
+          const canvas = await html2canvas(target, {
+            scale: 2,
+            useCORS: true,
+            allowTaint: false,
+            backgroundColor: isDark ? "#18181b" : "#ffffff",
+            logging: false
+          });
+
+          originalSrcs.forEach((src, img) => {
+            img.src = src;
+          });
+          if (previewScaler) {
+            previewScaler.style.transform = prevTransform;
+            previewScaler.style.transformOrigin = prevOrigin;
+          }
+
+          canvas.toBlob(async (blob) => {
+            isRenderingImage = false;
+            btnCopyImage.style.opacity = "";
+            btnCopyImage.style.pointerEvents = "";
+
+            if (!blob) {
+              showToast("Could not generate PNG image. Please try again.", "error");
+              return;
+            }
+
+            let copied = false;
+            if (navigator.clipboard && window.ClipboardItem) {
+              try {
+                await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+                copied = true;
+              } catch (e) {
+                console.warn("Clipboard image write rejected, downloading PNG fallback:", e);
+              }
+            }
+
+            if (copied) {
+              showToast(
+                isCompareMode
+                  ? "Comparison image copied to clipboard. Ready to paste."
+                  : "Preview image copied to clipboard. Ready to paste.",
+                "success"
+              );
+            } else {
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement("a");
+              a.href = url;
+              a.download = isCompareMode ? "idg-signature-comparison.png" : "idg-signature-preview.png";
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+              URL.revokeObjectURL(url);
+              showToast("Clipboard image blocked; downloaded PNG instead.", "info");
+            }
+          }, "image/png");
+        } catch (err) {
+          originalSrcs.forEach((src, img) => {
+            img.src = src;
+          });
+          if (previewScaler) {
+            previewScaler.style.transform = prevTransform;
+            previewScaler.style.transformOrigin = prevOrigin;
+          }
+          isRenderingImage = false;
+          btnCopyImage.style.opacity = "";
+          btnCopyImage.style.pointerEvents = "";
+          console.error("html2canvas error:", err);
+          showToast("Could not render preview image. Please try again.", "error");
+        }
+      });
+
+      [
+        [inputName, errFullName],
+        [inputTitle, errJobTitle],
+        [inputMobile, errMobile],
+        [inputLandline, errLandline],
+        [inputEmail, errEmail]
+      ].forEach(([inp, err]) => {
+        inp.addEventListener("input", () => {
+          if (inp.getAttribute("aria-invalid") === "true") {
+            validateForm(true);
+          }
+          updateSignature();
+        });
+      });
+
+      selectLocation.addEventListener("change", () => {
+        const newLocation = selectLocation.value;
+        const prevEntity = ENTITIES[previousLocation];
+        const nextEntity = ENTITIES[newLocation];
+
+        if (!inputLandline.value.trim() || inputLandline.value.trim() === prevEntity.defaultLandline.trim()) {
+          inputLandline.value = nextEntity.defaultLandline;
+        }
+        inputLandline.placeholder = nextEntity.landlinePlaceholder;
+        previousLocation = newLocation;
+        updateSignature();
+      });
+
+      window.addEventListener("resize", adjustPreviewScaling);
+      window.addEventListener("orientationchange", () => setTimeout(adjustPreviewScaling, 150));
+
+      if (window.ResizeObserver && previewBox) {
+        new ResizeObserver(() => {
+          adjustPreviewScaling();
+        }).observe(previewBox);
+      }
+
+      const TOAST_ICONS = {
+        success: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>',
+        info: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>',
+        error: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>'
+      };
+
+      let toastTimer;
+      function showToast(msg, variant = "success") {
+        const toast = document.getElementById("toast");
+        const toastMsg = document.getElementById("toastMsg");
+        const toastIcon = document.getElementById("toastIcon");
+        toast.classList.remove("toast-info", "toast-error");
+        if (variant === "info") {
+          toast.classList.add("toast-info");
+          toast.setAttribute("role", "status");
+          toast.setAttribute("aria-live", "polite");
+        } else if (variant === "error") {
+          toast.classList.add("toast-error");
+          toast.setAttribute("role", "alert");
+          toast.setAttribute("aria-live", "assertive");
+        } else {
+          toast.setAttribute("role", "status");
+          toast.setAttribute("aria-live", "polite");
+        }
+        toastIcon.innerHTML = TOAST_ICONS[variant] || TOAST_ICONS.success;
+        toastMsg.textContent = msg;
+        toast.style.display = "flex";
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+          toast.style.display = "none";
+        }, variant === "error" ? 4500 : 3200);
+      }
+
+      function requireValidForExport() {
+        const check = validateForm(true);
+        if (!check.valid) {
+          if (check.firstInvalid) check.firstInvalid.focus();
+          showToast("Fix highlighted fields before exporting the signature.", "error");
+          return false;
+        }
+        return true;
+      }
+
+      document.getElementById("btnCopySignature").addEventListener("click", async () => {
+        if (!requireValidForExport()) return;
+
+        const preview = document.getElementById("signaturePreview");
+        const scaler = document.getElementById("previewScaler");
+        const prevTransform = scaler.style.transform;
+        const prevOrigin = scaler.style.transformOrigin;
+        scaler.style.transform = "none";
+
+        const exportHtml = getExportSignatureHtml();
+        let copied = false;
+        try {
+          if (navigator.clipboard && window.ClipboardItem) {
+            const htmlBlob = new Blob([exportHtml], { type: "text/html" });
+            const textBlob = new Blob([preview.innerText], { type: "text/plain" });
+            await navigator.clipboard.write([
+              new ClipboardItem({ "text/html": htmlBlob, "text/plain": textBlob })
+            ]);
+            copied = true;
+          }
+        } catch (err) {
+          console.warn("ClipboardItem API unavailable or rejected, using selection fallback:", err);
+        }
+
+        if (!copied) {
+          try {
+            const originalHtml = preview.innerHTML;
+            preview.innerHTML = exportHtml;
+            const range = document.createRange();
+            range.selectNodeContents(preview);
+            const sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+            copied = document.execCommand("copy");
+            sel.removeAllRanges();
+            preview.innerHTML = originalHtml;
+          } catch (e) {
+            console.error("execCommand fallback failed:", e);
+          }
+        }
+
+        scaler.style.transform = prevTransform;
+        scaler.style.transformOrigin = prevOrigin;
+
+        if (copied) {
+          showToast("Formatted signature copied. Paste into Outlook, Apple Mail, or Gmail.", "success");
+        } else {
+          showToast("Browser blocked clipboard access. Use Download .HTML instead.", "error");
+        }
+      });
+
+      document.getElementById("btnDownloadHtml").addEventListener("click", () => {
+        if (!requireValidForExport()) return;
+
+        const rawName = inputName.value.trim();
+        const safeFilename = rawName
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/(^-|-$)/g, "") || "idg-signature";
+        const filename = `${safeFilename}.html`;
+
+        const exportHtml = getExportSignatureHtml();
+        const fullHtmlDocument = `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="format-detection"
+      content="telephone=no, date=no, address=no, email=no"
+    />
+    <title>${escapeHtml(rawName)} - Email Signature</title>
+    <style type="text/css">
+      a[x-apple-data-detectors],
+      u + #body a,
+      #MessageViewBody a,
+      .ii a[href] {
+        color: inherit !important;
+        text-decoration: none !important;
+        font-size: inherit !important;
+        font-family: inherit !important;
+        font-weight: inherit !important;
+        line-height: inherit !important;
+      }
+    </style>
+  </head>
+  <body
+    id="body"
+    style="
+      margin: 0;
+      padding: 14px;
+      background-color: #ffffff;
+      box-sizing: border-box;
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    "
+  >
+${exportHtml}
+  </body>
+</html>`;
+
+        const blob = new Blob([fullHtmlDocument], { type: "text/html;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        showToast(`Downloaded ${filename}.`, "success");
+      });
+
+      document.getElementById("btnCopyCode").addEventListener("click", async () => {
+        if (!requireValidForExport()) return;
+
+        const exportHtml = getExportSignatureHtml();
+        let copied = false;
+        try {
+          await navigator.clipboard.writeText(exportHtml);
+          copied = true;
+        } catch (e) {
+          try {
+            const ta = document.createElement("textarea");
+            ta.value = exportHtml;
+            ta.style.position = "fixed";
+            ta.style.opacity = "0";
+            document.body.appendChild(ta);
+            ta.select();
+            copied = document.execCommand("copy");
+            document.body.removeChild(ta);
+          } catch (err) {
+            copied = false;
+          }
+        }
+
+        if (copied) {
+          showToast("Raw HTML code copied to clipboard.", "success");
+        } else {
+          showToast("Could not copy raw HTML. Use Download .HTML instead.", "error");
+        }
+      });
+
+      if (window.location.protocol === "http:" || window.location.protocol === "https:") {
+        const assetBase = getAssetBaseUrl();
+        signaturePreview.querySelectorAll("img").forEach((img) => {
+          const rawSrc = img.getAttribute("src");
+          if (rawSrc && rawSrc.startsWith("assets/")) {
+            img.src = assetBase + rawSrc.slice("assets/".length);
+          }
+        });
+      }
+
+      updateSignature();
+      captureBeforeSnapshot();
+      setTimeout(adjustPreviewScaling, 150);
+      window.addEventListener("load", adjustPreviewScaling);
+    </script>
+  </body>
+</html>
