@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=5.0"
     />
-    <title>IDG Security - Email Signature Studio</title>
+    <title>Corporate Email Signature Studio - IDG Security &amp; GSS</title>
     <link rel="icon" type="image/png" href="assets/favicon.png" />
     <link rel="apple-touch-icon" href="assets/favicon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -17,26 +17,56 @@
     />
     <style>
       :root {
-        --idg-navy: #003057;
-        --idg-navy-deep: #00213d;
-        --idg-navy-hover: #0a4676;
-        --idg-gold: #a68246;
-        --idg-gold-soft: #f7f2e8;
-        --idg-canvas: #f2f4f7;
-        --idg-surface: #ffffff;
-        --idg-surface-muted: #f7f9fb;
-        --idg-border: #d5dde6;
-        --idg-border-strong: #b6c4d4;
-        --idg-ink: #0d1b2a;
-        --idg-ink-secondary: #435568;
-        --idg-success: #157347;
-        --idg-success-bg: #eaf6ef;
-        --idg-error: #b42318;
-        --idg-error-bg: #fef3f2;
-        --idg-error-border: #fecdca;
+        --brand-primary: #003057;
+        --brand-deep: #00213d;
+        --brand-hover: #0a4676;
+        --brand-accent: #a68246;
+        --brand-accent-soft: #f7f2e8;
+        --brand-accent-border: #e4d4b7;
+        --brand-accent-ink: #5b4319;
+        --brand-focus-ring: rgba(0, 48, 87, 0.14);
+        --brand-selection: rgba(0, 48, 87, 0.16);
+        --brand-tint-bg: #e6eff8;
+        --brand-tint-surface: #eef3f8;
+        --brand-tint-hover: #eaf0f6;
+        --brand-tab-hover: rgba(0, 48, 87, 0.06);
+        --brand-dark-badge-bg: #1e293b;
+        --brand-dark-badge-ink: #93c5fd;
+        --canvas: #f2f4f7;
+        --surface: #ffffff;
+        --surface-muted: #f7f9fb;
+        --border: #d5dde6;
+        --border-strong: #b6c4d4;
+        --ink: #0d1b2a;
+        --ink-secondary: #435568;
+        --success: #157347;
+        --success-bg: #eaf6ef;
+        --warn-ink: #8a4f0e;
+        --warn-bg: #fef7ec;
+        --warn-border: #f3d7a8;
+        --error: #b42318;
+        --error-bg: #fef3f2;
         --radius-sm: 6px;
         --radius-md: 8px;
         --radius-lg: 10px;
+      }
+
+      body[data-brand="gss"] {
+        --brand-primary: #111827;
+        --brand-deep: #0b0f17;
+        --brand-hover: #1f2937;
+        --brand-accent: #b48a28;
+        --brand-accent-soft: #fbf7ec;
+        --brand-accent-border: #e5d5ad;
+        --brand-accent-ink: #5e4610;
+        --brand-focus-ring: rgba(180, 138, 40, 0.24);
+        --brand-selection: rgba(180, 138, 40, 0.22);
+        --brand-tint-bg: #fbf3df;
+        --brand-tint-surface: #f7f4ec;
+        --brand-tint-hover: #f2ece0;
+        --brand-tab-hover: rgba(17, 24, 39, 0.07);
+        --brand-dark-badge-bg: #2c2414;
+        --brand-dark-badge-ink: #f6d88b;
       }
 
       * {
@@ -44,8 +74,8 @@
       }
 
       ::selection {
-        background: rgba(0, 48, 87, 0.16);
-        color: var(--idg-navy-deep);
+        background: var(--brand-selection);
+        color: var(--brand-deep);
       }
 
       html {
@@ -58,20 +88,20 @@
         margin: 0;
         padding: 0;
         width: 100%;
-        background-color: var(--idg-canvas);
-        color: var(--idg-ink);
+        background-color: var(--canvas);
+        color: var(--ink);
         font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         font-size: 14px;
         line-height: 1.5;
-        caret-color: var(--idg-navy);
+        caret-color: var(--brand-primary);
         -webkit-font-smoothing: antialiased;
       }
 
       .skip-link {
         position: absolute;
         left: 16px;
-        top: -48px;
-        background: var(--idg-navy);
+        top: -56px;
+        background: var(--brand-primary);
         color: #ffffff;
         padding: 10px 14px;
         border-radius: var(--radius-sm);
@@ -84,18 +114,19 @@
 
       .skip-link:focus {
         top: 12px;
-        outline: 2px solid var(--idg-gold);
+        outline: 2px solid var(--brand-accent);
         outline-offset: 2px;
       }
 
       .topbar {
-        background: var(--idg-navy-deep);
+        background: var(--brand-deep);
         color: #ffffff;
-        border-bottom: 2px solid var(--idg-gold);
+        border-bottom: 2px solid var(--brand-accent);
+        transition: background-color 0.2s ease, border-color 0.2s ease;
       }
 
       .topbar-inner {
-        max-width: 1120px;
+        max-width: 1140px;
         margin: 0 auto;
         padding: 14px 16px;
         display: flex;
@@ -107,7 +138,7 @@
 
       @media (min-width: 768px) {
         .topbar-inner {
-          padding: 16px 24px;
+          padding: 15px 24px;
         }
       }
 
@@ -124,8 +155,8 @@
       }
 
       .brand-crest {
-        width: 38px;
-        height: 38px;
+        width: 40px;
+        height: 40px;
         border-radius: var(--radius-sm);
         background: #ffffff;
         padding: 3px;
@@ -163,6 +194,48 @@
         color: #c7d6e6;
       }
 
+      .topbar-right {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        max-width: 100%;
+      }
+
+      .brand-switcher {
+        display: inline-flex;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: var(--radius-md);
+        padding: 3px;
+        gap: 3px;
+      }
+
+      .brand-switch-btn {
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: 5px;
+        color: #d6e2ee;
+        font-family: inherit;
+        font-size: 12.5px;
+        font-weight: 600;
+        padding: 6px 12px;
+        min-height: 32px;
+        cursor: pointer;
+        transition: background-color 0.15s ease, color 0.15s ease;
+      }
+
+      .brand-switch-btn:hover {
+        color: #ffffff;
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .brand-switch-btn[aria-pressed="true"] {
+        background: #ffffff;
+        color: var(--brand-deep);
+      }
+
       .entity-context {
         display: flex;
         align-items: center;
@@ -171,14 +244,8 @@
         background: rgba(255, 255, 255, 0.08);
         border: 1px solid rgba(255, 255, 255, 0.16);
         border-radius: var(--radius-md);
-        padding: 8px 12px;
+        padding: 7px 12px;
         max-width: 100%;
-      }
-
-      .entity-context-label {
-        font-size: 12px;
-        color: #bfd0e2;
-        font-weight: 500;
       }
 
       .entity-context-name {
@@ -193,14 +260,14 @@
         font-size: 12px;
         font-weight: 600;
         color: #f6e7c8;
-        background: rgba(166, 130, 70, 0.24);
-        border: 1px solid rgba(246, 231, 200, 0.35);
+        background: rgba(180, 138, 40, 0.26);
+        border: 1px solid rgba(246, 231, 200, 0.36);
         border-radius: 4px;
         padding: 2px 8px;
       }
 
       .workspace {
-        max-width: 1120px;
+        max-width: 1140px;
         margin: 0 auto;
         padding: 18px 14px 48px 14px;
       }
@@ -220,15 +287,15 @@
 
       @media (min-width: 960px) {
         .layout-grid {
-          grid-template-columns: 376px minmax(0, 1fr);
+          grid-template-columns: 382px minmax(0, 1fr);
           align-items: start;
           gap: 24px;
         }
       }
 
       .panel {
-        background: var(--idg-surface);
-        border: 1px solid var(--idg-border);
+        background: var(--surface);
+        border: 1px solid var(--border);
         border-radius: var(--radius-lg);
         box-shadow: 0 2px 8px rgba(13, 27, 42, 0.05);
         width: 100%;
@@ -242,15 +309,15 @@
         flex-wrap: wrap;
         gap: 8px 10px;
         padding: 14px 18px;
-        border-bottom: 1px solid var(--idg-border);
-        background: var(--idg-surface);
+        border-bottom: 1px solid var(--border);
+        background: var(--surface);
         border-radius: var(--radius-lg) var(--radius-lg) 0 0;
       }
 
       .panel-title {
         font-size: 15px;
         font-weight: 700;
-        color: var(--idg-navy-deep);
+        color: var(--brand-deep);
         margin: 0;
         letter-spacing: -0.01em;
       }
@@ -269,9 +336,9 @@
       }
 
       .btn-ghost {
-        background: var(--idg-surface-muted);
-        color: var(--idg-navy);
-        border: 1px solid var(--idg-border);
+        background: var(--surface-muted);
+        color: var(--brand-primary);
+        border: 1px solid var(--border);
         border-radius: var(--radius-sm);
         font-family: inherit;
         font-size: 12px;
@@ -287,12 +354,18 @@
       }
 
       .btn-ghost:hover {
-        background: #eaf0f6;
-        border-color: var(--idg-border-strong);
+        background: var(--brand-tint-hover);
+        border-color: var(--border-strong);
+      }
+
+      .form-section-sep {
+        margin: 14px 0;
+        border: 0;
+        border-top: 1px solid #e6ecf2;
       }
 
       .form-group {
-        margin-bottom: 14px;
+        margin-bottom: 13px;
       }
 
       .form-group:last-of-type {
@@ -311,32 +384,40 @@
         display: block;
         font-size: 13px;
         font-weight: 600;
-        color: var(--idg-ink);
+        color: var(--ink);
       }
 
       .field-hint {
         font-size: 12px;
-        color: var(--idg-ink-secondary);
+        color: var(--ink-secondary);
       }
 
       input[type="text"],
       input[type="email"],
       input[type="tel"],
-      select {
+      select,
+      textarea {
         width: 100%;
         min-height: 44px;
         padding: 9px 12px;
         font-family: inherit;
         font-size: 15px;
         font-variant-numeric: tabular-nums;
-        border: 1px solid var(--idg-border-strong);
+        border: 1px solid var(--border-strong);
         border-radius: var(--radius-md);
-        color: var(--idg-ink);
+        color: var(--ink);
         background: #ffffff;
         transition: border-color 0.15s ease, box-shadow 0.15s ease;
       }
 
-      input::placeholder {
+      textarea {
+        min-height: 68px;
+        resize: vertical;
+        line-height: 1.45;
+      }
+
+      input::placeholder,
+      textarea::placeholder {
         color: #667788;
       }
 
@@ -344,28 +425,39 @@
         input[type="text"],
         input[type="email"],
         input[type="tel"],
-        select {
+        select,
+        textarea {
           font-size: 14px;
           min-height: 40px;
+        }
+        textarea {
+          min-height: 64px;
         }
       }
 
       input:focus-visible,
       select:focus-visible,
+      textarea:focus-visible,
       button:focus-visible,
+      summary:focus-visible,
       a:focus-visible {
-        outline: 2px solid var(--idg-navy);
+        outline: 2px solid var(--brand-primary);
         outline-offset: 2px;
       }
 
+      .topbar button:focus-visible {
+        outline-color: #f6e7c8;
+      }
+
       input:focus,
-      select:focus {
-        border-color: var(--idg-navy);
-        box-shadow: 0 0 0 3px rgba(0, 48, 87, 0.12);
+      select:focus,
+      textarea:focus {
+        border-color: var(--brand-primary);
+        box-shadow: 0 0 0 3px var(--brand-focus-ring);
       }
 
       input[aria-invalid="true"] {
-        border-color: var(--idg-error);
+        border-color: var(--error);
         background-color: #fffbfa;
       }
 
@@ -378,7 +470,7 @@
         margin-top: 5px;
         font-size: 12px;
         font-weight: 500;
-        color: var(--idg-error);
+        color: var(--error);
       }
 
       .field-error.visible {
@@ -386,13 +478,13 @@
       }
 
       .entity-note-box {
-        margin-top: 6px;
+        margin-top: 7px;
         padding: 8px 10px;
         border-radius: var(--radius-sm);
-        background: var(--idg-gold-soft);
-        border: 1px solid #e4d4b7;
+        background: var(--brand-accent-soft);
+        border: 1px solid var(--brand-accent-border);
         font-size: 12px;
-        color: #5b4319;
+        color: var(--brand-accent-ink);
         display: none;
       }
 
@@ -400,10 +492,47 @@
         display: block;
       }
 
+      .overrides-disclosure {
+        margin-top: 14px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        background: var(--surface-muted);
+      }
+
+      .overrides-disclosure summary {
+        padding: 10px 12px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--brand-primary);
+        cursor: pointer;
+        list-style: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .overrides-disclosure summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .overrides-disclosure[open] summary {
+        border-bottom: 1px solid var(--border);
+      }
+
+      .overrides-body {
+        padding: 12px;
+      }
+
+      .overrides-actions {
+        margin-top: 10px;
+        display: flex;
+        justify-content: flex-end;
+      }
+
       .actions-block {
-        margin-top: 20px;
+        margin-top: 18px;
         padding-top: 16px;
-        border-top: 1px solid var(--idg-border);
+        border-top: 1px solid var(--border);
         display: flex;
         flex-direction: column;
         gap: 10px;
@@ -432,12 +561,12 @@
       }
 
       .btn-primary {
-        background: var(--idg-navy);
+        background: var(--brand-primary);
         color: #ffffff;
       }
 
       .btn-primary:hover {
-        background: var(--idg-navy-hover);
+        background: var(--brand-hover);
       }
 
       .btn-secondary-grid {
@@ -453,21 +582,32 @@
       }
 
       .btn-secondary {
-        background: var(--idg-surface-muted);
-        color: var(--idg-ink);
-        border-color: var(--idg-border-strong);
+        background: var(--surface-muted);
+        color: var(--ink);
+        border-color: var(--border-strong);
         font-size: 13px;
         padding: 9px 12px;
       }
 
       .btn-secondary:hover {
-        background: #eaf0f6;
+        background: var(--brand-tint-hover);
       }
 
       .action-caption {
         margin: 2px 0 0 0;
         font-size: 12px;
-        color: var(--idg-ink-secondary);
+        color: var(--ink-secondary);
+      }
+
+      .kbd-hint {
+        display: inline-block;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 11px;
+        padding: 1px 5px;
+        border-radius: 4px;
+        border: 1px solid var(--border-strong);
+        background: #ffffff;
+        color: var(--ink-secondary);
       }
 
       .preview-toolbar {
@@ -486,18 +626,18 @@
       .toolbar-divider {
         width: 1px;
         height: 22px;
-        background: var(--idg-border);
+        background: var(--border);
         margin: 0 4px;
       }
 
       .toggle-btn {
-        background: var(--idg-surface-muted);
-        border: 1px solid var(--idg-border);
+        background: var(--surface-muted);
+        border: 1px solid var(--border);
         border-radius: var(--radius-sm);
         font-family: inherit;
         font-size: 12px;
         font-weight: 600;
-        color: var(--idg-ink-secondary);
+        color: var(--ink-secondary);
         padding: 6px 10px;
         cursor: pointer;
         min-height: 34px;
@@ -508,26 +648,20 @@
         transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
       }
 
-      .toggle-btn:hover {
-        background: #eaf0f6;
-        color: var(--idg-ink);
+      .toggle-btn:hover:not(:disabled) {
+        background: var(--brand-tint-hover);
+        color: var(--ink);
       }
 
       .toggle-btn.active {
-        background: var(--idg-navy);
+        background: var(--brand-primary);
         color: #ffffff;
-        border-color: var(--idg-navy);
+        border-color: var(--brand-primary);
       }
 
-      @media (max-width: 640px) {
-        .toolbar-divider {
-          display: none;
-        }
-        .toggle-btn,
-        .btn-ghost {
-          min-height: 40px;
-          padding: 7px 11px;
-        }
+      .toggle-btn:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
       }
 
       .tip-wrap {
@@ -537,12 +671,14 @@
 
       .tip-wrap::after {
         content: attr(data-tip);
+        display: none;
         position: absolute;
         top: calc(100% + 6px);
         right: 0;
+        left: auto;
         width: 220px;
-        max-width: calc(100vw - 48px);
-        background: var(--idg-ink);
+        max-width: calc(100vw - 32px);
+        background: var(--ink);
         color: #f8fafc;
         font-size: 12px;
         font-weight: 500;
@@ -550,29 +686,43 @@
         padding: 8px 10px;
         border-radius: var(--radius-sm);
         box-shadow: 0 6px 16px rgba(13, 27, 42, 0.22);
-        opacity: 0;
-        visibility: hidden;
         pointer-events: none;
-        transition: opacity 0.15s ease;
         z-index: 60;
         white-space: normal;
         text-align: left;
       }
 
       .tip-wrap:hover::after,
-      .tip-wrap:focus-within::after {
-        opacity: 1;
-        visibility: visible;
+      .tip-wrap:has(button:focus-visible)::after {
+        display: block;
       }
 
       .tip-wrap.tip-dismiss::after {
-        opacity: 0 !important;
-        visibility: hidden !important;
+        display: none !important;
+      }
+
+      @media (max-width: 640px) {
+        .toolbar-divider {
+          display: none;
+        }
+        .tip-wrap::after {
+          display: none !important;
+        }
+        .brand-switch-btn,
+        .toggle-btn,
+        .btn-ghost,
+        .tab-btn {
+          min-height: 44px;
+        }
+        .toggle-btn,
+        .btn-ghost {
+          padding: 7px 11px;
+        }
       }
 
       .preview-stage {
         background: #ffffff;
-        border: 1px solid var(--idg-border);
+        border: 1px solid var(--border);
         border-radius: var(--radius-md);
         padding: 12px;
         width: 100%;
@@ -593,18 +743,37 @@
         border-color: #3f3f46;
       }
 
+      .preview-stage.dark-preview .btn-ghost {
+        background: #27272a;
+        color: #f4f4f5;
+        border-color: #52525b;
+      }
+
+      .preview-stage.dark-preview .btn-ghost:hover {
+        background: #3f3f46;
+        border-color: #71717a;
+      }
+
       .preview-stage.dark-preview #signaturePreview td,
       .preview-stage.dark-preview #signaturePreview div,
       .preview-stage.dark-preview #signaturePreview a,
       .preview-stage.dark-preview #signaturePreview span,
+      .preview-stage.dark-preview #signaturePreview strong,
+      .preview-stage.dark-preview .sig-render-root td,
+      .preview-stage.dark-preview .sig-render-root div,
+      .preview-stage.dark-preview .sig-render-root a,
+      .preview-stage.dark-preview .sig-render-root span,
+      .preview-stage.dark-preview .sig-render-root strong,
       .preview-stage.dark-preview .compare-frame td,
       .preview-stage.dark-preview .compare-frame div,
       .preview-stage.dark-preview .compare-frame a,
-      .preview-stage.dark-preview .compare-frame span {
+      .preview-stage.dark-preview .compare-frame span,
+      .preview-stage.dark-preview .compare-frame strong {
         color: #e2e8f0 !important;
       }
 
       .preview-stage.dark-preview #signaturePreview div[style*="15803d"],
+      .preview-stage.dark-preview .sig-render-root div[style*="15803d"],
       .preview-stage.dark-preview .compare-frame div[style*="15803d"] {
         color: #4ade80 !important;
       }
@@ -629,7 +798,8 @@
         max-width: 100%;
         min-width: 0;
         position: relative;
-        overflow: hidden;
+        overflow-x: hidden;
+        overflow-y: visible;
         contain: inline-size;
       }
 
@@ -638,7 +808,8 @@
         width: 580px;
       }
 
-      #signaturePreview {
+      #signaturePreview,
+      .sig-render-root {
         width: 580px;
       }
 
@@ -653,9 +824,9 @@
         justify-content: space-between;
         flex-wrap: wrap;
         gap: 10px;
-        margin-bottom: 14px;
+        margin-bottom: 12px;
         padding-bottom: 12px;
-        border-bottom: 1px solid var(--idg-border);
+        border-bottom: 1px solid var(--border);
       }
 
       .preview-stage.dark-preview .compare-bar {
@@ -672,20 +843,20 @@
       .compare-heading {
         font-size: 12px;
         font-weight: 700;
-        color: var(--idg-navy);
-        background: #e6eff8;
+        color: var(--brand-primary);
+        background: var(--brand-tint-bg);
         padding: 5px 10px;
         border-radius: var(--radius-sm);
       }
 
       .preview-stage.dark-preview .compare-heading {
-        background: #1e293b;
-        color: #93c5fd;
+        background: var(--brand-dark-badge-bg);
+        color: var(--brand-dark-badge-ink);
       }
 
       .compare-timestamp {
         font-size: 12px;
-        color: var(--idg-ink-secondary);
+        color: var(--ink-secondary);
         font-variant-numeric: tabular-nums;
       }
 
@@ -696,7 +867,7 @@
       .compare-status-hint {
         margin: 0 0 12px 0;
         font-size: 12px;
-        color: var(--idg-ink-secondary);
+        color: var(--ink-secondary);
       }
 
       .preview-stage.dark-preview .compare-status-hint {
@@ -711,12 +882,12 @@
       }
 
       .compare-pane {
-        border: 1px solid var(--idg-border);
+        border: 1px solid var(--border);
         border-radius: var(--radius-md);
         padding: 12px;
         background: #ffffff;
         width: 100%;
-        overflow-x: auto;
+        overflow: hidden;
       }
 
       .preview-stage.dark-preview .compare-pane {
@@ -751,12 +922,12 @@
       }
 
       .after-tag {
-        background: var(--idg-success-bg);
+        background: var(--success-bg);
         color: #14532d;
       }
 
       .after-tag .tag-dot {
-        background: var(--idg-success);
+        background: var(--success);
       }
 
       .preview-stage.dark-preview .before-tag {
@@ -769,17 +940,23 @@
         color: #86efac;
       }
 
+      .compare-frame-viewport {
+        width: 100%;
+        overflow: hidden;
+        contain: inline-size;
+      }
+
       .compare-frame {
         width: 580px;
-        min-width: 580px;
+        transform-origin: top left;
       }
 
       .preflight-bar {
         margin-top: 14px;
         padding: 10px 14px;
         border-radius: var(--radius-md);
-        border: 1px solid var(--idg-border);
-        background: var(--idg-surface-muted);
+        border: 1px solid var(--border);
+        background: var(--surface-muted);
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -788,33 +965,63 @@
         font-size: 12.5px;
       }
 
+      .preflight-bar.has-warn {
+        background: var(--warn-bg);
+        border-color: var(--warn-border);
+      }
+
+      .preflight-left {
+        display: inline-flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
       .preflight-status {
         display: inline-flex;
         align-items: center;
         gap: 7px;
         font-weight: 600;
-        color: var(--idg-ink);
+        color: var(--ink);
       }
 
       .preflight-status.is-ready {
-        color: var(--idg-success);
+        color: var(--success);
       }
 
       .preflight-status.is-warn {
-        color: #9a5b13;
+        color: var(--warn-ink);
+      }
+
+      .preflight-action-btn {
+        background: #ffffff;
+        color: var(--brand-primary);
+        border: 1px solid var(--brand-accent-border);
+        border-radius: var(--radius-sm);
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 4px 9px;
+        min-height: 28px;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+
+      .preflight-action-btn:hover {
+        background: var(--brand-accent-soft);
       }
 
       .preflight-meta {
         font-size: 12px;
-        color: var(--idg-ink-secondary);
+        color: var(--ink-secondary);
         font-variant-numeric: tabular-nums;
       }
 
       .setup-card {
         margin-top: 16px;
-        border: 1px solid var(--idg-border);
+        border: 1px solid var(--border);
         border-radius: var(--radius-md);
-        background: var(--idg-surface-muted);
+        background: var(--surface-muted);
         overflow: hidden;
       }
 
@@ -825,14 +1032,14 @@
         flex-wrap: wrap;
         gap: 8px;
         padding: 10px 14px;
-        border-bottom: 1px solid var(--idg-border);
-        background: #eef3f8;
+        border-bottom: 1px solid var(--border);
+        background: var(--brand-tint-surface);
       }
 
       .setup-title {
         font-size: 13px;
         font-weight: 700;
-        color: var(--idg-navy-deep);
+        color: var(--brand-deep);
         margin: 0;
       }
 
@@ -848,7 +1055,7 @@
         font-family: inherit;
         font-size: 12px;
         font-weight: 600;
-        color: var(--idg-ink-secondary);
+        color: var(--ink-secondary);
         padding: 6px 11px;
         min-height: 32px;
         cursor: pointer;
@@ -856,21 +1063,21 @@
       }
 
       .tab-btn:hover {
-        background: rgba(0, 48, 87, 0.06);
-        color: var(--idg-navy);
+        background: var(--brand-tab-hover);
+        color: var(--brand-primary);
       }
 
       .tab-btn[aria-selected="true"] {
         background: #ffffff;
-        color: var(--idg-navy);
-        border-color: var(--idg-border-strong);
+        color: var(--brand-primary);
+        border-color: var(--border-strong);
       }
 
       .setup-panel {
         padding: 14px 16px;
         font-size: 13px;
         line-height: 1.5;
-        color: var(--idg-ink);
+        color: var(--ink);
       }
 
       .setup-panel[hidden] {
@@ -893,9 +1100,9 @@
       .setup-note {
         margin-top: 10px;
         padding-top: 10px;
-        border-top: 1px solid var(--idg-border);
+        border-top: 1px solid var(--border);
         font-size: 12px;
-        color: var(--idg-ink-secondary);
+        color: var(--ink-secondary);
       }
 
       .toast {
@@ -903,9 +1110,9 @@
         bottom: 18px;
         left: 16px;
         right: 16px;
-        max-width: 460px;
+        max-width: 500px;
         margin: 0 auto;
-        background: var(--idg-success);
+        background: var(--success);
         color: #ffffff;
         padding: 12px 16px;
         border-radius: var(--radius-md);
@@ -914,25 +1121,51 @@
         box-shadow: 0 8px 24px rgba(13, 27, 42, 0.24);
         display: none;
         align-items: center;
-        justify-content: center;
-        gap: 9px;
+        justify-content: space-between;
+        gap: 12px;
         z-index: 1000;
-        text-align: left;
+      }
+
+      .toast-main {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
       }
 
       .toast.toast-info {
-        background: var(--idg-navy);
+        background: var(--brand-primary);
       }
 
       .toast.toast-error {
-        background: var(--idg-error);
+        background: var(--error);
       }
 
       .toast svg {
         flex-shrink: 0;
       }
+
+      .toast-undo-btn {
+        background: rgba(255, 255, 255, 0.18);
+        color: #ffffff;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 5px;
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 4px 10px;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+
+      .toast-undo-btn:hover {
+        background: rgba(255, 255, 255, 0.28);
+      }
+
+      .is-hidden {
+        display: none !important;
+      }
     </style>
-    <script src="assets/assets-inline.js"></script>
+    <script src="assets/assets-inline.js?v=2"></script>
     <script src="assets/html2canvas.min.js"></script>
     <script>
       if (typeof html2canvas === "undefined") {
@@ -942,25 +1175,31 @@
       }
     </script>
   </head>
-  <body>
+  <body data-brand="idg">
     <a class="skip-link" href="#mainWorkspace">Skip to signature workspace</a>
 
     <header class="topbar">
       <div class="topbar-inner">
         <div class="brand-block">
           <div class="brand-crest">
-            <img src="assets/idg-logo.png" alt="IDG Security crest" width="32" height="32" />
+            <img id="topbarCrest" src="assets/idg-logo.png" alt="IDG Security crest" width="34" height="34" />
           </div>
           <div>
-            <h1 class="brand-title">IDG Security Signature Studio</h1>
-            <p class="brand-subtitle">Corporate email signature builder across global IDG entities</p>
+            <h1 class="brand-title" id="topbarTitle">IDG Security Signature Studio</h1>
+            <p class="brand-subtitle" id="topbarSubtitle">Corporate email signature builder across global IDG entities</p>
           </div>
         </div>
 
-        <div class="entity-context" aria-live="polite">
-          <span class="entity-context-label">Active entity:</span>
-          <span class="entity-context-name" id="activeEntityName">IDG Group DMCC</span>
-          <span class="entity-rule-tag" id="activeEntityRule">3-ISO MSS Banner</span>
+        <div class="topbar-right">
+          <div class="brand-switcher" role="group" aria-label="Switch corporate brand">
+            <button type="button" class="brand-switch-btn" id="btnBrandIdg" aria-pressed="true">IDG Security</button>
+            <button type="button" class="brand-switch-btn" id="btnBrandGss" aria-pressed="false">GSS</button>
+          </div>
+
+          <div class="entity-context" aria-live="polite">
+            <span class="entity-context-name" id="activeEntityName">IDG Group DMCC</span>
+            <span class="entity-rule-tag" id="activeEntityRule">Option 4A · 3-ISO</span>
+          </div>
         </div>
       </div>
     </header>
@@ -972,27 +1211,56 @@
             <h2 class="panel-title" id="detailsHeading">Employee Details</h2>
             <div class="form-tools">
               <button type="button" class="btn-ghost" id="btnLoadSample">Load Sample</button>
-              <button type="button" class="btn-ghost" id="btnNextEmployee">Next Employee</button>
+              <button type="button" class="btn-ghost" id="btnNextEmployee" title="Shortcut: Alt + N">Next Employee</button>
             </div>
           </div>
 
           <div class="panel-body">
-            <div class="form-group">
+            <div class="form-group" id="groupIdgLocation">
               <div class="label-row">
-                <label for="officeLocation">Office Location (Entity)</label>
+                <label for="idgLocation">Office Location (Entity)</label>
               </div>
-              <select id="officeLocation">
-                <option value="uae" selected>United Arab Emirates (Dubai)</option>
-                <option value="idg_group">IDG Group (Dubai, UAE)</option>
-                <option value="iraq">Iraq (Baghdad)</option>
-                <option value="usa">United States (Virginia)</option>
-                <option value="myanmar">Myanmar (Yangon)</option>
-                <option value="afghanistan">Afghanistan (Kabul)</option>
-                <option value="india">India (Dehradun)</option>
-                <option value="nepal">Nepal (Lalitpur)</option>
+              <select id="idgLocation">
+                <optgroup label="UAE Headquarters">
+                  <option value="uae" selected>UAE - IDG Security (Dubai)</option>
+                  <option value="idg_group">UAE - IDG Group Logo (Dubai)</option>
+                </optgroup>
+                <optgroup label="Middle East Operations">
+                  <option value="iraq">Iraq (Baghdad - 5-ISO &amp; Stacked Title)</option>
+                </optgroup>
+                <optgroup label="Global Offices">
+                  <option value="usa">United States (Virginia)</option>
+                  <option value="myanmar">Myanmar (Yangon)</option>
+                  <option value="afghanistan">Afghanistan (Kabul)</option>
+                  <option value="india">India (Dehradun)</option>
+                  <option value="nepal">Nepal (Lalitpur)</option>
+                </optgroup>
               </select>
-              <div class="entity-note-box" id="entityNoteBox"></div>
             </div>
+
+            <div class="form-group is-hidden" id="groupGssEntity">
+              <div class="label-row">
+                <label for="gssEntity">GSS Entity / Office Location</label>
+              </div>
+              <select id="gssEntity">
+                <option value="afghanistan" selected>Afghanistan - Global Star Security (Kabul)</option>
+                <option value="uae">UAE - GSS International Limited (Dubai)</option>
+              </select>
+            </div>
+
+            <div class="form-group is-hidden" id="groupGssMode">
+              <div class="label-row">
+                <label for="gssNoticeMode">Signature Mode</label>
+              </div>
+              <select id="gssNoticeMode">
+                <option value="standard" selected>Standard</option>
+                <option value="transition">Transition (Business Continuity Notice)</option>
+              </select>
+            </div>
+
+            <div class="entity-note-box" id="entityNoteBox"></div>
+
+            <hr class="form-section-sep" />
 
             <div class="form-group">
               <div class="label-row">
@@ -1007,7 +1275,7 @@
                 autocomplete="name"
                 aria-describedby="errFullName"
               />
-              <div class="field-error" id="errFullName" role="alert"></div>
+              <div class="field-error" id="errFullName"></div>
             </div>
 
             <div class="form-group">
@@ -1022,7 +1290,24 @@
                 placeholder="e.g. Operations Manager"
                 aria-describedby="errJobTitle"
               />
-              <div class="field-error" id="errJobTitle" role="alert"></div>
+              <div class="field-error" id="errJobTitle"></div>
+            </div>
+
+            <hr class="form-section-sep" />
+
+            <div class="form-group">
+              <div class="label-row">
+                <label for="landline">Landline (Office Phone)</label>
+                <span class="field-hint">Optional</span>
+              </div>
+              <input
+                type="tel"
+                id="landline"
+                value="+971 (04) 514 4958"
+                placeholder="e.g. +971 (04) 514 4958"
+                aria-describedby="errLandline"
+              />
+              <div class="field-error" id="errLandline"></div>
             </div>
 
             <div class="form-group">
@@ -1038,27 +1323,12 @@
                 autocomplete="tel"
                 aria-describedby="errMobile"
               />
-              <div class="field-error" id="errMobile" role="alert"></div>
+              <div class="field-error" id="errMobile"></div>
             </div>
 
             <div class="form-group">
               <div class="label-row">
-                <label for="landline">Landline (Office Phone)</label>
-                <span class="field-hint">Optional</span>
-              </div>
-              <input
-                type="tel"
-                id="landline"
-                value="+971 (04) 514 4958"
-                placeholder="e.g. +971 (04) 514 4958"
-                aria-describedby="errLandline"
-              />
-              <div class="field-error" id="errLandline" role="alert"></div>
-            </div>
-
-            <div class="form-group">
-              <div class="label-row">
-                <label for="email">IDG Email Address</label>
+                <label for="email" id="emailLabel">IDG Email Address</label>
                 <span class="field-hint">Required</span>
               </div>
               <input
@@ -1069,11 +1339,36 @@
                 autocomplete="email"
                 aria-describedby="errEmail"
               />
-              <div class="field-error" id="errEmail" role="alert"></div>
+              <div class="field-error" id="errEmail"></div>
             </div>
 
+            <details class="overrides-disclosure is-hidden" id="gssOverrides">
+              <summary>
+                <span>Customize GSS Company, Address &amp; Website</span>
+                <span class="field-hint">Optional</span>
+              </summary>
+              <div class="overrides-body">
+                <div class="form-group">
+                  <label for="gssCompanyName">Entity / Company Name</label>
+                  <input type="text" id="gssCompanyName" value="Global Star Security Services Company" placeholder="e.g. Global Star Security Services Company" />
+                </div>
+                <div class="form-group">
+                  <label for="gssAddress">Office Address (2 lines recommended)</label>
+                  <textarea id="gssAddress" placeholder="Enter office address">House No. 2, Street 15, Wazir Akbar Khan Circle,
+Wazir Akbar Khan, Kabul - Afghanistan</textarea>
+                </div>
+                <div class="form-group">
+                  <label for="gssWebsite">Website</label>
+                  <input type="text" id="gssWebsite" value="www.globalstar-security.com" placeholder="e.g. www.globalstar-security.com" />
+                </div>
+                <div class="overrides-actions">
+                  <button type="button" class="btn-ghost" id="btnResetGssDefaults">Reset to Entity Defaults</button>
+                </div>
+              </div>
+            </details>
+
             <div class="actions-block">
-              <button type="button" class="btn btn-primary" id="btnCopySignature">
+              <button type="button" class="btn btn-primary" id="btnCopySignature" title="Shortcut: Alt + C">
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                   <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
@@ -1098,7 +1393,9 @@
                   <span>Copy Raw HTML</span>
                 </button>
               </div>
-              <p class="action-caption">Use Copy Formatted for direct paste, or Download .HTML to send an employee their ready-to-open signature file.</p>
+              <p class="action-caption">
+                Copy Formatted for direct paste, Download .HTML to send an employee their file, or Copy Raw HTML for IT scripts. Shortcuts: <span class="kbd-hint">Alt+C</span> copy, <span class="kbd-hint">Alt+N</span> next employee.
+              </p>
             </div>
           </div>
         </section>
@@ -1118,7 +1415,7 @@
                 <span class="tip-wrap" data-tip="Simulate dark-mode email clients against a dark canvas.">
                   <button type="button" class="toggle-btn" id="btnDarkMode" aria-pressed="false">Dark Mode</button>
                 </span>
-                <span class="tip-wrap" data-tip="Pin a baseline snapshot and compare edits above and below.">
+                <span class="tip-wrap" data-tip="Pin a baseline snapshot and compare edits (press Esc to close).">
                   <button type="button" class="toggle-btn" id="btnCompare" aria-pressed="false">Compare</button>
                 </span>
               </div>
@@ -1144,7 +1441,7 @@
                 <div class="compare-bar">
                   <div class="compare-meta">
                     <span class="compare-heading">Before / After Snapshot</span>
-                    <span class="compare-timestamp" id="compareTimestamp">Baseline captured on load</span>
+                    <span class="compare-timestamp" id="compareTimestamp">Baseline ready</span>
                   </div>
                   <button type="button" class="btn-ghost" id="btnPinBefore">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -1154,480 +1451,55 @@
                     <span>Set Current as Before</span>
                   </button>
                 </div>
-                <p class="compare-status-hint" id="compareStatusHint">Edit any field on the left to inspect differences between the pinned baseline and the updated signature.</p>
+                <p class="compare-status-hint" id="compareStatusHint">Edit any field on the left to inspect changes against your pinned baseline.</p>
                 <div class="compare-grid" id="compareGrid">
                   <div class="compare-pane">
                     <div class="compare-tag before-tag">
                       <span class="tag-dot" aria-hidden="true"></span>
                       <span>Before (Pinned Baseline)</span>
                     </div>
-                    <div class="compare-frame" id="beforePreview"></div>
+                    <div class="compare-frame-viewport">
+                      <div class="compare-frame" id="beforePreview"></div>
+                    </div>
                   </div>
                   <div class="compare-pane">
                     <div class="compare-tag after-tag">
                       <span class="tag-dot" aria-hidden="true"></span>
                       <span>After (Current Edit)</span>
                     </div>
-                    <div class="compare-frame" id="afterPreview"></div>
+                    <div class="compare-frame-viewport">
+                      <div class="compare-frame" id="afterPreview"></div>
+                    </div>
                   </div>
                 </div>
               </div>
 
               <div class="preview-viewport" id="previewViewport" aria-label="Rendered email signature preview">
                 <div class="preview-scaler" id="previewScaler">
-                  <div id="signaturePreview">
-                    <table
-                      role="presentation"
-                      width="580"
-                      cellpadding="0"
-                      cellspacing="0"
-                      border="0"
-                      style="
-                        border-collapse: collapse;
-                        font-family: Helvetica, Arial, sans-serif;
-                        color: #003057;
-                        width: 580px;
-                        min-width: 580px;
-                        max-width: 580px;
-                        -webkit-text-size-adjust: 100%;
-                        -ms-text-size-adjust: 100%;
-                      "
-                    >
-                      <tbody>
-                        <tr>
-                          <td style="padding: 0 0 5px 0">
-                            <table
-                              cellpadding="0"
-                              cellspacing="0"
-                              border="0"
-                              style="width: 100%; border-collapse: collapse"
-                            >
-                              <tbody>
-                                <tr>
-                                  <td
-                                    valign="top"
-                                    align="left"
-                                    style="width: 114px; padding: 0 14px 0 0; font-size: 0; line-height: 0"
-                                  >
-                                    <a
-                                      href="https://idg-security.com/"
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      tabindex="-1"
-                                      style="text-decoration: none; display: block; line-height: 0"
-                                    >
-                                      <img
-                                        id="displayMainLogo"
-                                        src="assets/idg-logo.png"
-                                        nosend="1"
-                                        border="0"
-                                        width="114"
-                                        height="105"
-                                        alt="IDG Security"
-                                        title="IDG Security"
-                                        style="
-                                          display: block;
-                                          width: 114px;
-                                          height: 105px;
-                                          border: 0;
-                                        "
-                                      />
-                                    </a>
-                                  </td>
-
-                                  <td valign="top" style="padding: 0">
-                                    <table
-                                      cellpadding="0"
-                                      cellspacing="0"
-                                      border="0"
-                                      style="width: 100%; border-collapse: collapse"
-                                    >
-                                      <tbody>
-                                        <tr>
-                                          <td
-                                            id="displayNameRole"
-                                            colspan="2"
-                                            valign="top"
-                                            style="
-                                              font-family: Helvetica, Arial, sans-serif;
-                                              font-size: 13.5px;
-                                              line-height: 16px;
-                                              font-weight: bold;
-                                              color: #003057;
-                                              letter-spacing: 0.2px;
-                                              padding: 0 0 7px 0;
-                                            "
-                                          >
-                                            [Full Name]&nbsp;&middot;&nbsp;[Job Title]
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td
-                                            valign="top"
-                                            style="width: 20px; padding: 1px 2px 3px 0; font-size: 0; line-height: 0"
-                                          >
-                                            <img
-                                              src="assets/icon-location.png"
-                                              nosend="1"
-                                              border="0"
-                                              width="14"
-                                              height="15"
-                                              alt="Location"
-                                              style="
-                                                display: block;
-                                                width: 14px;
-                                                height: 15px;
-                                                border: 0;
-                                              "
-                                            />
-                                          </td>
-                                          <td
-                                            id="displayEntityAddress"
-                                            valign="top"
-                                            style="
-                                              font-family: Helvetica, Arial, sans-serif;
-                                              font-size: 11px;
-                                              line-height: 14.5px;
-                                              color: #003057;
-                                              padding: 0 0 3px 0;
-                                            "
-                                          >
-                                            <a
-                                              href="https://idg-security.com/"
-                                              target="_blank"
-                                              rel="noopener noreferrer"
-                                              tabindex="-1"
-                                              style="color: #003057; text-decoration: none"
-                                              >Unit 15&#8203;01, The Do&#8203;me Tow&#8203;er, Clu&#8203;ster N, Jum&#8203;eirah La&#8203;ke Tow&#8203;ers<br />Du&#8203;bai, Uni&#8203;ted Ar&#8203;ab Emi&#8203;rates</a
-                                            >
-                                          </td>
-                                        </tr>
-
-                                        <tr>
-                                          <td colspan="2" style="padding: 0; font-size: 0; line-height: 0">
-                                            <table
-                                              cellpadding="0"
-                                              cellspacing="0"
-                                              border="0"
-                                              style="border-collapse: collapse"
-                                            >
-                                              <tbody>
-                                                <tr>
-                                                  <td
-                                                    valign="middle"
-                                                    style="width: 20px; padding: 0 2px 3px 0; font-size: 0; line-height: 0"
-                                                  >
-                                                    <a
-                                                      id="displayLandlineIconLink"
-                                                      href="tel:+97145144958"
-                                                      tabindex="-1"
-                                                      style="text-decoration: none; border: 0; display: block; line-height: 0"
-                                                      ><img
-                                                        src="assets/icon-phone.png"
-                                                        nosend="1"
-                                                        border="0"
-                                                        width="13"
-                                                        height="13"
-                                                        alt="Phone"
-                                                        style="
-                                                          display: block;
-                                                          width: 13px;
-                                                          height: 13px;
-                                                          border: 0;
-                                                        "
-                                                    /></a>
-                                                  </td>
-                                                  <td
-                                                    valign="middle"
-                                                    style="
-                                                      font-family: Helvetica, Arial, sans-serif;
-                                                      font-size: 11px;
-                                                      line-height: 14.5px;
-                                                      color: #003057;
-                                                      padding: 0 32px 3px 0;
-                                                      white-space: nowrap;
-                                                    "
-                                                  >
-                                                    <a
-                                                      id="displayLandlineLink"
-                                                      href="tel:+97145144958"
-                                                      tabindex="-1"
-                                                      style="color: #003057; text-decoration: none"
-                                                      >+971 (04) 514 4958</a
-                                                    >
-                                                  </td>
-                                                  <td
-                                                    valign="middle"
-                                                    style="width: 20px; padding: 0 2px 3px 0; font-size: 0; line-height: 0"
-                                                  >
-                                                    <a
-                                                      href="https://www.linkedin.com/company/idg-security/"
-                                                      target="_blank"
-                                                      rel="noopener noreferrer"
-                                                      tabindex="-1"
-                                                      style="text-decoration: none; border: 0; display: block; line-height: 0"
-                                                      ><img
-                                                        src="assets/icon-linkedin.png"
-                                                        nosend="1"
-                                                        border="0"
-                                                        width="14"
-                                                        height="13"
-                                                        alt="LinkedIn"
-                                                        title="LinkedIn"
-                                                        style="
-                                                          display: block;
-                                                          width: 14px;
-                                                          height: 13px;
-                                                          border: 0;
-                                                        "
-                                                    /></a>
-                                                  </td>
-                                                  <td
-                                                    valign="middle"
-                                                    style="
-                                                      font-family: Helvetica, Arial, sans-serif;
-                                                      font-size: 11px;
-                                                      line-height: 14.5px;
-                                                      color: #003057;
-                                                      padding: 0 0 3px 0;
-                                                      white-space: nowrap;
-                                                    "
-                                                  >
-                                                    <a
-                                                      href="https://www.linkedin.com/company/idg-security/"
-                                                      target="_blank"
-                                                      rel="noopener noreferrer"
-                                                      tabindex="-1"
-                                                      style="color: #003057; text-decoration: none"
-                                                      >IDG Security</a
-                                                    >
-                                                  </td>
-                                                </tr>
-
-                                                <tr>
-                                                  <td
-                                                    valign="middle"
-                                                    style="width: 20px; padding: 0 2px 3px 0; font-size: 0; line-height: 0"
-                                                  >
-                                                    <a
-                                                      id="displayMobileIconLink"
-                                                      href="https://wa.me/"
-                                                      target="_blank"
-                                                      rel="noopener noreferrer"
-                                                      tabindex="-1"
-                                                      style="text-decoration: none; border: 0; display: block; line-height: 0"
-                                                      ><img
-                                                        src="assets/icon-mobile.png"
-                                                        nosend="1"
-                                                        border="0"
-                                                        width="13"
-                                                        height="13"
-                                                        alt="WhatsApp"
-                                                        title="WhatsApp"
-                                                        style="
-                                                          display: block;
-                                                          width: 13px;
-                                                          height: 13px;
-                                                          border: 0;
-                                                        "
-                                                    /></a>
-                                                  </td>
-                                                  <td
-                                                    valign="middle"
-                                                    style="
-                                                      font-family: Helvetica, Arial, sans-serif;
-                                                      font-size: 11px;
-                                                      line-height: 14.5px;
-                                                      color: #003057;
-                                                      padding: 0 32px 3px 0;
-                                                      white-space: nowrap;
-                                                    "
-                                                  >
-                                                    <a
-                                                      id="displayMobileLink"
-                                                      href="https://wa.me/"
-                                                      target="_blank"
-                                                      rel="noopener noreferrer"
-                                                      tabindex="-1"
-                                                      style="color: #003057; text-decoration: none"
-                                                      >[Mobile / WhatsApp]</a
-                                                    >
-                                                  </td>
-                                                  <td
-                                                    valign="middle"
-                                                    style="width: 20px; padding: 0 2px 3px 0; font-size: 0; line-height: 0"
-                                                  >
-                                                    <a
-                                                      href="https://idg-security.com/"
-                                                      target="_blank"
-                                                      rel="noopener noreferrer"
-                                                      tabindex="-1"
-                                                      style="text-decoration: none; border: 0; display: block; line-height: 0"
-                                                      ><img
-                                                        src="assets/icon-web.png"
-                                                        nosend="1"
-                                                        border="0"
-                                                        width="13"
-                                                        height="13"
-                                                        alt="Web"
-                                                        style="
-                                                          display: block;
-                                                          width: 13px;
-                                                          height: 13px;
-                                                          border: 0;
-                                                        "
-                                                    /></a>
-                                                  </td>
-                                                  <td
-                                                    valign="middle"
-                                                    style="
-                                                      font-family: Helvetica, Arial, sans-serif;
-                                                      font-size: 11px;
-                                                      line-height: 14.5px;
-                                                      color: #003057;
-                                                      padding: 0 0 3px 0;
-                                                      white-space: nowrap;
-                                                    "
-                                                  >
-                                                    <a
-                                                      href="https://idg-security.com/"
-                                                      target="_blank"
-                                                      rel="noopener noreferrer"
-                                                      tabindex="-1"
-                                                      style="color: #003057; text-decoration: none"
-                                                      >www.idg-security.com</a
-                                                    >
-                                                  </td>
-                                                </tr>
-
-                                                <tr>
-                                                  <td
-                                                    valign="middle"
-                                                    style="width: 20px; padding: 0 2px 0 0; font-size: 0; line-height: 0"
-                                                  >
-                                                    <img
-                                                      src="assets/icon-email.png"
-                                                      nosend="1"
-                                                      border="0"
-                                                      width="13"
-                                                      height="10"
-                                                      alt="Email"
-                                                      style="
-                                                        display: block;
-                                                        width: 13px;
-                                                        height: 10px;
-                                                        border: 0;
-                                                      "
-                                                    />
-                                                  </td>
-                                                  <td
-                                                    colspan="3"
-                                                    valign="middle"
-                                                    style="
-                                                      font-family: Helvetica, Arial, sans-serif;
-                                                      font-size: 11px;
-                                                      line-height: 14.5px;
-                                                      color: #003057;
-                                                      padding: 0;
-                                                      word-break: break-word;
-                                                    "
-                                                  >
-                                                    <a
-                                                      id="displayEmailLink"
-                                                      href="mailto:"
-                                                      tabindex="-1"
-                                                      style="color: #003057; text-decoration: none"
-                                                      >[Email Address]</a
-                                                    >
-                                                  </td>
-                                                </tr>
-                                              </tbody>
-                                            </table>
-                                          </td>
-                                        </tr>
-                                      </tbody>
-                                    </table>
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </td>
-                        </tr>
-
-                        <tr>
-                          <td style="padding: 0 0 4px 0">
-                            <div
-                              style="
-                                font-family: Helvetica, Arial, sans-serif;
-                                font-size: 10.5px;
-                                line-height: 1.25;
-                                font-weight: normal;
-                                font-style: italic;
-                                color: #003057;
-                                margin: 0 0 2px 0;
-                              "
-                            >
-                              An ISO 9001:2015 Certified Company
-                            </div>
-                            <div
-                              align="justify"
-                              style="
-                                font-family: Helvetica, Arial, sans-serif;
-                                font-size: 10px;
-                                line-height: 1.4;
-                                color: #475569;
-                                text-align: justify;
-                                margin: 0 0 3px 0;
-                              "
-                            >
-                              This email is intended only for the named recipient(s) above and
-                              may contain information that is privileged, confidential and/or
-                              exempt from disclosure under applicable law. If you have received
-                              this message in error, or are not the named recipient(s), please
-                              immediately notify the sender and permanently delete this email
-                              message and any attachments, without retaining a copy.
-                            </div>
-                            <div
-                              style="
-                                font-family: Helvetica, Arial, sans-serif;
-                                font-size: 10px;
-                                line-height: 1.4;
-                                font-weight: normal;
-                                color: #15803d;
-                                margin: 0;
-                              "
-                            >
-                              Please consider the environment before printing this email.
-                            </div>
-                          </td>
-                        </tr>
-
-                        <tr>
-                          <td style="padding: 0" id="bannersContainer"></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+                  <div id="signaturePreview"></div>
                 </div>
               </div>
 
-              <div class="dark-mode-note">
-                Dark-mode preview simulates inverted text on dark canvas. Individual mail apps (Outlook, Apple Mail, Gmail) invert white-background certification banners differently.
+              <div class="dark-mode-note" id="darkModeNote">
+                Dark-mode preview simulates inverted text on a dark canvas. Individual mail apps (Outlook, Apple Mail, Gmail) invert white-background certification banners differently.
               </div>
             </div>
 
-            <div class="preflight-bar" aria-live="polite">
-              <span class="preflight-status is-warn" id="preflightStatus">Enter Full Name, Job Title, and Email to export</span>
-              <span class="preflight-meta" id="preflightMeta">Links ready: 0</span>
+            <div class="preflight-bar" id="preflightBar" aria-live="polite">
+              <span class="preflight-left">
+                <span class="preflight-status is-warn" id="preflightStatus">Complete required fields (Full Name, Job Title, valid Email) to export</span>
+                <button type="button" class="preflight-action-btn is-hidden" id="btnSwapGssDomain">Use @gss-afg.com</button>
+              </span>
+              <span class="preflight-meta" id="preflightMeta">WYSIWYG 1:1 preview</span>
             </div>
 
             <div class="setup-card">
               <div class="setup-tabs">
                 <h3 class="setup-title">Installation Guide</h3>
                 <div class="tablist" role="tablist" aria-label="Email client instructions">
-                  <button type="button" class="tab-btn" role="tab" id="tabOutlook" aria-selected="true" aria-controls="panelOutlook">Outlook</button>
-                  <button type="button" class="tab-btn" role="tab" id="tabApple" aria-selected="false" aria-controls="panelApple">Apple Mail</button>
-                  <button type="button" class="tab-btn" role="tab" id="tabGmail" aria-selected="false" aria-controls="panelGmail">Gmail</button>
+                  <button type="button" class="tab-btn" role="tab" id="tabOutlook" tabindex="0" aria-selected="true" aria-controls="panelOutlook">Outlook</button>
+                  <button type="button" class="tab-btn" role="tab" id="tabApple" tabindex="-1" aria-selected="false" aria-controls="panelApple">Apple Mail</button>
+                  <button type="button" class="tab-btn" role="tab" id="tabGmail" tabindex="-1" aria-selected="false" aria-controls="panelGmail">Gmail</button>
                 </div>
               </div>
 
@@ -1655,7 +1527,7 @@
                 <ol>
                   <li>Click <strong>Copy Formatted Signature</strong>.</li>
                   <li>In Gmail, open <strong>Settings (gear icon) &gt; See all settings &gt; General &gt; Signature</strong>.</li>
-                  <li>Click <strong>Create new</strong>, paste (<strong>Ctrl + V</strong> or <strong>Cmd + V</strong>), set as default, and click <strong>Save Changes</strong> at the bottom.</li>
+                  <li>Click <strong>Create new</strong>, paste (<strong>Ctrl + V</strong> or <strong>Cmd + V</strong>), check <em>Insert signature before quoted text</em>, and click <strong>Save Changes</strong>.</li>
                 </ol>
               </div>
             </div>
@@ -1665,60 +1537,39 @@
     </main>
 
     <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true">
-      <span id="toastIcon" aria-hidden="true"></span>
-      <span id="toastMsg">Signature copied to clipboard.</span>
+      <span class="toast-main">
+        <span id="toastIcon" aria-hidden="true"></span>
+        <span id="toastMsg">Signature copied to clipboard.</span>
+      </span>
+      <button type="button" class="toast-undo-btn is-hidden" id="btnToastUndo">Undo</button>
     </div>
 
     <script>
-      const inputName = document.getElementById("fullName");
-      const inputTitle = document.getElementById("jobTitle");
-      const selectLocation = document.getElementById("officeLocation");
-      const inputMobile = document.getElementById("mobile");
-      const inputLandline = document.getElementById("landline");
-      const inputEmail = document.getElementById("email");
+      const DEFAULT_BRAND = "idg";
+      const STANDALONE_MODE = false;
+      const LOCAL_BRANDS = { idg: true, gss: true };
+      const IDG_EXPORT_BASE = "https://frenzelrgferrer.github.io/idg-esignature/assets/";
+      const GSS_EXPORT_BASE = "https://frenzelrgferrer.github.io/gss-esignature/assets/";
+      const DRAFT_KEY = "idg_gss_signature_studio_draft_v2";
 
-      const errFullName = document.getElementById("errFullName");
-      const errJobTitle = document.getElementById("errJobTitle");
-      const errMobile = document.getElementById("errMobile");
-      const errLandline = document.getElementById("errLandline");
-      const errEmail = document.getElementById("errEmail");
-
-      const activeEntityName = document.getElementById("activeEntityName");
-      const activeEntityRule = document.getElementById("activeEntityRule");
-      const entityNoteBox = document.getElementById("entityNoteBox");
-      const preflightStatus = document.getElementById("preflightStatus");
-      const preflightMeta = document.getElementById("preflightMeta");
-
-      const displayNameRole = document.getElementById("displayNameRole");
-      const displayMainLogo = document.getElementById("displayMainLogo");
-      const displayEntityAddress = document.getElementById("displayEntityAddress");
-      const displayMobileLink = document.getElementById("displayMobileLink");
-      const displayMobileIconLink = document.getElementById("displayMobileIconLink");
-      const displayLandlineLink = document.getElementById("displayLandlineLink");
-      const displayLandlineIconLink = document.getElementById("displayLandlineIconLink");
-      const displayEmailLink = document.getElementById("displayEmailLink");
-      const bannersContainer = document.getElementById("bannersContainer");
-
-      const previewBox = document.getElementById("previewBox");
-      const previewViewport = document.getElementById("previewViewport");
-      const previewScaler = document.getElementById("previewScaler");
-      const signaturePreview = document.getElementById("signaturePreview");
-      const btnFitScreen = document.getElementById("btnFitScreen");
-      const btnActualSize = document.getElementById("btnActualSize");
-
-      let autoFitEnabled = true;
-
-      const ENTITIES = {
+      const IDG_ENTITIES = {
         uae: {
           country: "United Arab Emirates",
           entityName: "IDG Group DMCC",
           logoFile: "idg-logo.png",
           logoAlt: "IDG Security",
-          ruleLabel: "3-ISO MSS Banner",
+          ruleLabel: "Option 4A · 3-ISO",
           ruleNote: "",
           addressHtml: '<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #003057; text-decoration: none">Unit 15&#8203;01, The Do&#8203;me Tow&#8203;er, Clu&#8203;ster N, Jum&#8203;eirah La&#8203;ke Tow&#8203;ers<br />Du&#8203;bai, Uni&#8203;ted Ar&#8203;ab Emi&#8203;rates</a>',
           defaultLandline: "+971 (04) 514 4958",
-          landlinePlaceholder: "e.g. +971 (04) 514 4958"
+          landlinePlaceholder: "e.g. +971 (04) 514 4958",
+          mobilePlaceholder: "e.g. +971 50 123 4567",
+          sample: {
+            name: "Samira Haddad",
+            title: "Regional Operations Coordinator",
+            mobile: "+971 50 555 0188",
+            email: "samira.haddad@idg-security.com"
+          }
         },
         idg_group: {
           country: "United Arab Emirates",
@@ -1729,76 +1580,275 @@
           logoHeight: 105,
           logoTopPad: 0,
           ruleLabel: "IDG Group Logo · 3-ISO",
-          ruleNote: "Uses the IDG Group corporate logo and the 3-ISO certification banner.",
+          ruleNote: "Uses the IDG Group corporate logo with the Option 4A single-line 3-ISO bar.",
           addressHtml: '<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #003057; text-decoration: none">Unit 15&#8203;01, The Do&#8203;me Tow&#8203;er, Clu&#8203;ster N, Jum&#8203;eirah La&#8203;ke Tow&#8203;ers<br />Du&#8203;bai, Uni&#8203;ted Ar&#8203;ab Emi&#8203;rates</a>',
           defaultLandline: "+971 (04) 514 4958",
-          landlinePlaceholder: "e.g. +971 (04) 514 4958"
+          landlinePlaceholder: "e.g. +971 (04) 514 4958",
+          mobilePlaceholder: "e.g. +971 50 123 4567",
+          sample: {
+            name: "Samira Haddad",
+            title: "Group Corporate Coordinator",
+            mobile: "+971 50 555 0188",
+            email: "samira.haddad@idg-group.com"
+          }
         },
         iraq: {
           country: "Iraq",
           entityName: "IDG for Security Services and Private Guards LLC",
-          ruleLabel: "Stacked Title · 5-ISO MSS",
+          ruleLabel: "Stacked Title · 5-ISO",
           ruleNote: "Iraq rules active: Job Title stacks beneath Full Name with '- Iraq' appended automatically, and displays the full 5-ISO MSS banner (including ISO 14001 and 45001).",
           addressHtml: '<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #003057; text-decoration: none">Vil&#8203;la 66, Str&#8203;eet 1, Dis&#8203;trict 609, Hun&#8203;ting Club Str&#8203;eet<br />Al Man&#8203;sour, Bagh&#8203;dad, Ir&#8203;aq</a>',
           defaultLandline: "+964 788 000 5202",
           landlinePlaceholder: "e.g. +964 788 000 5202",
+          mobilePlaceholder: "e.g. +964 780 123 4567",
           stackNameRole: true,
           jobTitleSuffix: " - Iraq",
           fullMssBanner: true,
-          logoTopPad: 6
+          logoTopPad: 6,
+          sample: {
+            name: "Tariq Al-Bayati",
+            title: "Operations Manager",
+            mobile: "+964 780 555 0142",
+            email: "tariq.albayati@idg-security.com"
+          }
         },
         usa: {
           country: "United States",
           entityName: "IDG Americas Inc.",
-          ruleLabel: "3-ISO MSS Banner",
+          ruleLabel: "Option 4A · 3-ISO",
           ruleNote: "",
           addressHtml: '<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #003057; text-decoration: none">164&#8203;0 Bo&#8203;ro Pla&#8203;ce, 4th Fl&#8203;oor Mc&#8203;Lean, Vir&#8203;ginia 221&#8203;02,<br />Uni&#8203;ted Sta&#8203;tes of Ame&#8203;rica</a>',
           defaultLandline: "",
-          landlinePlaceholder: "e.g. +1 (703) 555-0100 (optional)"
+          landlinePlaceholder: "e.g. +1 (703) 555-0100 (optional)",
+          mobilePlaceholder: "e.g. +1 (703) 555-0194",
+          sample: {
+            name: "Jordan Ellis",
+            title: "Program Director",
+            mobile: "+1 (703) 555-0194",
+            email: "jordan.ellis@idg-security.com"
+          }
         },
         myanmar: {
           country: "Myanmar",
           entityName: "IDG Myanmar Co Ltd.",
-          ruleLabel: "3-ISO MSS Banner",
+          ruleLabel: "Option 4A · 3-ISO",
           ruleNote: "",
           addressHtml: '<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #003057; text-decoration: none">No. 5/35, Thi&#8203;ri Go&#8203;ne Hou&#8203;sing, Qua&#8203;rter 16, Thin&#8203;gangyun Tow&#8203;nship<br />Yan&#8203;gon, Myan&#8203;mar 110&#8203;71</a>',
           defaultLandline: "",
-          landlinePlaceholder: "Enter Myanmar office phone (optional)"
+          landlinePlaceholder: "Enter Myanmar office phone (optional)",
+          mobilePlaceholder: "e.g. +95 9 555 0140",
+          sample: {
+            name: "Thura Aung",
+            title: "Country Risk Coordinator",
+            mobile: "+95 9 555 0140",
+            email: "thura.aung@idg-security.com"
+          }
         },
         afghanistan: {
           country: "Afghanistan",
           entityName: "IDG Security (Afghanistan) Ltd",
-          ruleLabel: "3-ISO MSS Banner",
+          ruleLabel: "Option 4A · 3-ISO",
           ruleNote: "",
           addressHtml: '<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #003057; text-decoration: none">Pu&#8203;le Char&#8203;khi Ro&#8203;ad, Ou&#8203;dh Khel, ne&#8203;xt to UN&#8203;OCA Com&#8203;pound<br />Ka&#8203;bul, Afgha&#8203;nistan</a>',
           defaultLandline: "",
-          landlinePlaceholder: "Enter Afghanistan office phone (optional)"
+          landlinePlaceholder: "Enter Afghanistan office phone (optional)",
+          mobilePlaceholder: "e.g. +93 70 555 0140",
+          sample: {
+            name: "Farid Ahmad",
+            title: "Site Operations Supervisor",
+            mobile: "+93 70 555 0140",
+            email: "farid.ahmad@idg-security.com"
+          }
         },
         india: {
           country: "India",
           entityName: "IDG India (Dehradun Office)",
-          ruleLabel: "3-ISO MSS Banner",
+          ruleLabel: "Option 4A · 3-ISO",
           ruleNote: "",
           addressHtml: '<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #003057; text-decoration: none">63B, Nim&#8203;buwala, Gar&#8203;hi Ca&#8203;ntt<br />Dehra&#8203;dun, Uttara&#8203;khand, In&#8203;dia</a>',
           defaultLandline: "",
-          landlinePlaceholder: "Enter India office phone (optional)"
+          landlinePlaceholder: "Enter India office phone (optional)",
+          mobilePlaceholder: "e.g. +91 98 1155 0140",
+          sample: {
+            name: "Rohan Negi",
+            title: "Operations Support Lead",
+            mobile: "+91 98 1155 0140",
+            email: "rohan.negi@idg-security.com"
+          }
         },
         nepal: {
           country: "Nepal",
           entityName: "IDG Nepal",
-          ruleLabel: "3-ISO MSS Banner",
+          ruleLabel: "Option 4A · 3-ISO",
           ruleNote: "",
           addressHtml: '<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #003057; text-decoration: none">Nakhi&#8203;pot - 14<br />Lalit&#8203;pur Metro&#8203;politan Ci&#8203;ty, Ne&#8203;pal</a>',
           defaultLandline: "",
-          landlinePlaceholder: "Enter Nepal office phone (optional)"
+          landlinePlaceholder: "Enter Nepal office phone (optional)",
+          mobilePlaceholder: "e.g. +977 98 5110 0140",
+          sample: {
+            name: "Suman Thapa",
+            title: "Field Operations Officer",
+            mobile: "+977 98 5110 0140",
+            email: "suman.thapa@idg-security.com"
+          }
         }
       };
 
-      let previousLocation = "uae";
-      const EXPORT_ASSET_BASE_URL = "https://frenzelrgferrer.github.io/idg-esignature/assets/";
+      const GSS_ENTITIES = {
+        afghanistan: {
+          companyName: "Global Star Security Services Company",
+          address: "House No. 2, Street 15, Wazir Akbar Khan Circle,\nWazir Akbar Khan, Kabul - Afghanistan",
+          defaultPhone: "+93 (0) 72 875 5360",
+          phonePlaceholder: "e.g. +93 (0) 72 875 5360",
+          mobilePlaceholder: "e.g. +93 (0) 70 123 4567",
+          sample: {
+            name: "David Al-Hassan",
+            title: "Deputy Security Manager",
+            mobile: "+93 (0) 70 555 0140"
+          }
+        },
+        uae: {
+          companyName: "GSS International Limited",
+          address: "Unit 200, Building A2, Dubai Digital Park,\nDubai, United Arab Emirates",
+          defaultPhone: "",
+          phonePlaceholder: "e.g. +971 4 123 4567 (optional)",
+          mobilePlaceholder: "e.g. +971 50 123 4567",
+          sample: {
+            name: "Nadia Al-Mansoori",
+            title: "Regional Liaison Officer",
+            mobile: "+971 50 555 0140"
+          }
+        }
+      };
+
+      const urlBrandParam = new URLSearchParams(window.location.search).get("brand");
+      let currentBrand = urlBrandParam === "gss" || urlBrandParam === "idg" ? urlBrandParam : DEFAULT_BRAND;
+      let previousIdgLocation = "uae";
+      let previousGssEntity = "afghanistan";
+      let autoFitEnabled = true;
+      let isCompareMode = false;
+      let beforeSnapshotHtml = "";
+      let lastClearedState = null;
+
+      const brandState = {
+        idg: {
+          location: "uae",
+          name: "",
+          title: "",
+          landline: IDG_ENTITIES.uae.defaultLandline,
+          mobile: "",
+          email: ""
+        },
+        gss: {
+          entity: "afghanistan",
+          mode: "standard",
+          name: "",
+          title: "",
+          landline: GSS_ENTITIES.afghanistan.defaultPhone,
+          mobile: "",
+          email: "",
+          company: GSS_ENTITIES.afghanistan.companyName,
+          address: GSS_ENTITIES.afghanistan.address,
+          website: "www.globalstar-security.com"
+        }
+      };
+
+      const btnBrandIdg = document.getElementById("btnBrandIdg");
+      const btnBrandGss = document.getElementById("btnBrandGss");
+      const topbarCrest = document.getElementById("topbarCrest");
+      const topbarTitle = document.getElementById("topbarTitle");
+      const topbarSubtitle = document.getElementById("topbarSubtitle");
+      const activeEntityName = document.getElementById("activeEntityName");
+      const activeEntityRule = document.getElementById("activeEntityRule");
+      const entityNoteBox = document.getElementById("entityNoteBox");
+
+      const groupIdgLocation = document.getElementById("groupIdgLocation");
+      const groupGssEntity = document.getElementById("groupGssEntity");
+      const groupGssMode = document.getElementById("groupGssMode");
+      const gssOverrides = document.getElementById("gssOverrides");
+
+      const selectIdgLocation = document.getElementById("idgLocation");
+      const selectGssEntity = document.getElementById("gssEntity");
+      const selectGssMode = document.getElementById("gssNoticeMode");
+
+      const inputName = document.getElementById("fullName");
+      const inputTitle = document.getElementById("jobTitle");
+      const inputLandline = document.getElementById("landline");
+      const inputMobile = document.getElementById("mobile");
+      const inputEmail = document.getElementById("email");
+      const emailLabel = document.getElementById("emailLabel");
+      const inputGssCompany = document.getElementById("gssCompanyName");
+      const inputGssAddress = document.getElementById("gssAddress");
+      const inputGssWebsite = document.getElementById("gssWebsite");
+
+      const errFullName = document.getElementById("errFullName");
+      const errJobTitle = document.getElementById("errJobTitle");
+      const errLandline = document.getElementById("errLandline");
+      const errMobile = document.getElementById("errMobile");
+      const errEmail = document.getElementById("errEmail");
+
+      const preflightBar = document.getElementById("preflightBar");
+      const preflightStatus = document.getElementById("preflightStatus");
+      const btnSwapGssDomain = document.getElementById("btnSwapGssDomain");
+      const preflightMeta = document.getElementById("preflightMeta");
+
+      const previewBox = document.getElementById("previewBox");
+      const previewViewport = document.getElementById("previewViewport");
+      const previewScaler = document.getElementById("previewScaler");
+      const signaturePreview = document.getElementById("signaturePreview");
+      const darkModeNote = document.getElementById("darkModeNote");
+      const btnFitScreen = document.getElementById("btnFitScreen");
+      const btnActualSize = document.getElementById("btnActualSize");
+      const btnDarkMode = document.getElementById("btnDarkMode");
+      const btnCompare = document.getElementById("btnCompare");
+      const compareWrapper = document.getElementById("compareWrapper");
+      const btnCopyImage = document.getElementById("btnCopyImage");
+      const btnToastUndo = document.getElementById("btnToastUndo");
+
+      function getBrandAssetBase(brand) {
+        if (!STANDALONE_MODE && LOCAL_BRANDS[brand]) {
+          if (window.location.protocol === "http:" || window.location.protocol === "https:") {
+            return new URL("assets/", window.location.href).href;
+          }
+          return "assets/";
+        }
+        return brand === "gss" ? GSS_EXPORT_BASE : IDG_EXPORT_BASE;
+      }
+
+      function resolvePreviewAsset(assetBase, filename) {
+        if (window.INLINE_ASSETS && window.INLINE_ASSETS[filename]) {
+          return window.INLINE_ASSETS[filename];
+        }
+        return assetBase + filename;
+      }
+
+      function escapeHtml(str) {
+        return str
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function protectAddressText(text) {
+        return escapeHtml(text)
+          .replace(/\r?\n/g, "<br />")
+          .replace(/(\d+)/g, "$1&#8203;");
+      }
+
+      function sanitizePhoneForTel(phone) {
+        const noTrunk = phone
+          .replace(/\(\s*0\s*\)/g, "")
+          .replace(/\(\s*0(\d+)\s*\)/g, "$1");
+        const cleaned = noTrunk.replace(/[^\d+]/g, "");
+        return cleaned ? "tel:" + cleaned : "";
+      }
 
       function sanitizePhoneForWhatsApp(phone) {
-        let digits = phone.replace(/[^0-9]/g, "");
+        let digits = phone
+          .replace(/\(\s*0\s*\)/g, "")
+          .replace(/\(\s*0(\d+)\s*\)/g, "$1")
+          .replace(/[^0-9]/g, "");
         if (!digits) return "";
         if (digits.startsWith("00")) {
           digits = digits.substring(2);
@@ -1808,28 +1858,19 @@
         }
         if (digits.startsWith("07") && digits.length === 11) {
           digits = "964" + digits.substring(1);
+        } else if (
+          digits.startsWith("07") &&
+          digits.length === 10 &&
+          (currentBrand === "gss" || selectIdgLocation.value === "afghanistan")
+        ) {
+          digits = "93" + digits.substring(1);
         }
         return "https://wa.me/" + digits;
       }
 
-      function sanitizePhoneForTel(phone) {
-        const cleaned = phone.replace(/[\s()-]/g, "");
-        return "tel:" + cleaned;
-      }
-
-      function getAssetBaseUrl() {
-        if (window.location.protocol === "http:" || window.location.protocol === "https:") {
-          return new URL("assets/", window.location.href).href;
-        }
-        return "assets/";
-      }
-
-      function escapeHtml(str) {
-        return str
-          .replace(/&/g, "&amp;")
-          .replace(/</g, "&lt;")
-          .replace(/>/g, "&gt;")
-          .replace(/"/g, "&quot;");
+      function normalizeWebsiteUrl(site) {
+        const trimmed = site.trim() || "www.globalstar-security.com";
+        return /^https?:\/\//i.test(trimmed) ? trimmed : "https://" + trimmed;
       }
 
       function setFieldError(inputEl, errEl, message) {
@@ -1844,160 +1885,141 @@
         }
       }
 
-      function validateForm(showErrors) {
-        const nameVal = inputName.value.trim();
-        const titleVal = inputTitle.value.trim();
-        const emailVal = inputEmail.value.trim();
-        const mobileVal = inputMobile.value.trim();
-        const landlineVal = inputLandline.value.trim();
+      function clearAllFieldErrors() {
+        setFieldError(inputName, errFullName, "");
+        setFieldError(inputTitle, errJobTitle, "");
+        setFieldError(inputLandline, errLandline, "");
+        setFieldError(inputMobile, errMobile, "");
+        setFieldError(inputEmail, errEmail, "");
+      }
 
-        let firstInvalid = null;
-
-        const nameErr = !nameVal ? "Enter the employee's full name before exporting." : "";
-        const titleErr = !titleVal ? "Enter the employee's job title before exporting." : "";
-        const emailErr = !emailVal
-          ? "Enter an IDG email address before exporting."
-          : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)
-            ? "Enter a valid email address (for example, name@idg-security.com)."
-            : "";
-
-        const mobileDigits = mobileVal.replace(/[^0-9]/g, "");
-        const mobileErr = mobileVal && mobileDigits.length < 7
-          ? "Mobile number looks incomplete. Include at least 7 digits or leave blank."
-          : "";
-
-        const landlineDigits = landlineVal.replace(/[^0-9]/g, "");
-        const landlineErr = landlineVal && landlineDigits.length < 7
-          ? "Office phone looks incomplete. Include at least 7 digits or leave blank."
-          : "";
-
-        if (showErrors) {
-          setFieldError(inputName, errFullName, nameErr);
-          setFieldError(inputTitle, errJobTitle, titleErr);
-          setFieldError(inputEmail, errEmail, emailErr);
-          setFieldError(inputMobile, errMobile, mobileErr);
-          setFieldError(inputLandline, errLandline, landlineErr);
+      function getFieldError(fieldKey) {
+        if (fieldKey === "name") {
+          return !inputName.value.trim() ? "Enter the employee's full name before exporting." : "";
         }
+        if (fieldKey === "title") {
+          return !inputTitle.value.trim() ? "Enter the employee's job title before exporting." : "";
+        }
+        if (fieldKey === "email") {
+          const emailVal = inputEmail.value.trim();
+          if (!emailVal) {
+            return currentBrand === "gss"
+              ? "Enter a GSS email address before exporting."
+              : "Enter an IDG email address before exporting.";
+          }
+          return !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal) ? "Enter a valid email address." : "";
+        }
+        if (fieldKey === "landline") {
+          const val = inputLandline.value.trim();
+          const digits = val.replace(/[^0-9]/g, "");
+          return val && digits.length < 7
+            ? "Office phone looks incomplete. Include at least 7 digits or leave blank."
+            : "";
+        }
+        if (fieldKey === "mobile") {
+          const val = inputMobile.value.trim();
+          const digits = val.replace(/[^0-9]/g, "");
+          return val && digits.length < 7
+            ? "Mobile number looks incomplete. Include at least 7 digits or leave blank."
+            : "";
+        }
+        return "";
+      }
 
-        if (nameErr) firstInvalid = firstInvalid || inputName;
-        if (titleErr) firstInvalid = firstInvalid || inputTitle;
-        if (mobileErr) firstInvalid = firstInvalid || inputMobile;
-        if (landlineErr) firstInvalid = firstInvalid || inputLandline;
-        if (emailErr) firstInvalid = firstInvalid || inputEmail;
+      const FIELD_MAP = [
+        ["name", inputName, errFullName],
+        ["title", inputTitle, errJobTitle],
+        ["landline", inputLandline, errLandline],
+        ["mobile", inputMobile, errMobile],
+        ["email", inputEmail, errEmail]
+      ];
 
+      function validateSingleField(fieldKey, showError) {
+        const entry = FIELD_MAP.find(([k]) => k === fieldKey);
+        if (!entry) return "";
+        const [, inp, errEl] = entry;
+        const msg = getFieldError(fieldKey);
+        if (showError) {
+          setFieldError(inp, errEl, msg);
+        }
+        return msg;
+      }
+
+      function validateForm(showErrors) {
+        const errors = [];
+        FIELD_MAP.forEach(([key, inp, errEl]) => {
+          const msg = getFieldError(key);
+          if (showErrors) {
+            setFieldError(inp, errEl, msg);
+          }
+          if (msg) errors.push([inp, msg]);
+        });
         return {
-          valid: !firstInvalid,
-          firstInvalid
+          valid: errors.length === 0,
+          count: errors.length,
+          firstInvalid: errors.length ? errors[0][0] : null
         };
       }
 
-      function updatePreflight() {
-        const check = validateForm(false);
-        const linkCount =
-          2 +
-          (inputEmail.value.trim() ? 1 : 0) +
-          (inputMobile.value.trim() ? 1 : 0) +
-          (inputLandline.value.trim() ? 1 : 0);
-
-        if (check.valid) {
-          preflightStatus.textContent = "Ready to export";
-          preflightStatus.className = "preflight-status is-ready";
+      function getDomainWarning() {
+        const emailVal = inputEmail.value.trim().toLowerCase();
+        if (!emailVal || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+          return { message: "", canSwapGssAfg: false };
+        }
+        const domain = emailVal.split("@").pop();
+        if (currentBrand === "idg") {
+          if (domain.includes("globalstar") || domain.includes("gss-afg")) {
+            return { message: "Cross-brand domain detected: GSS email inside IDG Studio.", canSwapGssAfg: false };
+          }
+          if (domain !== "idg-security.com" && domain !== "idg-group.com") {
+            return { message: `Non-standard IDG domain (@${domain}). Verify before exporting.`, canSwapGssAfg: false };
+          }
         } else {
-          preflightStatus.textContent = "Complete required fields (Full Name, Job Title, valid Email) to export";
-          preflightStatus.className = "preflight-status is-warn";
+          if (domain.includes("idg-security") || domain.includes("idg-group")) {
+            return { message: "Cross-brand domain detected: IDG email inside GSS Studio.", canSwapGssAfg: false };
+          }
+          if (selectGssMode.value === "transition" && domain !== "gss-afg.com") {
+            return { message: "Transition notice is active, but email is not @gss-afg.com.", canSwapGssAfg: true };
+          }
+          if (domain !== "globalstarsecurityservices.com" && domain !== "gss-afg.com" && domain !== "globalstar-security.com") {
+            return { message: `Non-standard GSS domain (@${domain}). Verify before exporting.`, canSwapGssAfg: false };
+          }
         }
-        preflightMeta.textContent = `Active links: ${linkCount}`;
+        return { message: "", canSwapGssAfg: false };
       }
 
-      function getExportSignatureHtml() {
-        const clone = signaturePreview.cloneNode(true);
-        clone.querySelectorAll("[tabindex]").forEach((el) => el.removeAttribute("tabindex"));
-
-        const landlineLink = clone.querySelector("#displayLandlineLink");
-        const landlineIcon = clone.querySelector("#displayLandlineIconLink");
-        if (landlineLink && landlineLink.textContent.trim() === "[Office Phone]") {
-          if (landlineLink.parentElement) landlineLink.parentElement.innerHTML = "&nbsp;";
-          if (landlineIcon && landlineIcon.parentElement) landlineIcon.parentElement.innerHTML = "&nbsp;";
-        }
-
-        const mobileLink = clone.querySelector("#displayMobileLink");
-        const mobileIcon = clone.querySelector("#displayMobileIconLink");
-        if (mobileLink && mobileLink.textContent.trim() === "[Mobile / WhatsApp]") {
-          if (mobileLink.parentElement) mobileLink.parentElement.innerHTML = "&nbsp;";
-          if (mobileIcon && mobileIcon.parentElement) mobileIcon.parentElement.innerHTML = "&nbsp;";
-        }
-
-        clone.querySelectorAll("img").forEach((img) => {
-          const rawSrc = img.getAttribute("src") || "";
-          const filename = rawSrc.split("/").pop().split("?")[0];
-          img.setAttribute("src", EXPORT_ASSET_BASE_URL + filename);
-        });
-        return clone.innerHTML.trim();
-      }
-
-      function renderBanners() {
-        const assetBase = getAssetBaseUrl();
-        const selectedLoc = selectLocation.value;
-        const entityData = ENTITIES[selectedLoc] || ENTITIES.uae;
-        const isFull = Boolean(entityData.fullMssBanner);
+      function buildIdgBannersHtml(assetUrlFn, isFull) {
         if (isFull) {
-          bannersContainer.innerHTML = `
-          <table
-            width="580"
-            cellpadding="0"
-            cellspacing="0"
-            border="0"
-            style="width: 100%; max-width: 580px; border-collapse: collapse"
-          >
+          return `
+          <table width="580" cellpadding="0" cellspacing="0" border="0" style="width: 100%; max-width: 580px; border-collapse: collapse">
             <tbody>
               <tr>
                 <td valign="top" style="padding: 0 0 4px 0">
-                  <a
-                    href="https://www.mssglobal.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    tabindex="-1"
-                    style="display: block; text-decoration: none"
-                  >
-                    <img
-                      src="${assetBase}banner-mss-white.png"
-                      nosend="1"
-                      border="0"
-                      width="580"
-                      height="44"
-                      alt="MSS Global Certifications"
-                      title="MSS Global Certifications"
-                      style="display: block; width: 100%; height: auto; border: 0"
-                    />
+                  <a href="https://www.mssglobal.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="display: block; text-decoration: none">
+                    <img src="${assetUrlFn("banner-mss-white.png")}" nosend="1" border="0" width="580" height="44" alt="MSS Global Certifications" title="MSS Global Certifications" style="display: block; width: 100%; height: auto; border: 0" />
                   </a>
                 </td>
               </tr>
               <tr>
                 <td valign="top" style="padding: 0">
-                  <table
-                    width="580"
-                    cellpadding="0"
-                    cellspacing="0"
-                    border="0"
-                    style="width: 100%; border-collapse: collapse; table-layout: fixed"
-                  >
+                  <table width="580" cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: collapse; table-layout: fixed">
                     <tbody>
                       <tr>
                         <td width="195" valign="top" style="width: 33.62%; padding: 0">
                           <a href="https://icoca.ch/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="display: block; text-decoration: none">
-                            <img src="${assetBase}banner-icoca.png" nosend="1" border="0" width="195" height="44" alt="ICoCA - The Responsible Security Association" title="ICoCA - The Responsible Security Association" style="display: block; width: 100%; height: auto; border: 0" />
+                            <img src="${assetUrlFn("banner-icoca.png")}" nosend="1" border="0" width="195" height="44" alt="ICoCA - The Responsible Security Association" title="ICoCA - The Responsible Security Association" style="display: block; width: 100%; height: auto; border: 0" />
                           </a>
                         </td>
                         <td width="4" style="width: 0.69%; padding: 0; font-size: 1px; line-height: 1px">&nbsp;</td>
                         <td width="182" valign="top" style="width: 31.38%; padding: 0">
                           <a href="https://unglobalcompact.org/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="display: block; text-decoration: none">
-                            <img src="${assetBase}banner-ungc.png" nosend="1" border="0" width="182" height="44" alt="United Nations Global Compact" title="United Nations Global Compact" style="display: block; width: 100%; height: auto; border: 0" />
+                            <img src="${assetUrlFn("banner-ungc.png")}" nosend="1" border="0" width="182" height="44" alt="United Nations Global Compact" title="United Nations Global Compact" style="display: block; width: 100%; height: auto; border: 0" />
                           </a>
                         </td>
                         <td width="4" style="width: 0.69%; padding: 0; font-size: 1px; line-height: 1px">&nbsp;</td>
                         <td width="195" valign="top" style="width: 33.62%; padding: 0">
                           <a href="https://www.ncsc.gov.uk/cyberessentials/overview" target="_blank" rel="noopener noreferrer" tabindex="-1" style="display: block; text-decoration: none">
-                            <img src="${assetBase}banner-cyber.png" nosend="1" border="0" width="195" height="44" alt="Cyber Essentials" title="Cyber Essentials" style="display: block; width: 100%; height: auto; border: 0" />
+                            <img src="${assetUrlFn("banner-cyber.png")}" nosend="1" border="0" width="195" height="44" alt="Cyber Essentials" title="Cyber Essentials" style="display: block; width: 100%; height: auto; border: 0" />
                           </a>
                         </td>
                       </tr>
@@ -2006,162 +2028,630 @@
                 </td>
               </tr>
             </tbody>
-          </table>
-        `;
-          return;
+          </table>`;
         }
-        bannersContainer.innerHTML = `
-          <table
-            width="476"
-            cellpadding="0"
-            cellspacing="0"
-            border="0"
-            style="width: 476px; max-width: 100%; border-collapse: collapse; table-layout: fixed"
-          >
+        return `
+          <table width="580" cellpadding="0" cellspacing="0" border="0" style="width: 100%; max-width: 580px; border-collapse: collapse; table-layout: fixed">
             <tbody>
               <tr>
-                <td width="226" valign="top" style="width: 47.48%; padding: 0">
+                <td width="270" valign="top" style="width: 46.55%; padding: 0">
                   <a href="https://www.mssglobal.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="display: block; text-decoration: none">
-                    <img src="${assetBase}banner-mss-3iso.png" nosend="1" border="0" width="226" height="46" alt="MSS Global Certifications" title="MSS Global Certifications" style="display: block; width: 100%; height: auto; border: 0" />
+                    <img src="${assetUrlFn("banner-mss-3iso.png")}" nosend="1" border="0" width="270" height="55" alt="MSS Global Certifications" title="MSS Global Certifications" style="display: block; width: 100%; height: auto; border: 0" />
                   </a>
                 </td>
-                <td width="4" style="width: 0.84%; padding: 0; font-size: 1px; line-height: 1px">&nbsp;</td>
-                <td width="80" valign="top" style="width: 16.81%; padding: 0">
+                <td width="4" style="width: 0.69%; padding: 0; font-size: 1px; line-height: 1px">&nbsp;</td>
+                <td width="100" valign="top" style="width: 17.24%; padding: 0">
                   <a href="https://icoca.ch/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="display: block; text-decoration: none">
-                    <img src="${assetBase}banner-icoca-tile.png" nosend="1" border="0" width="80" height="46" alt="ICoCA - The Responsible Security Association" title="ICoCA - The Responsible Security Association" style="display: block; width: 100%; height: auto; border: 0" />
+                    <img src="${assetUrlFn("banner-icoca-tile.png")}" nosend="1" border="0" width="100" height="55" alt="ICoCA - The Responsible Security Association" title="ICoCA - The Responsible Security Association" style="display: block; width: 100%; height: auto; border: 0" />
                   </a>
                 </td>
-                <td width="3" style="width: 0.63%; padding: 0; font-size: 1px; line-height: 1px">&nbsp;</td>
-                <td width="80" valign="top" style="width: 16.81%; padding: 0">
+                <td width="3" style="width: 0.52%; padding: 0; font-size: 1px; line-height: 1px">&nbsp;</td>
+                <td width="100" valign="top" style="width: 17.24%; padding: 0">
                   <a href="https://unglobalcompact.org/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="display: block; text-decoration: none">
-                    <img src="${assetBase}banner-ungc-tile.png" nosend="1" border="0" width="80" height="46" alt="United Nations Global Compact" title="United Nations Global Compact" style="display: block; width: 100%; height: auto; border: 0" />
+                    <img src="${assetUrlFn("banner-ungc-tile.png")}" nosend="1" border="0" width="100" height="55" alt="United Nations Global Compact" title="United Nations Global Compact" style="display: block; width: 100%; height: auto; border: 0" />
                   </a>
                 </td>
-                <td width="3" style="width: 0.63%; padding: 0; font-size: 1px; line-height: 1px">&nbsp;</td>
-                <td width="80" valign="top" style="width: 16.80%; padding: 0">
+                <td width="3" style="width: 0.52%; padding: 0; font-size: 1px; line-height: 1px">&nbsp;</td>
+                <td width="100" valign="top" style="width: 17.24%; padding: 0">
                   <a href="https://www.ncsc.gov.uk/cyberessentials/overview" target="_blank" rel="noopener noreferrer" tabindex="-1" style="display: block; text-decoration: none">
-                    <img src="${assetBase}banner-cyber-tile.png" nosend="1" border="0" width="80" height="46" alt="Cyber Essentials" title="Cyber Essentials" style="display: block; width: 100%; height: auto; border: 0" />
+                    <img src="${assetUrlFn("banner-cyber-tile.png")}" nosend="1" border="0" width="100" height="55" alt="Cyber Essentials" title="Cyber Essentials" style="display: block; width: 100%; height: auto; border: 0" />
                   </a>
                 </td>
               </tr>
             </tbody>
-          </table>
-        `;
+          </table>`;
       }
 
-      function updateSignature() {
-        const fullName = inputName.value.trim() || "[Full Name]";
-        const jobTitle = inputTitle.value.trim();
+      function buildIdgSignatureHtml(assetUrlFn) {
+        const selectedLoc = selectIdgLocation.value;
+        const entityData = IDG_ENTITIES[selectedLoc] || IDG_ENTITIES.uae;
+        const rawName = inputName.value.trim();
+        const rawTitle = inputTitle.value.trim();
+        const rawLandline = inputLandline.value.trim();
+        const rawMobile = inputMobile.value.trim();
+        const rawEmail = inputEmail.value.trim();
 
-        const selectedLoc = selectLocation.value;
-        const entityData = ENTITIES[selectedLoc] || ENTITIES.uae;
-
-        activeEntityName.textContent = entityData.entityName;
-        activeEntityRule.textContent = entityData.ruleLabel;
-        if (entityData.ruleNote) {
-          entityNoteBox.textContent = entityData.ruleNote;
-          entityNoteBox.classList.add("visible");
-        } else {
-          entityNoteBox.textContent = "";
-          entityNoteBox.classList.remove("visible");
-        }
-
-        displayNameRole.textContent = "";
+        let nameRoleHtml = "";
+        let namePad = "0 0 7px 0";
         if (entityData.stackNameRole) {
-          displayNameRole.style.padding = "0 0 5px 0";
-          displayNameRole.style.lineHeight = "16px";
-          displayNameRole.appendChild(document.createTextNode(inputName.value.trim() ? fullName : "[Full Name]"));
-          if (jobTitle || !inputName.value.trim()) {
-            displayNameRole.appendChild(document.createElement("br"));
-            const titleSpan = document.createElement("span");
-            titleSpan.style.fontSize = "12.5px";
-            titleSpan.style.lineHeight = "15px";
-            titleSpan.style.fontWeight = "bold";
-            titleSpan.style.color = "#003057";
-            const baseTitle = jobTitle || "[Job Title]";
-            const suffix = entityData.jobTitleSuffix || "";
-            titleSpan.textContent = suffix && !/\biraq\b/i.test(baseTitle) ? baseTitle + suffix : baseTitle;
-            displayNameRole.appendChild(titleSpan);
-          }
+          namePad = "0 0 5px 0";
+          const nameOut = escapeHtml(rawName || "[Full Name]");
+          const baseTitle = rawTitle || "[Job Title]";
+          const suffix = entityData.jobTitleSuffix || "";
+          const formattedTitle = suffix && !/\biraq\b/i.test(baseTitle) ? baseTitle + suffix : baseTitle;
+          nameRoleHtml = `${nameOut}<br /><span style="font-size: 12.5px; line-height: 15px; font-weight: bold; color: #003057">${escapeHtml(formattedTitle)}</span>`;
         } else {
-          displayNameRole.style.padding = "0 0 7px 0";
-          displayNameRole.style.lineHeight = "16px";
-          if (inputName.value.trim() && jobTitle) {
-            displayNameRole.textContent = `${fullName}\u00a0\u00b7\u00a0${jobTitle}`;
-          } else if (inputName.value.trim()) {
-            displayNameRole.textContent = fullName;
-          } else {
-            displayNameRole.textContent = `[Full Name]\u00a0\u00b7\u00a0[Job Title]`;
-          }
+          const nameOut = escapeHtml(rawName || "[Full Name]");
+          const titleOut = escapeHtml(rawTitle || "[Job Title]");
+          nameRoleHtml = `${nameOut}&nbsp;&middot;&nbsp;${titleOut}`;
         }
 
         const logoFile = entityData.logoFile || "idg-logo.png";
-        const logoAlt = entityData.logoAlt || "IDG Security";
+        const logoAlt = escapeHtml(entityData.logoAlt || "IDG Security");
         const logoW = entityData.logoWidth || 114;
         const logoH = entityData.logoHeight || 105;
         const logoTopPad = entityData.logoTopPad || 0;
-        if (displayMainLogo) {
-          displayMainLogo.src = getAssetBaseUrl() + logoFile;
-          displayMainLogo.alt = logoAlt;
-          displayMainLogo.title = logoAlt;
-          displayMainLogo.width = logoW;
-          displayMainLogo.height = logoH;
-          displayMainLogo.style.width = `${logoW}px`;
-          displayMainLogo.style.height = `${logoH}px`;
-          const logoTd = displayMainLogo.closest("td");
-          if (logoTd) {
-            logoTd.style.width = `${logoW}px`;
-            logoTd.style.padding = `${logoTopPad}px 14px 0 0`;
+
+        const telHref = rawLandline ? sanitizePhoneForTel(rawLandline) : "";
+        const hasLandline = Boolean(rawLandline && telHref);
+        const landlineIconCell = hasLandline
+          ? `<a href="${escapeHtml(telHref)}" tabindex="-1" style="text-decoration: none; border: 0; display: block; line-height: 0"><img src="${assetUrlFn("icon-phone.png")}" nosend="1" border="0" width="13" height="13" alt="Phone" style="display: block; width: 13px; height: 13px; border: 0" /></a>`
+          : "&nbsp;";
+        const landlineTextCell = hasLandline
+          ? `<a href="${escapeHtml(telHref)}" tabindex="-1" style="color: #003057; text-decoration: none">${escapeHtml(rawLandline)}</a>`
+          : "&nbsp;";
+
+        const waHref = rawMobile ? sanitizePhoneForWhatsApp(rawMobile) : "";
+        const hasMobile = Boolean(rawMobile && waHref);
+        const mobileIconCell = hasMobile
+          ? `<a href="${escapeHtml(waHref)}" target="_blank" rel="noopener noreferrer" tabindex="-1" style="text-decoration: none; border: 0; display: block; line-height: 0"><img src="${assetUrlFn("icon-mobile.png")}" nosend="1" border="0" width="13" height="13" alt="WhatsApp" title="WhatsApp" style="display: block; width: 13px; height: 13px; border: 0" /></a>`
+          : "&nbsp;";
+        const mobileTextCell = hasMobile
+          ? `<a href="${escapeHtml(waHref)}" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #003057; text-decoration: none">${escapeHtml(rawMobile)}</a>`
+          : "&nbsp;";
+
+        const linkedinIconHtml = `<a href="https://www.linkedin.com/company/idg-security/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="text-decoration: none; border: 0; display: block; line-height: 0"><img src="${assetUrlFn("icon-linkedin.png")}" nosend="1" border="0" width="14" height="13" alt="LinkedIn" title="LinkedIn" style="display: block; width: 14px; height: 13px; border: 0" /></a>`;
+        const linkedinTextHtml = `<a href="https://www.linkedin.com/company/idg-security/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #003057; text-decoration: none">IDG Security</a>`;
+        const webIconHtml = `<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="text-decoration: none; border: 0; display: block; line-height: 0"><img src="${assetUrlFn("icon-web.png")}" nosend="1" border="0" width="13" height="13" alt="Web" style="display: block; width: 13px; height: 13px; border: 0" /></a>`;
+        const webTextHtml = `<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #003057; text-decoration: none">www.idg-security.com</a>`;
+
+        const emailLinkHtml = rawEmail
+          ? `<a href="mailto:${escapeHtml(rawEmail)}" tabindex="-1" style="color: #003057; text-decoration: none">${escapeHtml(rawEmail)}</a>`
+          : `<span style="color: #003057">[Email Address]</span>`;
+
+        let contactRowsHtml = "";
+        if (!hasLandline && !hasMobile) {
+          contactRowsHtml = `
+            <tr>
+              <td valign="middle" style="width: 20px; padding: 0 2px 3px 0; font-size: 0; line-height: 0">${linkedinIconHtml}</td>
+              <td valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #003057; padding: 0 0 3px 0; white-space: nowrap">${linkedinTextHtml}</td>
+            </tr>
+            <tr>
+              <td valign="middle" style="width: 20px; padding: 0 2px 3px 0; font-size: 0; line-height: 0">${webIconHtml}</td>
+              <td valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #003057; padding: 0 0 3px 0; white-space: nowrap">${webTextHtml}</td>
+            </tr>
+            <tr>
+              <td valign="middle" style="width: 20px; padding: 0 2px 0 0; font-size: 0; line-height: 0">
+                <img src="${assetUrlFn("icon-email.png")}" nosend="1" border="0" width="13" height="10" alt="Email" style="display: block; width: 13px; height: 10px; border: 0" />
+              </td>
+              <td valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #003057; padding: 0; word-break: break-word">${emailLinkHtml}</td>
+            </tr>`;
+        } else {
+          const row1Icon = hasLandline ? landlineIconCell : mobileIconCell;
+          const row1Text = hasLandline ? landlineTextCell : mobileTextCell;
+          const row2Icon = hasLandline && hasMobile ? mobileIconCell : "&nbsp;";
+          const row2Text = hasLandline && hasMobile ? mobileTextCell : "&nbsp;";
+          contactRowsHtml = `
+            <tr>
+              <td valign="middle" style="width: 20px; padding: 0 2px 3px 0; font-size: 0; line-height: 0">${row1Icon}</td>
+              <td valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #003057; padding: 0 32px 3px 0; white-space: nowrap">${row1Text}</td>
+              <td valign="middle" style="width: 20px; padding: 0 2px 3px 0; font-size: 0; line-height: 0">${linkedinIconHtml}</td>
+              <td valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #003057; padding: 0 0 3px 0; white-space: nowrap">${linkedinTextHtml}</td>
+            </tr>
+            <tr>
+              <td valign="middle" style="width: 20px; padding: 0 2px 3px 0; font-size: 0; line-height: 0">${row2Icon}</td>
+              <td valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #003057; padding: 0 32px 3px 0; white-space: nowrap">${row2Text}</td>
+              <td valign="middle" style="width: 20px; padding: 0 2px 3px 0; font-size: 0; line-height: 0">${webIconHtml}</td>
+              <td valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #003057; padding: 0 0 3px 0; white-space: nowrap">${webTextHtml}</td>
+            </tr>
+            <tr>
+              <td valign="middle" style="width: 20px; padding: 0 2px 0 0; font-size: 0; line-height: 0">
+                <img src="${assetUrlFn("icon-email.png")}" nosend="1" border="0" width="13" height="10" alt="Email" style="display: block; width: 13px; height: 10px; border: 0" />
+              </td>
+              <td colspan="3" valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #003057; padding: 0; word-break: break-word">${emailLinkHtml}</td>
+            </tr>`;
+        }
+
+        const bannersHtml = buildIdgBannersHtml(assetUrlFn, Boolean(entityData.fullMssBanner));
+
+        return `<table role="presentation" width="580" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse; font-family: Helvetica, Arial, sans-serif; color: #003057; width: 580px; min-width: 580px; max-width: 580px; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%">
+          <tbody>
+            <tr>
+              <td style="padding: 0 0 5px 0">
+                <table cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: collapse">
+                  <tbody>
+                    <tr>
+                      <td valign="top" align="left" style="width: ${logoW}px; padding: ${logoTopPad}px 14px 0 0; font-size: 0; line-height: 0">
+                        <a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="text-decoration: none; display: block; line-height: 0">
+                          <img src="${assetUrlFn(logoFile)}" nosend="1" border="0" width="${logoW}" height="${logoH}" alt="${logoAlt}" title="${logoAlt}" style="display: block; width: ${logoW}px; height: ${logoH}px; border: 0" />
+                        </a>
+                      </td>
+                      <td valign="top" style="padding: 0">
+                        <table cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: collapse">
+                          <tbody>
+                            <tr>
+                              <td colspan="2" valign="top" style="font-family: Helvetica, Arial, sans-serif; font-size: 13.5px; line-height: 16px; font-weight: bold; color: #003057; letter-spacing: 0.2px; padding: ${namePad}">${nameRoleHtml}</td>
+                            </tr>
+                            <tr>
+                              <td valign="top" style="width: 20px; padding: 1px 2px 3px 0; font-size: 0; line-height: 0">
+                                <img src="${assetUrlFn("icon-location.png")}" nosend="1" border="0" width="14" height="15" alt="Location" style="display: block; width: 14px; height: 15px; border: 0" />
+                              </td>
+                              <td valign="top" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #003057; padding: 0 0 3px 0">${entityData.addressHtml}</td>
+                            </tr>
+                            <tr>
+                              <td colspan="2" style="padding: 0; font-size: 0; line-height: 0">
+                                <table cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse">
+                                  <tbody>
+                                    ${contactRowsHtml}
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 0 0 4px 0">
+                <div style="font-family: Helvetica, Arial, sans-serif; font-size: 10.5px; line-height: 1.25; font-weight: normal; font-style: italic; color: #003057; margin: 0 0 2px 0">An ISO 9001:2015 Certified Company</div>
+                <div align="justify" style="font-family: Helvetica, Arial, sans-serif; font-size: 9.5px; line-height: 1.4; color: #475569; text-align: justify; margin: 0 0 3px 0">
+                  This email is intended only for the named recipient(s) above and may contain information that is privileged, confidential and/or exempt from disclosure under applicable law. If you have received this message in error, or are not the named recipient(s), please immediately notify the sender and permanently delete this email message and any attachments, without retaining a copy.
+                </div>
+                <div style="font-family: Helvetica, Arial, sans-serif; font-size: 9.5px; line-height: 1.4; font-weight: normal; color: #15803d; margin: 0">
+                  Please consider the environment before printing this email.
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 0">${bannersHtml}</td>
+            </tr>
+          </tbody>
+        </table>`;
+      }
+
+      function buildGssSignatureHtml(assetUrlFn) {
+        const rawName = inputName.value.trim();
+        const rawTitle = inputTitle.value.trim();
+        const rawCompany = inputGssCompany.value.trim();
+        const rawAddr = inputGssAddress.value.trim();
+        const rawPhone = inputLandline.value.trim();
+        const rawMobile = inputMobile.value.trim();
+        const rawEmail = inputEmail.value.trim();
+        const rawWeb = inputGssWebsite.value.trim();
+        const isTransition = selectGssMode.value === "transition";
+
+        const nameRoleText = `${rawName || "[Full Name]"} | ${rawTitle || "[Job Title]"}`;
+
+        const webHref = normalizeWebsiteUrl(rawWeb);
+        const telHref = rawPhone ? sanitizePhoneForTel(rawPhone) : "";
+        const waHref = rawMobile ? sanitizePhoneForWhatsApp(rawMobile) : "";
+        const hasPhone = Boolean(rawPhone && telHref);
+        const hasWa = Boolean(rawMobile && waHref);
+        const hasWeb = Boolean(rawWeb);
+
+        const phoneIconCell = hasPhone
+          ? `<a href="${escapeHtml(telHref)}" tabindex="-1" style="text-decoration: none; border: 0; display: block; line-height: 0"><img src="${assetUrlFn("gss-icon-phone.png")}" nosend="1" border="0" width="13" height="13" alt="Phone" style="display: block; width: 13px; height: 13px; border: 0" /></a>`
+          : "&nbsp;";
+        const phoneTextCell = hasPhone
+          ? `<a href="${escapeHtml(telHref)}" tabindex="-1" style="color: #000000; text-decoration: none">${escapeHtml(rawPhone)}</a>`
+          : "&nbsp;";
+
+        const waIconCell = hasWa
+          ? `<a href="${escapeHtml(waHref)}" target="_blank" rel="noopener noreferrer" tabindex="-1" style="text-decoration: none; border: 0; display: block; line-height: 0"><img src="${assetUrlFn("gss-icon-whatsapp.png")}" nosend="1" border="0" width="13" height="13" alt="WhatsApp" title="WhatsApp" style="display: block; width: 13px; height: 13px; border: 0" /></a>`
+          : "&nbsp;";
+        const waTextCell = hasWa
+          ? `<a href="${escapeHtml(waHref)}" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #000000; text-decoration: none">${escapeHtml(rawMobile)}</a>`
+          : "&nbsp;";
+
+        const linkedinIconHtml = `<a href="https://www.linkedin.com/company/global-star-security-services/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="text-decoration: none; border: 0; display: block; line-height: 0"><img src="${assetUrlFn("gss-icon-linkedin.png")}" nosend="1" border="0" width="14" height="13" alt="LinkedIn" title="LinkedIn" style="display: block; width: 14px; height: 13px; border: 0" /></a>`;
+        const linkedinTextHtml = `<a href="https://www.linkedin.com/company/global-star-security-services/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #000000; text-decoration: none">Global Star Security Services</a>`;
+
+        const webIconCell = hasWeb
+          ? `<a href="${escapeHtml(webHref)}" target="_blank" rel="noopener noreferrer" tabindex="-1" style="text-decoration: none; border: 0; display: block; line-height: 0"><img src="${assetUrlFn("gss-icon-web.png")}" nosend="1" border="0" width="13" height="13" alt="Website" style="display: block; width: 13px; height: 13px; border: 0" /></a>`
+          : "&nbsp;";
+        const webTextCell = hasWeb
+          ? `<a href="${escapeHtml(webHref)}" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #000000; text-decoration: none">${escapeHtml(rawWeb)}</a>`
+          : "&nbsp;";
+
+        const emailLinkHtml = rawEmail
+          ? `<a href="mailto:${escapeHtml(rawEmail)}" tabindex="-1" style="color: #000000; text-decoration: none">${escapeHtml(rawEmail)}</a>`
+          : `<span style="color: #000000">[Email Address]</span>`;
+
+        const emailIconHtml = `<img src="${assetUrlFn("gss-icon-email.png")}" nosend="1" border="0" width="13" height="10" alt="Email" style="display: block; width: 13px; height: 10px; border: 0" />`;
+
+        let contactRowsHtml = "";
+        if (!hasPhone && !hasWa) {
+          const webRow = hasWeb
+            ? `<tr>
+                 <td valign="middle" style="width: 20px; padding: 0 4px 4px 0; font-size: 0; line-height: 0">${webIconCell}</td>
+                 <td valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #000000; padding: 0 0 4px 0; white-space: nowrap">${webTextCell}</td>
+               </tr>`
+            : "";
+          contactRowsHtml = `
+            <tr>
+              <td valign="middle" style="width: 20px; padding: 0 4px 4px 0; font-size: 0; line-height: 0">${linkedinIconHtml}</td>
+              <td valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #000000; padding: 0 0 4px 0; white-space: nowrap">${linkedinTextHtml}</td>
+            </tr>
+            ${webRow}
+            <tr>
+              <td valign="middle" style="width: 20px; padding: 0 4px 0 0; font-size: 0; line-height: 0">${emailIconHtml}</td>
+              <td valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #000000; padding: 0; word-break: break-word">${emailLinkHtml}</td>
+            </tr>`;
+        } else {
+          const row1Icon = hasPhone ? phoneIconCell : waIconCell;
+          const row1Text = hasPhone ? phoneTextCell : waTextCell;
+          const hasRow2Left = hasPhone && hasWa;
+          const row2Icon = hasRow2Left ? waIconCell : "&nbsp;";
+          const row2Text = hasRow2Left ? waTextCell : "&nbsp;";
+          const row2Html = hasRow2Left || hasWeb
+            ? `<tr>
+                 <td valign="middle" style="width: 20px; padding: 0 4px 4px 0; font-size: 0; line-height: 0">${row2Icon}</td>
+                 <td valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #000000; padding: 0 28px 4px 0; white-space: nowrap">${row2Text}</td>
+                 <td valign="middle" style="width: 20px; padding: 0 4px 4px 0; font-size: 0; line-height: 0">${webIconCell}</td>
+                 <td valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #000000; padding: 0 0 4px 0; white-space: nowrap">${webTextCell}</td>
+               </tr>`
+            : "";
+          contactRowsHtml = `
+            <tr>
+              <td valign="middle" style="width: 20px; padding: 0 4px 4px 0; font-size: 0; line-height: 0">${row1Icon}</td>
+              <td valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #000000; padding: 0 28px 4px 0; white-space: nowrap">${row1Text}</td>
+              <td valign="middle" style="width: 20px; padding: 0 4px 4px 0; font-size: 0; line-height: 0">${linkedinIconHtml}</td>
+              <td valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #000000; padding: 0 0 4px 0; white-space: nowrap">${linkedinTextHtml}</td>
+            </tr>
+            ${row2Html}
+            <tr>
+              <td valign="middle" style="width: 20px; padding: 0 4px 0 0; font-size: 0; line-height: 0">${emailIconHtml}</td>
+              <td colspan="3" valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #000000; padding: 0; word-break: break-word">${emailLinkHtml}</td>
+            </tr>`;
+        }
+
+        const companyHtml = rawCompany
+          ? `<div style="font-family: Helvetica, Arial, sans-serif; font-size: 12.5px; line-height: 16px; font-weight: bold; color: #000000; margin: 0">${escapeHtml(rawCompany)}</div>`
+          : "";
+
+        const addressRowHtml = rawAddr
+          ? `<tr>
+               <td valign="top" style="width: 20px; padding: 1px 4px 4px 0; font-size: 0; line-height: 0">
+                 <img src="${assetUrlFn("gss-icon-location.png")}" nosend="1" border="0" width="13" height="14" alt="Location" style="display: block; width: 13px; height: 14px; border: 0" />
+               </td>
+               <td valign="top" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #000000; padding: 0 0 4px 0">
+                 <a href="${escapeHtml(webHref)}" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #000000; text-decoration: none">${protectAddressText(rawAddr)}</a>
+               </td>
+             </tr>`
+          : "";
+
+        const transitionRowHtml = isTransition
+          ? `<tr>
+               <td style="padding: 8px 0 0 0">
+                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: collapse">
+                   <tbody>
+                     <tr>
+                       <td style="border-top: 1px solid #b48a28; padding: 0 0 8px 0; font-size: 0; line-height: 0">&nbsp;</td>
+                     </tr>
+                     <tr>
+                       <td style="padding: 0">
+                         <div align="left" style="font-family: Helvetica, Arial, sans-serif; font-size: 9px; line-height: 1.4; color: #000000; text-align: left; margin: 0">
+                           <strong style="color: #000000">BUSINESS CONTINUITY NOTICE:</strong> This secondary GSS email domain is currently being tested. Please continue to copy our globalstarsecurityservices.com email address during this period to help verify email delivery.
+                         </div>
+                       </td>
+                     </tr>
+                   </tbody>
+                 </table>
+               </td>
+             </tr>`
+          : "";
+
+        return `<table role="presentation" width="580" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse; font-family: Helvetica, Arial, sans-serif; color: #000000; width: 580px; min-width: 580px; max-width: 580px; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%">
+          <tbody>
+            <tr>
+              <td style="padding: 0 0 8px 0">
+                <div style="font-family: Helvetica, Arial, sans-serif; font-size: 13.5px; line-height: 17px; font-weight: bold; color: #000000; margin: 0 0 1px 0">${escapeHtml(nameRoleText)}</div>
+                ${companyHtml}
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 0 0 10px 0">
+                <table cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: collapse">
+                  <tbody>
+                    <tr>
+                      <td valign="middle" align="left" style="width: 108px; padding: 0 14px 0 0; border-right: 1px solid #cbd5e1; font-size: 0; line-height: 0">
+                        <a href="${escapeHtml(webHref)}" target="_blank" rel="noopener noreferrer" tabindex="-1" style="text-decoration: none; display: block; line-height: 0">
+                          <img src="${assetUrlFn("gss-logo.png")}" nosend="1" border="0" width="93" height="96" alt="Global Star Security Services" title="Global Star Security Services" style="display: block; width: 93px; height: 96px; border: 0" />
+                        </a>
+                      </td>
+                      <td valign="middle" style="padding: 0 0 0 14px">
+                        <table cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: collapse">
+                          <tbody>
+                            ${addressRowHtml}
+                            <tr>
+                              <td colspan="2" style="padding: 0; font-size: 0; line-height: 0">
+                                <table cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse">
+                                  <tbody>
+                                    ${contactRowsHtml}
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 0">
+                <div align="justify" style="font-family: Helvetica, Arial, sans-serif; font-size: 9px; line-height: 1.4; color: #000000; text-align: justify; margin: 0">
+                  <strong style="color: #000000">CONFIDENTIALITY NOTICE:</strong> This email is intended only for the named recipient(s) above and may contain information that is privileged, confidential and/or exempt from disclosure under applicable law. If you have received this message in error, or are not the named recipient(s), please immediately notify the sender and permanently delete this email message and any attachments, without retaining a copy.
+                </div>
+              </td>
+            </tr>
+            ${transitionRowHtml}
+          </tbody>
+        </table>`;
+      }
+
+      function stripIds(html) {
+        const temp = document.createElement("div");
+        temp.innerHTML = html;
+        temp.querySelectorAll("[id]").forEach((el) => el.removeAttribute("id"));
+        return temp.innerHTML;
+      }
+
+      function getExportSignatureHtml() {
+        const exportBase = currentBrand === "gss" ? GSS_EXPORT_BASE : IDG_EXPORT_BASE;
+        const exportAssetFn = (filename) => exportBase + filename;
+        const rawHtml = currentBrand === "gss"
+          ? buildGssSignatureHtml(exportAssetFn)
+          : buildIdgSignatureHtml(exportAssetFn);
+        const temp = document.createElement("div");
+        temp.innerHTML = rawHtml;
+        temp.querySelectorAll("[tabindex]").forEach((el) => el.removeAttribute("tabindex"));
+        return temp.innerHTML.trim();
+      }
+
+      function getCleanPlainText(exportHtml) {
+        const temp = document.createElement("div");
+        temp.style.position = "fixed";
+        temp.style.left = "-9999px";
+        temp.innerHTML = exportHtml;
+        document.body.appendChild(temp);
+        const text = temp.innerText
+          .replace(/\u200B/g, "")
+          .replace(/\n{3,}/g, "\n\n")
+          .trim();
+        document.body.removeChild(temp);
+        return text;
+      }
+
+      function captureCurrentBrandState() {
+        if (currentBrand === "gss") {
+          brandState.gss = {
+            entity: selectGssEntity.value,
+            mode: selectGssMode.value,
+            name: inputName.value,
+            title: inputTitle.value,
+            landline: inputLandline.value,
+            mobile: inputMobile.value,
+            email: inputEmail.value,
+            company: inputGssCompany.value,
+            address: inputGssAddress.value,
+            website: inputGssWebsite.value
+          };
+        } else {
+          brandState.idg = {
+            location: selectIdgLocation.value,
+            name: inputName.value,
+            title: inputTitle.value,
+            landline: inputLandline.value,
+            mobile: inputMobile.value,
+            email: inputEmail.value
+          };
+        }
+      }
+
+      function applyBrandStateToDom(brand) {
+        clearAllFieldErrors();
+        if (brand === "gss") {
+          const s = brandState.gss;
+          selectGssEntity.value = GSS_ENTITIES[s.entity] ? s.entity : "afghanistan";
+          previousGssEntity = selectGssEntity.value;
+          selectGssMode.value = s.mode === "transition" ? "transition" : "standard";
+          inputName.value = s.name;
+          inputTitle.value = s.title;
+          inputLandline.value = s.landline;
+          inputMobile.value = s.mobile;
+          inputEmail.value = s.email;
+          inputGssCompany.value = s.company;
+          inputGssAddress.value = s.address;
+          inputGssWebsite.value = s.website;
+        } else {
+          const s = brandState.idg;
+          selectIdgLocation.value = IDG_ENTITIES[s.location] ? s.location : "uae";
+          previousIdgLocation = selectIdgLocation.value;
+          inputName.value = s.name;
+          inputTitle.value = s.title;
+          inputLandline.value = s.landline;
+          inputMobile.value = s.mobile;
+          inputEmail.value = s.email;
+        }
+      }
+
+      function updatePreflight() {
+        const check = validateForm(false);
+        const warnInfo = getDomainWarning();
+        const activeContactCount =
+          (inputLandline.value.trim() ? 1 : 0) +
+          (inputMobile.value.trim() ? 1 : 0) +
+          (inputEmail.value.trim() ? 1 : 0);
+
+        preflightBar.classList.remove("has-warn");
+        btnSwapGssDomain.classList.toggle("is-hidden", !(check.valid && warnInfo.canSwapGssAfg));
+        if (!check.valid) {
+          preflightStatus.textContent = "Complete required fields (Full Name, Job Title, valid Email) to export";
+          preflightStatus.className = "preflight-status is-warn";
+        } else if (warnInfo.message) {
+          preflightBar.classList.add("has-warn");
+          preflightStatus.textContent = warnInfo.message;
+          preflightStatus.className = "preflight-status is-warn";
+        } else {
+          preflightStatus.textContent = "Ready to export (1:1 WYSIWYG)";
+          preflightStatus.className = "preflight-status is-ready";
+        }
+        preflightMeta.textContent = `Contact links: ${activeContactCount} · Export target: ${currentBrand === "gss" ? "GSS" : "IDG"}`;
+      }
+
+      function updateBrandChrome() {
+        const isGss = currentBrand === "gss";
+        document.body.setAttribute("data-brand", currentBrand);
+        document.title = isGss
+          ? "GSS Signature Studio - Global Star Security Services"
+          : "Corporate Email Signature Studio - IDG Security & GSS";
+        btnBrandIdg.setAttribute("aria-pressed", String(!isGss));
+        btnBrandGss.setAttribute("aria-pressed", String(isGss));
+
+        const assetBase = getBrandAssetBase(currentBrand);
+        topbarCrest.src = resolvePreviewAsset(assetBase, isGss ? "gss-logo.png" : "idg-logo.png");
+        topbarCrest.alt = isGss ? "GSS shield crest" : "IDG Security crest";
+        topbarTitle.textContent = isGss ? "GSS Signature Studio" : "IDG Security Signature Studio";
+        topbarSubtitle.textContent = isGss
+          ? "Global Star Security Services email signature builder"
+          : "Corporate email signature builder across global IDG entities";
+
+        groupIdgLocation.classList.toggle("is-hidden", isGss);
+        groupGssEntity.classList.toggle("is-hidden", !isGss);
+        groupGssMode.classList.toggle("is-hidden", !isGss);
+        gssOverrides.classList.toggle("is-hidden", !isGss);
+
+        emailLabel.textContent = isGss ? "GSS Email Address" : "IDG Email Address";
+        if (isGss) {
+          const gss = GSS_ENTITIES[selectGssEntity.value] || GSS_ENTITIES.afghanistan;
+          const isTrans = selectGssMode.value === "transition";
+          inputLandline.placeholder = gss.phonePlaceholder;
+          inputMobile.placeholder = gss.mobilePlaceholder;
+          inputEmail.placeholder = isTrans ? "e.g. name@gss-afg.com" : "e.g. name@globalstarsecurityservices.com";
+          darkModeNote.textContent =
+            "Dark-mode preview simulates inverted text on a dark canvas. Individual mail apps (Outlook, Apple Mail, Gmail) adjust logos and dividers differently.";
+        } else {
+          const idg = IDG_ENTITIES[selectIdgLocation.value] || IDG_ENTITIES.uae;
+          inputLandline.placeholder = idg.landlinePlaceholder;
+          inputMobile.placeholder = idg.mobilePlaceholder;
+          inputEmail.placeholder = selectIdgLocation.value === "idg_group" ? "e.g. name@idg-group.com" : "e.g. name@idg-security.com";
+          darkModeNote.textContent =
+            "Dark-mode preview simulates inverted text on a dark canvas. Individual mail apps (Outlook, Apple Mail, Gmail) invert white-background certification banners differently.";
+        }
+      }
+
+      function saveDraft() {
+        try {
+          captureCurrentBrandState();
+          const payload = {
+            activeBrand: currentBrand,
+            idg: brandState.idg,
+            gss: brandState.gss
+          };
+          localStorage.setItem(DRAFT_KEY, JSON.stringify(payload));
+        } catch (e) {}
+      }
+
+      function restoreDraft() {
+        try {
+          const raw = localStorage.getItem(DRAFT_KEY);
+          if (!raw) return;
+          const d = JSON.parse(raw);
+          if (!d || typeof d !== "object") return;
+          if ((d.activeBrand === "gss" || d.activeBrand === "idg") && !urlBrandParam) {
+            currentBrand = d.activeBrand;
           }
-        }
-        displayEntityAddress.innerHTML = entityData.addressHtml;
+          if (d.idg && typeof d.idg === "object") {
+            if (d.idg.location && IDG_ENTITIES[d.idg.location]) brandState.idg.location = d.idg.location;
+            if (typeof d.idg.name === "string") brandState.idg.name = d.idg.name;
+            if (typeof d.idg.title === "string") brandState.idg.title = d.idg.title;
+            if (typeof d.idg.landline === "string") brandState.idg.landline = d.idg.landline;
+            if (typeof d.idg.mobile === "string") brandState.idg.mobile = d.idg.mobile;
+            if (typeof d.idg.email === "string") brandState.idg.email = d.idg.email;
+          }
+          if (d.gss && typeof d.gss === "object") {
+            if (d.gss.entity && GSS_ENTITIES[d.gss.entity]) brandState.gss.entity = d.gss.entity;
+            if (d.gss.mode === "transition" || d.gss.mode === "standard") brandState.gss.mode = d.gss.mode;
+            if (typeof d.gss.name === "string") brandState.gss.name = d.gss.name;
+            if (typeof d.gss.title === "string") brandState.gss.title = d.gss.title;
+            if (typeof d.gss.landline === "string") brandState.gss.landline = d.gss.landline;
+            if (typeof d.gss.mobile === "string") brandState.gss.mobile = d.gss.mobile;
+            if (typeof d.gss.email === "string") brandState.gss.email = d.gss.email;
+            if (typeof d.gss.company === "string") brandState.gss.company = d.gss.company;
+            if (typeof d.gss.address === "string") brandState.gss.address = d.gss.address;
+            if (typeof d.gss.website === "string") brandState.gss.website = d.gss.website;
+          }
+        } catch (e) {}
+      }
 
-        const mobileText = inputMobile.value.trim();
-        if (mobileText) {
-          displayMobileLink.textContent = mobileText;
-          const waLink = sanitizePhoneForWhatsApp(mobileText);
-          displayMobileLink.href = waLink;
-          displayMobileIconLink.href = waLink;
+      function updateSignature() {
+        const assetBase = getBrandAssetBase(currentBrand);
+        const previewAssetFn = (filename) => resolvePreviewAsset(assetBase, filename);
+        updateBrandChrome();
+
+        if (currentBrand === "gss") {
+          const isTrans = selectGssMode.value === "transition";
+          activeEntityName.textContent = inputGssCompany.value.trim() || "Global Star Security Services";
+          activeEntityRule.textContent = isTrans ? "Transition · Pure Black" : "Standard · Pure Black";
+          if (isTrans) {
+            entityNoteBox.textContent = "Transition mode active: adds the gold divider and Business Continuity Notice for @gss-afg.com testing.";
+            entityNoteBox.classList.add("visible");
+          } else {
+            entityNoteBox.textContent = "";
+            entityNoteBox.classList.remove("visible");
+          }
+          signaturePreview.innerHTML = buildGssSignatureHtml(previewAssetFn);
         } else {
-          displayMobileLink.textContent = "[Mobile / WhatsApp]";
-          displayMobileLink.removeAttribute("href");
-          displayMobileIconLink.removeAttribute("href");
+          const entityData = IDG_ENTITIES[selectIdgLocation.value] || IDG_ENTITIES.uae;
+          activeEntityName.textContent = entityData.entityName;
+          activeEntityRule.textContent = entityData.ruleLabel;
+          if (entityData.ruleNote) {
+            entityNoteBox.textContent = entityData.ruleNote;
+            entityNoteBox.classList.add("visible");
+          } else {
+            entityNoteBox.textContent = "";
+            entityNoteBox.classList.remove("visible");
+          }
+          signaturePreview.innerHTML = buildIdgSignatureHtml(previewAssetFn);
         }
 
-        const landlineText = inputLandline.value.trim();
-        if (landlineText) {
-          displayLandlineLink.textContent = landlineText;
-          const telLink = sanitizePhoneForTel(landlineText);
-          displayLandlineLink.href = telLink;
-          displayLandlineIconLink.href = telLink;
-        } else {
-          displayLandlineLink.textContent = "[Office Phone]";
-          displayLandlineLink.removeAttribute("href");
-          displayLandlineIconLink.removeAttribute("href");
-        }
-
-        const emailText = inputEmail.value.trim();
-        if (emailText) {
-          displayEmailLink.textContent = emailText;
-          displayEmailLink.href = "mailto:" + emailText;
-        } else {
-          displayEmailLink.textContent = "[Email Address]";
-          displayEmailLink.removeAttribute("href");
-        }
-
-        renderBanners();
         adjustPreviewScaling();
         updatePreflight();
+        saveDraft();
 
-        const afterFrame = document.getElementById("afterPreview");
-        if (afterFrame && isCompareMode) {
-          afterFrame.innerHTML = signaturePreview.innerHTML;
+        if (isCompareMode) {
+          const afterFrame = document.getElementById("afterPreview");
+          if (afterFrame) {
+            afterFrame.innerHTML = stripIds(signaturePreview.innerHTML);
+          }
+          scaleCompareFrames();
           updateCompareHint();
         }
       }
 
       function adjustPreviewScaling() {
         if (!previewBox || !previewViewport || !previewScaler || !signaturePreview) return;
+        if (isCompareMode) {
+          scaleCompareFrames();
+          return;
+        }
 
         const boxStyles = window.getComputedStyle(previewBox);
         const paddingLeft = parseFloat(boxStyles.paddingLeft) || 16;
@@ -2171,32 +2661,82 @@
 
         if (autoFitEnabled) {
           previewViewport.scrollLeft = 0;
-          previewViewport.scrollTop = 0;
-          previewBox.scrollLeft = 0;
-
           if (availableWidth < targetWidth && availableWidth > 0) {
             const scale = availableWidth / targetWidth;
-            previewScaler.style.transform = `scale(${scale})`;
-            previewScaler.style.transformOrigin = "top left";
+            const nextTransform = `scale(${scale})`;
+            if (previewScaler.style.transform !== nextTransform) {
+              previewScaler.style.transform = nextTransform;
+            }
             previewScaler.style.width = `${targetWidth}px`;
-            const unscaledHeight = signaturePreview.offsetHeight || 360;
-            previewViewport.style.height = `${Math.ceil(unscaledHeight * scale)}px`;
-            previewViewport.style.overflow = "hidden";
+            const unscaledHeight = signaturePreview.offsetHeight || 300;
+            const nextHeight = `${Math.ceil(unscaledHeight * scale)}px`;
+            if (previewViewport.style.height !== nextHeight) {
+              previewViewport.style.height = nextHeight;
+            }
+            previewViewport.style.overflowX = "hidden";
+            previewViewport.style.overflowY = "hidden";
           } else {
-            previewScaler.style.transform = "none";
+            if (previewScaler.style.transform !== "none") previewScaler.style.transform = "none";
             previewScaler.style.width = "580px";
-            previewViewport.style.height = "auto";
-            previewViewport.style.overflow = "hidden";
+            if (previewViewport.style.height !== "auto") previewViewport.style.height = "auto";
+            previewViewport.style.overflowX = "hidden";
+            previewViewport.style.overflowY = "visible";
           }
         } else {
-          previewScaler.style.transform = "none";
+          if (previewScaler.style.transform !== "none") previewScaler.style.transform = "none";
           previewScaler.style.width = "580px";
-          previewViewport.style.height = "auto";
+          if (previewViewport.style.height !== "auto") previewViewport.style.height = "auto";
           previewViewport.style.overflowX = "auto";
+          previewViewport.style.overflowY = "hidden";
         }
       }
 
+      function scaleCompareFrames() {
+        document.querySelectorAll(".compare-frame-viewport").forEach((vp) => {
+          const frame = vp.querySelector(".compare-frame");
+          if (!frame) return;
+          const avail = vp.clientWidth;
+          if (avail > 0 && avail < 580) {
+            const scale = avail / 580;
+            const nextTr = `scale(${scale})`;
+            if (frame.style.transform !== nextTr) frame.style.transform = nextTr;
+            const nextH = `${Math.ceil((frame.offsetHeight || 280) * scale)}px`;
+            if (vp.style.height !== nextH) vp.style.height = nextH;
+          } else {
+            if (frame.style.transform !== "none") frame.style.transform = "none";
+            if (vp.style.height !== "auto") vp.style.height = "auto";
+          }
+        });
+      }
+
+      let scaleRafId = 0;
+      function scheduleScaling() {
+        if (scaleRafId) return;
+        scaleRafId = requestAnimationFrame(() => {
+          scaleRafId = 0;
+          adjustPreviewScaling();
+        });
+      }
+
+      function switchBrand(targetBrand) {
+        if (currentBrand === targetBrand) return;
+        captureCurrentBrandState();
+        if (isCompareMode) {
+          setCompareMode(false);
+        }
+        beforeSnapshotHtml = "";
+        lastClearedState = null;
+        currentBrand = targetBrand;
+        applyBrandStateToDom(currentBrand);
+        updateSignature();
+        showToast(`Switched studio to ${currentBrand === "gss" ? "GSS" : "IDG Security"}.`, "info");
+      }
+
+      btnBrandIdg.addEventListener("click", () => switchBrand("idg"));
+      btnBrandGss.addEventListener("click", () => switchBrand("gss"));
+
       btnFitScreen.addEventListener("click", () => {
+        if (isCompareMode) return;
         autoFitEnabled = true;
         btnFitScreen.classList.add("active");
         btnFitScreen.setAttribute("aria-pressed", "true");
@@ -2206,6 +2746,7 @@
       });
 
       btnActualSize.addEventListener("click", () => {
+        if (isCompareMode) return;
         autoFitEnabled = false;
         btnActualSize.classList.add("active");
         btnActualSize.setAttribute("aria-pressed", "true");
@@ -2214,7 +2755,6 @@
         adjustPreviewScaling();
       });
 
-      const btnDarkMode = document.getElementById("btnDarkMode");
       btnDarkMode.addEventListener("click", () => {
         const isDark = previewBox.classList.toggle("dark-preview");
         btnDarkMode.classList.toggle("active", isDark);
@@ -2235,21 +2775,19 @@
         });
       });
 
-      let beforeSnapshotHtml = "";
-      let isCompareMode = false;
-
       function updateCompareHint() {
         const hint = document.getElementById("compareStatusHint");
         if (!hint) return;
-        if (beforeSnapshotHtml === signaturePreview.innerHTML) {
-          hint.textContent = "Baseline and current edit match. Change any field on the left to preview differences.";
+        const currentClean = stripIds(signaturePreview.innerHTML);
+        if (beforeSnapshotHtml === currentClean) {
+          hint.textContent = "Baseline and current edit match. Change any field on the left to inspect differences.";
         } else {
-          hint.textContent = "Showing changes against your pinned baseline. Click Copy Image to export both panes together.";
+          hint.textContent = "Showing edits against your pinned baseline. Click Copy Image to export both panes together.";
         }
       }
 
       function captureBeforeSnapshot() {
-        beforeSnapshotHtml = signaturePreview.innerHTML;
+        beforeSnapshotHtml = stripIds(signaturePreview.innerHTML);
         const beforeFrame = document.getElementById("beforePreview");
         if (beforeFrame) {
           beforeFrame.innerHTML = beforeSnapshotHtml;
@@ -2259,32 +2797,39 @@
         if (compTs) {
           compTs.textContent = `Pinned at ${timestamp}`;
         }
+        scaleCompareFrames();
         updateCompareHint();
       }
 
-      const btnCompare = document.getElementById("btnCompare");
-      const compareWrapper = document.getElementById("compareWrapper");
-      btnCompare.addEventListener("click", () => {
-        isCompareMode = !isCompareMode;
+      function setCompareMode(nextState) {
+        isCompareMode = nextState;
         btnCompare.classList.toggle("active", isCompareMode);
         btnCompare.setAttribute("aria-pressed", String(isCompareMode));
+        btnFitScreen.disabled = isCompareMode;
+        btnActualSize.disabled = isCompareMode;
+
         if (isCompareMode) {
+          const currentHtmlClean = stripIds(signaturePreview.innerHTML);
+          previewViewport.style.display = "none";
+          compareWrapper.style.display = "block";
           if (!beforeSnapshotHtml) {
             captureBeforeSnapshot();
           }
           const afterFrame = document.getElementById("afterPreview");
           if (afterFrame) {
-            afterFrame.innerHTML = signaturePreview.innerHTML;
+            afterFrame.innerHTML = currentHtmlClean;
           }
+          scaleCompareFrames();
           updateCompareHint();
-          previewViewport.style.display = "none";
-          compareWrapper.style.display = "block";
+          requestAnimationFrame(scaleCompareFrames);
         } else {
           compareWrapper.style.display = "none";
           previewViewport.style.display = "block";
           adjustPreviewScaling();
         }
-      });
+      }
+
+      btnCompare.addEventListener("click", () => setCompareMode(!isCompareMode));
 
       document.getElementById("btnPinBefore").addEventListener("click", () => {
         captureBeforeSnapshot();
@@ -2292,51 +2837,79 @@
       });
 
       document.getElementById("btnLoadSample").addEventListener("click", () => {
-        const loc = selectLocation.value;
-        const sampleMap = {
-          iraq: {
-            name: "Tariq Al-Bayati",
-            title: "Operations Manager",
-            mobile: "+964 780 555 0142",
-            email: "tariq.albayati@idg-security.com"
-          },
-          usa: {
-            name: "Jordan Ellis",
-            title: "Program Director",
-            mobile: "+1 (703) 555-0194",
-            email: "jordan.ellis@idg-security.com"
-          }
-        };
-        const sample = sampleMap[loc] || {
-          name: "Samira Haddad",
-          title: "Regional Operations Coordinator",
-          mobile: "+971 50 555 0188",
-          email: "samira.haddad@idg-security.com"
-        };
-        inputName.value = sample.name;
-        inputTitle.value = sample.title;
-        inputMobile.value = sample.mobile;
-        inputEmail.value = sample.email;
+        if (currentBrand === "gss") {
+          const entityKey = selectGssEntity.value;
+          const gss = GSS_ENTITIES[entityKey] || GSS_ENTITIES.afghanistan;
+          const isTrans = selectGssMode.value === "transition";
+          inputName.value = gss.sample.name;
+          inputTitle.value = gss.sample.title;
+          inputMobile.value = gss.sample.mobile;
+          const slug = gss.sample.name.toLowerCase().replace(/[^a-z]+/g, ".").replace(/^\.|\.$/g, "");
+          inputEmail.value = isTrans
+            ? `${slug}@gss-afg.com`
+            : `${slug}@globalstarsecurityservices.com`;
+        } else {
+          const entityData = IDG_ENTITIES[selectIdgLocation.value] || IDG_ENTITIES.uae;
+          inputName.value = entityData.sample.name;
+          inputTitle.value = entityData.sample.title;
+          inputMobile.value = entityData.sample.mobile;
+          inputEmail.value = entityData.sample.email;
+        }
         validateForm(true);
         updateSignature();
         showToast("Loaded sample employee details.", "info");
       });
 
-      document.getElementById("btnNextEmployee").addEventListener("click", () => {
+      function triggerNextEmployee() {
+        lastClearedState = {
+          brand: currentBrand,
+          name: inputName.value,
+          title: inputTitle.value,
+          mobile: inputMobile.value,
+          email: inputEmail.value
+        };
         inputName.value = "";
         inputTitle.value = "";
         inputMobile.value = "";
         inputEmail.value = "";
-        [
-          [inputName, errFullName],
-          [inputTitle, errJobTitle],
-          [inputMobile, errMobile],
-          [inputLandline, errLandline],
-          [inputEmail, errEmail]
-        ].forEach(([inp, err]) => setFieldError(inp, err, ""));
+        clearAllFieldErrors();
         updateSignature();
         inputName.focus();
-        showToast("Cleared employee fields. Entity and office landline kept.", "info");
+        showToast("Cleared employee fields. Entity and office phone kept.", "info", true);
+      }
+
+      document.getElementById("btnNextEmployee").addEventListener("click", triggerNextEmployee);
+
+      btnToastUndo.addEventListener("click", () => {
+        if (!lastClearedState || lastClearedState.brand !== currentBrand) return;
+        inputName.value = lastClearedState.name;
+        inputTitle.value = lastClearedState.title;
+        inputMobile.value = lastClearedState.mobile;
+        inputEmail.value = lastClearedState.email;
+        lastClearedState = null;
+        clearAllFieldErrors();
+        updateSignature();
+        showToast("Restored previous employee details.", "success");
+      });
+
+      btnSwapGssDomain.addEventListener("click", () => {
+        const rawEmail = inputEmail.value.trim();
+        if (!rawEmail.includes("@")) return;
+        const localPart = rawEmail.split("@")[0];
+        inputEmail.value = `${localPart}@gss-afg.com`;
+        validateSingleField("email", true);
+        updateSignature();
+        showToast("Updated email domain to @gss-afg.com.", "info");
+      });
+
+      document.getElementById("btnResetGssDefaults").addEventListener("click", () => {
+        const entityKey = selectGssEntity.value;
+        const entity = GSS_ENTITIES[entityKey] || GSS_ENTITIES.afghanistan;
+        inputGssCompany.value = entity.companyName;
+        inputGssAddress.value = entity.address;
+        inputGssWebsite.value = "www.globalstar-security.com";
+        updateSignature();
+        showToast("Reset GSS company, address, and website to entity defaults.", "info");
       });
 
       const tabButtons = Array.from(document.querySelectorAll('[role="tab"]'));
@@ -2345,22 +2918,97 @@
           tabButtons.forEach((other) => {
             const isSelected = other === tab;
             other.setAttribute("aria-selected", String(isSelected));
+            other.setAttribute("tabindex", isSelected ? "0" : "-1");
             const panel = document.getElementById(other.getAttribute("aria-controls"));
             if (panel) panel.hidden = !isSelected;
           });
         });
         tab.addEventListener("keydown", (e) => {
-          if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+          let nextIndex = null;
+          if (e.key === "ArrowRight") nextIndex = (index + 1) % tabButtons.length;
+          else if (e.key === "ArrowLeft") nextIndex = (index - 1 + tabButtons.length) % tabButtons.length;
+          else if (e.key === "Home") nextIndex = 0;
+          else if (e.key === "End") nextIndex = tabButtons.length - 1;
+          if (nextIndex !== null) {
             e.preventDefault();
-            const nextIndex = (index + (e.key === "ArrowRight" ? 1 : -1) + tabButtons.length) % tabButtons.length;
             tabButtons[nextIndex].focus();
             tabButtons[nextIndex].click();
           }
         });
       });
 
+      function createOffscreenCaptureHost(isDark, compareMode) {
+        const bg = isDark ? "#18181b" : "#ffffff";
+        const host = document.createElement("div");
+        host.className = isDark ? "preview-stage dark-preview" : "preview-stage";
+        host.style.position = "fixed";
+        host.style.left = "-10000px";
+        host.style.top = "0";
+        host.style.zIndex = "-1";
+        host.style.padding = "16px";
+        host.style.border = "0";
+        host.style.borderRadius = "0";
+        host.style.boxSizing = "border-box";
+        host.style.background = bg;
+        host.style.overflow = "visible";
+        host.style.width = compareMode ? "638px" : "612px";
+
+        if (compareMode) {
+          const grid = document.createElement("div");
+          grid.className = "compare-grid";
+          grid.style.width = "606px";
+
+          const panes = [
+            { tagClass: "compare-tag before-tag", label: "Before (Pinned Baseline)", html: beforeSnapshotHtml || stripIds(signaturePreview.innerHTML) },
+            { tagClass: "compare-tag after-tag", label: "After (Current Edit)", html: stripIds(signaturePreview.innerHTML) }
+          ];
+          panes.forEach((p) => {
+            const pane = document.createElement("div");
+            pane.className = "compare-pane";
+            pane.style.overflow = "visible";
+
+            const tag = document.createElement("div");
+            tag.className = p.tagClass;
+            const dot = document.createElement("span");
+            dot.className = "tag-dot";
+            const txt = document.createElement("span");
+            txt.textContent = p.label;
+            tag.appendChild(dot);
+            tag.appendChild(txt);
+
+            const frame = document.createElement("div");
+            frame.className = "compare-frame sig-render-root";
+            frame.innerHTML = p.html;
+
+            pane.appendChild(tag);
+            pane.appendChild(frame);
+            grid.appendChild(pane);
+          });
+          host.appendChild(grid);
+        } else {
+          const root = document.createElement("div");
+          root.className = "sig-render-root";
+          root.innerHTML = stripIds(signaturePreview.innerHTML);
+          host.appendChild(root);
+        }
+
+        if (window.INLINE_ASSETS) {
+          host.querySelectorAll("img").forEach((img) => {
+            const rawSrc = img.getAttribute("src") || "";
+            if (!rawSrc.startsWith("data:")) {
+              const filename = rawSrc.split("/").pop().split("?")[0];
+              if (window.INLINE_ASSETS[filename]) {
+                img.src = window.INLINE_ASSETS[filename];
+              }
+            }
+          });
+        }
+
+        document.body.appendChild(host);
+        return host;
+      }
+
       let isRenderingImage = false;
-      const btnCopyImage = document.getElementById("btnCopyImage");
       btnCopyImage.addEventListener("click", async () => {
         if (isRenderingImage) return;
         if (typeof html2canvas !== "function") {
@@ -2369,55 +3017,32 @@
         }
 
         isRenderingImage = true;
-        btnCopyImage.style.opacity = "0.6";
-        btnCopyImage.style.pointerEvents = "none";
+        btnCopyImage.disabled = true;
+        btnCopyImage.setAttribute("aria-busy", "true");
         showToast("Rendering preview image...", "info");
 
-        const prevTransform = previewScaler ? previewScaler.style.transform : "";
-        const prevOrigin = previewScaler ? previewScaler.style.transformOrigin : "";
-        if (previewScaler) {
-          previewScaler.style.transform = "none";
-        }
-
-        const target = isCompareMode
-          ? document.getElementById("compareGrid")
-          : document.getElementById("signaturePreview");
-
-        if (!target) {
-          isRenderingImage = false;
-          btnCopyImage.style.opacity = "";
-          btnCopyImage.style.pointerEvents = "";
-          return;
-        }
-
-        const originalSrcs = new Map();
-        if (window.INLINE_ASSETS) {
-          target.querySelectorAll("img").forEach((img) => {
-            const rawSrc = img.getAttribute("src") || "";
-            const filename = rawSrc.split("/").pop().split("?")[0];
-            if (window.INLINE_ASSETS[filename]) {
-              originalSrcs.set(img, img.src);
-              img.src = window.INLINE_ASSETS[filename];
-            }
-          });
-        }
-
-        const imgPromises = Array.from(target.querySelectorAll("img")).map((img) => {
-          if (img.complete) return Promise.resolve();
-          if (typeof img.decode === "function") {
-            return img.decode().catch(() => {});
-          }
-          return new Promise((resolve) => {
-            img.onload = resolve;
-            img.onerror = resolve;
-            setTimeout(resolve, 300);
-          });
-        });
-        await Promise.allSettled(imgPromises);
+        const isDark = previewBox.classList.contains("dark-preview");
+        const captureCompare = isCompareMode;
+        const host = createOffscreenCaptureHost(isDark, captureCompare);
 
         try {
-          const isDark = previewBox.classList.contains("dark-preview");
-          const canvas = await html2canvas(target, {
+          const imgPromises = Array.from(host.querySelectorAll("img")).map((img) => {
+            if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+            if (typeof img.decode === "function") {
+              return Promise.race([
+                img.decode().catch(() => {}),
+                new Promise((resolve) => setTimeout(resolve, 500))
+              ]);
+            }
+            return new Promise((resolve) => {
+              img.onload = resolve;
+              img.onerror = resolve;
+              setTimeout(resolve, 500);
+            });
+          });
+          await Promise.allSettled(imgPromises);
+
+          const canvas = await html2canvas(host, {
             scale: 2,
             useCORS: true,
             allowTaint: false,
@@ -2425,105 +3050,119 @@
             logging: false
           });
 
-          originalSrcs.forEach((src, img) => {
-            img.src = src;
-          });
-          if (previewScaler) {
-            previewScaler.style.transform = prevTransform;
-            previewScaler.style.transformOrigin = prevOrigin;
+          const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+          if (!blob) {
+            showToast("Could not generate PNG image. Please try again.", "error");
+            return;
           }
 
-          canvas.toBlob(async (blob) => {
-            isRenderingImage = false;
-            btnCopyImage.style.opacity = "";
-            btnCopyImage.style.pointerEvents = "";
-
-            if (!blob) {
-              showToast("Could not generate PNG image. Please try again.", "error");
-              return;
-            }
-
-            let copied = false;
-            if (navigator.clipboard && window.ClipboardItem) {
-              try {
-                await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
-                copied = true;
-              } catch (e) {
-                console.warn("Clipboard image write rejected, downloading PNG fallback:", e);
-              }
-            }
-
-            if (copied) {
-              showToast(
-                isCompareMode
-                  ? "Comparison image copied to clipboard. Ready to paste."
-                  : "Preview image copied to clipboard. Ready to paste.",
-                "success"
-              );
-            } else {
-              const url = URL.createObjectURL(blob);
-              const a = document.createElement("a");
-              a.href = url;
-              a.download = isCompareMode ? "idg-signature-comparison.png" : "idg-signature-preview.png";
-              document.body.appendChild(a);
-              a.click();
-              document.body.removeChild(a);
-              URL.revokeObjectURL(url);
-              showToast("Clipboard image blocked; downloaded PNG instead.", "info");
-            }
-          }, "image/png");
+          let copied = false;
+          if (navigator.clipboard && window.ClipboardItem) {
+            try {
+              await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+              copied = true;
+            } catch (e) {}
+          }
+          if (copied) {
+            showToast(
+              captureCompare
+                ? "Comparison image copied to clipboard. Ready to paste."
+                : "Preview image copied to clipboard. Ready to paste.",
+              "success"
+            );
+          } else {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `${currentBrand}-signature-${captureCompare ? "comparison" : "preview"}.png`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast("Clipboard image blocked; downloaded PNG instead.", "info");
+          }
         } catch (err) {
-          originalSrcs.forEach((src, img) => {
-            img.src = src;
-          });
-          if (previewScaler) {
-            previewScaler.style.transform = prevTransform;
-            previewScaler.style.transformOrigin = prevOrigin;
-          }
-          isRenderingImage = false;
-          btnCopyImage.style.opacity = "";
-          btnCopyImage.style.pointerEvents = "";
           console.error("html2canvas error:", err);
           showToast("Could not render preview image. Please try again.", "error");
+        } finally {
+          if (host.parentNode) {
+            host.parentNode.removeChild(host);
+          }
+          isRenderingImage = false;
+          btnCopyImage.disabled = false;
+          btnCopyImage.removeAttribute("aria-busy");
         }
       });
 
-      [
-        [inputName, errFullName],
-        [inputTitle, errJobTitle],
-        [inputMobile, errMobile],
-        [inputLandline, errLandline],
-        [inputEmail, errEmail]
-      ].forEach(([inp, err]) => {
+      FIELD_MAP.forEach(([key, inp]) => {
         inp.addEventListener("input", () => {
           if (inp.getAttribute("aria-invalid") === "true") {
-            validateForm(true);
+            validateSingleField(key, true);
           }
           updateSignature();
         });
+        inp.addEventListener("blur", () => {
+          if (inp.value.trim() || inp.getAttribute("aria-invalid") === "true") {
+            validateSingleField(key, true);
+          }
+        });
       });
 
-      selectLocation.addEventListener("change", () => {
-        const newLocation = selectLocation.value;
-        const prevEntity = ENTITIES[previousLocation];
-        const nextEntity = ENTITIES[newLocation];
+      [inputGssCompany, inputGssAddress, inputGssWebsite].forEach((el) => {
+        el.addEventListener("input", updateSignature);
+      });
 
-        if (!inputLandline.value.trim() || inputLandline.value.trim() === prevEntity.defaultLandline.trim()) {
-          inputLandline.value = nextEntity.defaultLandline;
+      selectIdgLocation.addEventListener("change", () => {
+        const nextLoc = selectIdgLocation.value;
+        const prev = IDG_ENTITIES[previousIdgLocation];
+        const next = IDG_ENTITIES[nextLoc];
+        if (!inputLandline.value.trim() || inputLandline.value.trim() === prev.defaultLandline.trim()) {
+          inputLandline.value = next.defaultLandline;
         }
-        inputLandline.placeholder = nextEntity.landlinePlaceholder;
-        previousLocation = newLocation;
+        previousIdgLocation = nextLoc;
         updateSignature();
       });
 
-      window.addEventListener("resize", adjustPreviewScaling);
-      window.addEventListener("orientationchange", () => setTimeout(adjustPreviewScaling, 150));
+      selectGssEntity.addEventListener("change", () => {
+        const nextKey = selectGssEntity.value;
+        const prev = GSS_ENTITIES[previousGssEntity];
+        const next = GSS_ENTITIES[nextKey];
+        if (!inputGssCompany.value.trim() || inputGssCompany.value.trim() === prev.companyName) {
+          inputGssCompany.value = next.companyName;
+        }
+        if (!inputGssAddress.value.trim() || inputGssAddress.value.trim() === prev.address) {
+          inputGssAddress.value = next.address;
+        }
+        if (!inputLandline.value.trim() || inputLandline.value.trim() === prev.defaultPhone) {
+          inputLandline.value = next.defaultPhone;
+        }
+        previousGssEntity = nextKey;
+        updateSignature();
+      });
 
+      selectGssMode.addEventListener("change", updateSignature);
+
+      window.addEventListener("resize", scheduleScaling);
+      window.addEventListener("orientationchange", () => setTimeout(scheduleScaling, 150));
       if (window.ResizeObserver && previewBox) {
-        new ResizeObserver(() => {
-          adjustPreviewScaling();
-        }).observe(previewBox);
+        const ro = new ResizeObserver(() => scheduleScaling());
+        ro.observe(previewBox);
+        if (signaturePreview) ro.observe(signaturePreview);
       }
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && isCompareMode) {
+          e.preventDefault();
+          setCompareMode(false);
+          btnCompare.focus();
+        } else if (e.altKey && !e.ctrlKey && !e.metaKey && e.key.toLowerCase() === "c") {
+          e.preventDefault();
+          document.getElementById("btnCopySignature").click();
+        } else if (e.altKey && !e.ctrlKey && !e.metaKey && e.key.toLowerCase() === "n") {
+          e.preventDefault();
+          triggerNextEmployee();
+        }
+      });
 
       const TOAST_ICONS = {
         success: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>',
@@ -2532,7 +3171,7 @@
       };
 
       let toastTimer;
-      function showToast(msg, variant = "success") {
+      function showToast(msg, variant = "success", showUndo = false) {
         const toast = document.getElementById("toast");
         const toastMsg = document.getElementById("toastMsg");
         const toastIcon = document.getElementById("toastIcon");
@@ -2551,18 +3190,21 @@
         }
         toastIcon.innerHTML = TOAST_ICONS[variant] || TOAST_ICONS.success;
         toastMsg.textContent = msg;
+        btnToastUndo.classList.toggle("is-hidden", !showUndo);
         toast.style.display = "flex";
         clearTimeout(toastTimer);
         toastTimer = setTimeout(() => {
           toast.style.display = "none";
-        }, variant === "error" ? 4500 : 3200);
+          btnToastUndo.classList.add("is-hidden");
+        }, showUndo ? 5500 : variant === "error" ? 4500 : 3200);
       }
 
       function requireValidForExport() {
         const check = validateForm(true);
         if (!check.valid) {
           if (check.firstInvalid) check.firstInvalid.focus();
-          showToast("Fix highlighted fields before exporting the signature.", "error");
+          const label = check.count === 1 ? "1 required field" : `${check.count} fields`;
+          showToast(`Fix ${label} highlighted in red before exporting.`, "error");
           return false;
         }
         return true;
@@ -2571,46 +3213,44 @@
       document.getElementById("btnCopySignature").addEventListener("click", async () => {
         if (!requireValidForExport()) return;
 
-        const preview = document.getElementById("signaturePreview");
-        const scaler = document.getElementById("previewScaler");
-        const prevTransform = scaler.style.transform;
-        const prevOrigin = scaler.style.transformOrigin;
-        scaler.style.transform = "none";
-
         const exportHtml = getExportSignatureHtml();
+        const plainText = getCleanPlainText(exportHtml);
+
         let copied = false;
         try {
           if (navigator.clipboard && window.ClipboardItem) {
-            const htmlBlob = new Blob([exportHtml], { type: "text/html" });
-            const textBlob = new Blob([preview.innerText], { type: "text/plain" });
             await navigator.clipboard.write([
-              new ClipboardItem({ "text/html": htmlBlob, "text/plain": textBlob })
+              new ClipboardItem({
+                "text/html": new Blob([exportHtml], { type: "text/html" }),
+                "text/plain": new Blob([plainText], { type: "text/plain" })
+              })
             ]);
             copied = true;
           }
-        } catch (err) {
-          console.warn("ClipboardItem API unavailable or rejected, using selection fallback:", err);
-        }
+        } catch (err) {}
 
         if (!copied) {
+          const tempHost = document.createElement("div");
+          tempHost.style.position = "fixed";
+          tempHost.style.left = "-10000px";
+          tempHost.style.top = "0";
+          tempHost.style.opacity = "0";
+          tempHost.style.pointerEvents = "none";
+          tempHost.innerHTML = exportHtml;
+          document.body.appendChild(tempHost);
           try {
-            const originalHtml = preview.innerHTML;
-            preview.innerHTML = exportHtml;
             const range = document.createRange();
-            range.selectNodeContents(preview);
+            range.selectNodeContents(tempHost);
             const sel = window.getSelection();
             sel.removeAllRanges();
             sel.addRange(range);
             copied = document.execCommand("copy");
             sel.removeAllRanges();
-            preview.innerHTML = originalHtml;
           } catch (e) {
-            console.error("execCommand fallback failed:", e);
+          } finally {
+            if (tempHost.parentNode) tempHost.parentNode.removeChild(tempHost);
           }
         }
-
-        scaler.style.transform = prevTransform;
-        scaler.style.transformOrigin = prevOrigin;
 
         if (copied) {
           showToast("Formatted signature copied. Paste into Outlook, Apple Mail, or Gmail.", "success");
@@ -2621,26 +3261,21 @@
 
       document.getElementById("btnDownloadHtml").addEventListener("click", () => {
         if (!requireValidForExport()) return;
-
         const rawName = inputName.value.trim();
         const safeFilename = rawName
           .toLowerCase()
           .normalize("NFD")
           .replace(/[\u0300-\u036f]/g, "")
           .replace(/[^a-z0-9]+/g, "-")
-          .replace(/(^-|-$)/g, "") || "idg-signature";
+          .replace(/(^-|-$)/g, "") || `${currentBrand}-signature`;
         const filename = `${safeFilename}.html`;
-
         const exportHtml = getExportSignatureHtml();
         const fullHtmlDocument = `<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="format-detection"
-      content="telephone=no, date=no, address=no, email=no"
-    />
+    <meta name="format-detection" content="telephone=no, date=no, address=no, email=no" />
     <title>${escapeHtml(rawName)} - Email Signature</title>
     <style type="text/css">
       a[x-apple-data-detectors],
@@ -2656,17 +3291,7 @@
       }
     </style>
   </head>
-  <body
-    id="body"
-    style="
-      margin: 0;
-      padding: 14px;
-      background-color: #ffffff;
-      box-sizing: border-box;
-      -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
-    "
-  >
+  <body id="body" style="margin: 0; padding: 14px; background-color: #ffffff; box-sizing: border-box; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%">
 ${exportHtml}
   </body>
 </html>`;
@@ -2680,13 +3305,11 @@ ${exportHtml}
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
-
         showToast(`Downloaded ${filename}.`, "success");
       });
 
       document.getElementById("btnCopyCode").addEventListener("click", async () => {
         if (!requireValidForExport()) return;
-
         const exportHtml = getExportSignatureHtml();
         let copied = false;
         try {
@@ -2706,7 +3329,6 @@ ${exportHtml}
             copied = false;
           }
         }
-
         if (copied) {
           showToast("Raw HTML code copied to clipboard.", "success");
         } else {
@@ -2714,18 +3336,9 @@ ${exportHtml}
         }
       });
 
-      if (window.location.protocol === "http:" || window.location.protocol === "https:") {
-        const assetBase = getAssetBaseUrl();
-        signaturePreview.querySelectorAll("img").forEach((img) => {
-          const rawSrc = img.getAttribute("src");
-          if (rawSrc && rawSrc.startsWith("assets/")) {
-            img.src = assetBase + rawSrc.slice("assets/".length);
-          }
-        });
-      }
-
+      restoreDraft();
+      applyBrandStateToDom(currentBrand);
       updateSignature();
-      captureBeforeSnapshot();
       setTimeout(adjustPreviewScaling, 150);
       window.addEventListener("load", adjustPreviewScaling);
     </script>

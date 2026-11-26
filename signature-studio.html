@@ -1,0 +1,3346 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=5.0"
+    />
+    <title>Corporate Email Signature Studio - IDG Security &amp; GSS</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <link rel="apple-touch-icon" href="assets/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --brand-primary: #003057;
+        --brand-deep: #00213d;
+        --brand-hover: #0a4676;
+        --brand-accent: #a68246;
+        --brand-accent-soft: #f7f2e8;
+        --brand-accent-border: #e4d4b7;
+        --brand-accent-ink: #5b4319;
+        --brand-focus-ring: rgba(0, 48, 87, 0.14);
+        --brand-selection: rgba(0, 48, 87, 0.16);
+        --brand-tint-bg: #e6eff8;
+        --brand-tint-surface: #eef3f8;
+        --brand-tint-hover: #eaf0f6;
+        --brand-tab-hover: rgba(0, 48, 87, 0.06);
+        --brand-dark-badge-bg: #1e293b;
+        --brand-dark-badge-ink: #93c5fd;
+        --canvas: #f2f4f7;
+        --surface: #ffffff;
+        --surface-muted: #f7f9fb;
+        --border: #d5dde6;
+        --border-strong: #b6c4d4;
+        --ink: #0d1b2a;
+        --ink-secondary: #435568;
+        --success: #157347;
+        --success-bg: #eaf6ef;
+        --warn-ink: #8a4f0e;
+        --warn-bg: #fef7ec;
+        --warn-border: #f3d7a8;
+        --error: #b42318;
+        --error-bg: #fef3f2;
+        --radius-sm: 6px;
+        --radius-md: 8px;
+        --radius-lg: 10px;
+      }
+
+      body[data-brand="gss"] {
+        --brand-primary: #111827;
+        --brand-deep: #0b0f17;
+        --brand-hover: #1f2937;
+        --brand-accent: #b48a28;
+        --brand-accent-soft: #fbf7ec;
+        --brand-accent-border: #e5d5ad;
+        --brand-accent-ink: #5e4610;
+        --brand-focus-ring: rgba(180, 138, 40, 0.24);
+        --brand-selection: rgba(180, 138, 40, 0.22);
+        --brand-tint-bg: #fbf3df;
+        --brand-tint-surface: #f7f4ec;
+        --brand-tint-hover: #f2ece0;
+        --brand-tab-hover: rgba(17, 24, 39, 0.07);
+        --brand-dark-badge-bg: #2c2414;
+        --brand-dark-badge-ink: #f6d88b;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      ::selection {
+        background: var(--brand-selection);
+        color: var(--brand-deep);
+      }
+
+      html {
+        width: 100%;
+        scrollbar-color: #b6c4d4 transparent;
+        scrollbar-width: thin;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        background-color: var(--canvas);
+        color: var(--ink);
+        font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 14px;
+        line-height: 1.5;
+        caret-color: var(--brand-primary);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .skip-link {
+        position: absolute;
+        left: 16px;
+        top: -56px;
+        background: var(--brand-primary);
+        color: #ffffff;
+        padding: 10px 14px;
+        border-radius: var(--radius-sm);
+        font-weight: 600;
+        font-size: 13px;
+        text-decoration: none;
+        z-index: 200;
+        transition: top 0.15s ease;
+      }
+
+      .skip-link:focus {
+        top: 12px;
+        outline: 2px solid var(--brand-accent);
+        outline-offset: 2px;
+      }
+
+      .topbar {
+        background: var(--brand-deep);
+        color: #ffffff;
+        border-bottom: 2px solid var(--brand-accent);
+        transition: background-color 0.2s ease, border-color 0.2s ease;
+      }
+
+      .topbar-inner {
+        max-width: 1140px;
+        margin: 0 auto;
+        padding: 14px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px 20px;
+      }
+
+      @media (min-width: 768px) {
+        .topbar-inner {
+          padding: 15px 24px;
+        }
+      }
+
+      .brand-block {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+        max-width: 100%;
+      }
+
+      .brand-block > div {
+        min-width: 0;
+      }
+
+      .brand-crest {
+        width: 40px;
+        height: 40px;
+        border-radius: var(--radius-sm);
+        background: #ffffff;
+        padding: 3px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .brand-crest img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+      }
+
+      .brand-title {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+        color: #ffffff;
+      }
+
+      @media (min-width: 768px) {
+        .brand-title {
+          font-size: 22px;
+        }
+      }
+
+      .brand-subtitle {
+        margin: 2px 0 0 0;
+        font-size: 12.5px;
+        color: #c7d6e6;
+      }
+
+      .topbar-right {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        max-width: 100%;
+      }
+
+      .brand-switcher {
+        display: inline-flex;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: var(--radius-md);
+        padding: 3px;
+        gap: 3px;
+      }
+
+      .brand-switch-btn {
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: 5px;
+        color: #d6e2ee;
+        font-family: inherit;
+        font-size: 12.5px;
+        font-weight: 600;
+        padding: 6px 12px;
+        min-height: 32px;
+        cursor: pointer;
+        transition: background-color 0.15s ease, color 0.15s ease;
+      }
+
+      .brand-switch-btn:hover {
+        color: #ffffff;
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .brand-switch-btn[aria-pressed="true"] {
+        background: #ffffff;
+        color: var(--brand-deep);
+      }
+
+      .entity-context {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 6px 8px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: var(--radius-md);
+        padding: 7px 12px;
+        max-width: 100%;
+      }
+
+      .entity-context-name {
+        font-size: 13px;
+        font-weight: 600;
+        color: #ffffff;
+      }
+
+      .entity-rule-tag {
+        display: inline-flex;
+        align-items: center;
+        font-size: 12px;
+        font-weight: 600;
+        color: #f6e7c8;
+        background: rgba(180, 138, 40, 0.26);
+        border: 1px solid rgba(246, 231, 200, 0.36);
+        border-radius: 4px;
+        padding: 2px 8px;
+      }
+
+      .workspace {
+        max-width: 1140px;
+        margin: 0 auto;
+        padding: 18px 14px 48px 14px;
+      }
+
+      @media (min-width: 768px) {
+        .workspace {
+          padding: 24px 24px 56px 24px;
+        }
+      }
+
+      .layout-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 20px;
+        width: 100%;
+      }
+
+      @media (min-width: 960px) {
+        .layout-grid {
+          grid-template-columns: 382px minmax(0, 1fr);
+          align-items: start;
+          gap: 24px;
+        }
+      }
+
+      .panel {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        box-shadow: 0 2px 8px rgba(13, 27, 42, 0.05);
+        width: 100%;
+        min-width: 0;
+      }
+
+      .panel-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px 10px;
+        padding: 14px 18px;
+        border-bottom: 1px solid var(--border);
+        background: var(--surface);
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      }
+
+      .panel-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--brand-deep);
+        margin: 0;
+        letter-spacing: -0.01em;
+      }
+
+      .panel-body {
+        padding: 16px 18px 20px 18px;
+        min-width: 0;
+        max-width: 100%;
+      }
+
+      .form-tools {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .btn-ghost {
+        background: var(--surface-muted);
+        color: var(--brand-primary);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 5px 9px;
+        min-height: 30px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        white-space: nowrap;
+        transition: background-color 0.15s ease, border-color 0.15s ease;
+      }
+
+      .btn-ghost:hover {
+        background: var(--brand-tint-hover);
+        border-color: var(--border-strong);
+      }
+
+      .form-section-sep {
+        margin: 14px 0;
+        border: 0;
+        border-top: 1px solid #e6ecf2;
+      }
+
+      .form-group {
+        margin-bottom: 13px;
+      }
+
+      .form-group:last-of-type {
+        margin-bottom: 0;
+      }
+
+      .label-row {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 5px;
+      }
+
+      label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--ink);
+      }
+
+      .field-hint {
+        font-size: 12px;
+        color: var(--ink-secondary);
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"],
+      select,
+      textarea {
+        width: 100%;
+        min-height: 44px;
+        padding: 9px 12px;
+        font-family: inherit;
+        font-size: 15px;
+        font-variant-numeric: tabular-nums;
+        border: 1px solid var(--border-strong);
+        border-radius: var(--radius-md);
+        color: var(--ink);
+        background: #ffffff;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      }
+
+      textarea {
+        min-height: 68px;
+        resize: vertical;
+        line-height: 1.45;
+      }
+
+      input::placeholder,
+      textarea::placeholder {
+        color: #667788;
+      }
+
+      @media (min-width: 768px) {
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select,
+        textarea {
+          font-size: 14px;
+          min-height: 40px;
+        }
+        textarea {
+          min-height: 64px;
+        }
+      }
+
+      input:focus-visible,
+      select:focus-visible,
+      textarea:focus-visible,
+      button:focus-visible,
+      summary:focus-visible,
+      a:focus-visible {
+        outline: 2px solid var(--brand-primary);
+        outline-offset: 2px;
+      }
+
+      .topbar button:focus-visible {
+        outline-color: #f6e7c8;
+      }
+
+      input:focus,
+      select:focus,
+      textarea:focus {
+        border-color: var(--brand-primary);
+        box-shadow: 0 0 0 3px var(--brand-focus-ring);
+      }
+
+      input[aria-invalid="true"] {
+        border-color: var(--error);
+        background-color: #fffbfa;
+      }
+
+      input[aria-invalid="true"]:focus {
+        box-shadow: 0 0 0 3px rgba(180, 35, 24, 0.14);
+      }
+
+      .field-error {
+        display: none;
+        margin-top: 5px;
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--error);
+      }
+
+      .field-error.visible {
+        display: block;
+      }
+
+      .entity-note-box {
+        margin-top: 7px;
+        padding: 8px 10px;
+        border-radius: var(--radius-sm);
+        background: var(--brand-accent-soft);
+        border: 1px solid var(--brand-accent-border);
+        font-size: 12px;
+        color: var(--brand-accent-ink);
+        display: none;
+      }
+
+      .entity-note-box.visible {
+        display: block;
+      }
+
+      .overrides-disclosure {
+        margin-top: 14px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        background: var(--surface-muted);
+      }
+
+      .overrides-disclosure summary {
+        padding: 10px 12px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--brand-primary);
+        cursor: pointer;
+        list-style: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .overrides-disclosure summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .overrides-disclosure[open] summary {
+        border-bottom: 1px solid var(--border);
+      }
+
+      .overrides-body {
+        padding: 12px;
+      }
+
+      .overrides-actions {
+        margin-top: 10px;
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .actions-block {
+        margin-top: 18px;
+        padding-top: 16px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        min-height: 44px;
+        padding: 10px 16px;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        border-radius: var(--radius-md);
+        border: 1px solid transparent;
+        cursor: pointer;
+        transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+        text-align: center;
+        width: 100%;
+      }
+
+      .btn:active {
+        transform: translateY(1px);
+      }
+
+      .btn-primary {
+        background: var(--brand-primary);
+        color: #ffffff;
+      }
+
+      .btn-primary:hover {
+        background: var(--brand-hover);
+      }
+
+      .btn-secondary-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      @media (max-width: 420px) {
+        .btn-secondary-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .btn-secondary {
+        background: var(--surface-muted);
+        color: var(--ink);
+        border-color: var(--border-strong);
+        font-size: 13px;
+        padding: 9px 12px;
+      }
+
+      .btn-secondary:hover {
+        background: var(--brand-tint-hover);
+      }
+
+      .action-caption {
+        margin: 2px 0 0 0;
+        font-size: 12px;
+        color: var(--ink-secondary);
+      }
+
+      .kbd-hint {
+        display: inline-block;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 11px;
+        padding: 1px 5px;
+        border-radius: 4px;
+        border: 1px solid var(--border-strong);
+        background: #ffffff;
+        color: var(--ink-secondary);
+      }
+
+      .preview-toolbar {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .toolbar-group {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .toolbar-divider {
+        width: 1px;
+        height: 22px;
+        background: var(--border);
+        margin: 0 4px;
+      }
+
+      .toggle-btn {
+        background: var(--surface-muted);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--ink-secondary);
+        padding: 6px 10px;
+        cursor: pointer;
+        min-height: 34px;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        white-space: nowrap;
+        transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+      }
+
+      .toggle-btn:hover:not(:disabled) {
+        background: var(--brand-tint-hover);
+        color: var(--ink);
+      }
+
+      .toggle-btn.active {
+        background: var(--brand-primary);
+        color: #ffffff;
+        border-color: var(--brand-primary);
+      }
+
+      .toggle-btn:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+
+      .tip-wrap {
+        position: relative;
+        display: inline-flex;
+      }
+
+      .tip-wrap::after {
+        content: attr(data-tip);
+        display: none;
+        position: absolute;
+        top: calc(100% + 6px);
+        right: 0;
+        left: auto;
+        width: 220px;
+        max-width: calc(100vw - 32px);
+        background: var(--ink);
+        color: #f8fafc;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1.4;
+        padding: 8px 10px;
+        border-radius: var(--radius-sm);
+        box-shadow: 0 6px 16px rgba(13, 27, 42, 0.22);
+        pointer-events: none;
+        z-index: 60;
+        white-space: normal;
+        text-align: left;
+      }
+
+      .tip-wrap:hover::after,
+      .tip-wrap:has(button:focus-visible)::after {
+        display: block;
+      }
+
+      .tip-wrap.tip-dismiss::after {
+        display: none !important;
+      }
+
+      @media (max-width: 640px) {
+        .toolbar-divider {
+          display: none;
+        }
+        .tip-wrap::after {
+          display: none !important;
+        }
+        .brand-switch-btn,
+        .toggle-btn,
+        .btn-ghost,
+        .tab-btn {
+          min-height: 44px;
+        }
+        .toggle-btn,
+        .btn-ghost {
+          padding: 7px 11px;
+        }
+      }
+
+      .preview-stage {
+        background: #ffffff;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: 12px;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        overflow: hidden;
+        transition: background-color 0.18s ease, border-color 0.18s ease;
+      }
+
+      @media (min-width: 768px) {
+        .preview-stage {
+          padding: 16px;
+        }
+      }
+
+      .preview-stage.dark-preview {
+        background: #18181b;
+        border-color: #3f3f46;
+      }
+
+      .preview-stage.dark-preview .btn-ghost {
+        background: #27272a;
+        color: #f4f4f5;
+        border-color: #52525b;
+      }
+
+      .preview-stage.dark-preview .btn-ghost:hover {
+        background: #3f3f46;
+        border-color: #71717a;
+      }
+
+      .preview-stage.dark-preview #signaturePreview td,
+      .preview-stage.dark-preview #signaturePreview div,
+      .preview-stage.dark-preview #signaturePreview a,
+      .preview-stage.dark-preview #signaturePreview span,
+      .preview-stage.dark-preview #signaturePreview strong,
+      .preview-stage.dark-preview .sig-render-root td,
+      .preview-stage.dark-preview .sig-render-root div,
+      .preview-stage.dark-preview .sig-render-root a,
+      .preview-stage.dark-preview .sig-render-root span,
+      .preview-stage.dark-preview .sig-render-root strong,
+      .preview-stage.dark-preview .compare-frame td,
+      .preview-stage.dark-preview .compare-frame div,
+      .preview-stage.dark-preview .compare-frame a,
+      .preview-stage.dark-preview .compare-frame span,
+      .preview-stage.dark-preview .compare-frame strong {
+        color: #e2e8f0 !important;
+      }
+
+      .preview-stage.dark-preview #signaturePreview div[style*="15803d"],
+      .preview-stage.dark-preview .sig-render-root div[style*="15803d"],
+      .preview-stage.dark-preview .compare-frame div[style*="15803d"] {
+        color: #4ade80 !important;
+      }
+
+      .dark-mode-note {
+        display: none;
+        margin-top: 10px;
+        padding: 8px 12px;
+        border-radius: var(--radius-sm);
+        background: #27272a;
+        border: 1px solid #3f3f46;
+        color: #d4d4d8;
+        font-size: 12px;
+      }
+
+      .preview-stage.dark-preview .dark-mode-note {
+        display: block;
+      }
+
+      .preview-viewport {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        position: relative;
+        overflow-x: hidden;
+        overflow-y: visible;
+        contain: inline-size;
+      }
+
+      .preview-scaler {
+        transform-origin: top left;
+        width: 580px;
+      }
+
+      #signaturePreview,
+      .sig-render-root {
+        width: 580px;
+      }
+
+      .compare-wrapper {
+        width: 100%;
+        min-width: 0;
+      }
+
+      .compare-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 12px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .preview-stage.dark-preview .compare-bar {
+        border-bottom-color: #3f3f46;
+      }
+
+      .compare-meta {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .compare-heading {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--brand-primary);
+        background: var(--brand-tint-bg);
+        padding: 5px 10px;
+        border-radius: var(--radius-sm);
+      }
+
+      .preview-stage.dark-preview .compare-heading {
+        background: var(--brand-dark-badge-bg);
+        color: var(--brand-dark-badge-ink);
+      }
+
+      .compare-timestamp {
+        font-size: 12px;
+        color: var(--ink-secondary);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .preview-stage.dark-preview .compare-timestamp {
+        color: #a1a1aa;
+      }
+
+      .compare-status-hint {
+        margin: 0 0 12px 0;
+        font-size: 12px;
+        color: var(--ink-secondary);
+      }
+
+      .preview-stage.dark-preview .compare-status-hint {
+        color: #a1a1aa;
+      }
+
+      .compare-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        width: 100%;
+      }
+
+      .compare-pane {
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: 12px;
+        background: #ffffff;
+        width: 100%;
+        overflow: hidden;
+      }
+
+      .preview-stage.dark-preview .compare-pane {
+        background: #18181b;
+        border-color: #3f3f46;
+      }
+
+      .compare-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 5px 10px;
+        border-radius: var(--radius-sm);
+        margin-bottom: 10px;
+      }
+
+      .compare-tag .tag-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+      }
+
+      .before-tag {
+        background: #eef2f6;
+        color: #334155;
+      }
+
+      .before-tag .tag-dot {
+        background: #64748b;
+      }
+
+      .after-tag {
+        background: var(--success-bg);
+        color: #14532d;
+      }
+
+      .after-tag .tag-dot {
+        background: var(--success);
+      }
+
+      .preview-stage.dark-preview .before-tag {
+        background: #27272a;
+        color: #d4d4d8;
+      }
+
+      .preview-stage.dark-preview .after-tag {
+        background: #052e16;
+        color: #86efac;
+      }
+
+      .compare-frame-viewport {
+        width: 100%;
+        overflow: hidden;
+        contain: inline-size;
+      }
+
+      .compare-frame {
+        width: 580px;
+        transform-origin: top left;
+      }
+
+      .preflight-bar {
+        margin-top: 14px;
+        padding: 10px 14px;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--border);
+        background: var(--surface-muted);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px 16px;
+        font-size: 12.5px;
+      }
+
+      .preflight-bar.has-warn {
+        background: var(--warn-bg);
+        border-color: var(--warn-border);
+      }
+
+      .preflight-left {
+        display: inline-flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .preflight-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        font-weight: 600;
+        color: var(--ink);
+      }
+
+      .preflight-status.is-ready {
+        color: var(--success);
+      }
+
+      .preflight-status.is-warn {
+        color: var(--warn-ink);
+      }
+
+      .preflight-action-btn {
+        background: #ffffff;
+        color: var(--brand-primary);
+        border: 1px solid var(--brand-accent-border);
+        border-radius: var(--radius-sm);
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 4px 9px;
+        min-height: 28px;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+
+      .preflight-action-btn:hover {
+        background: var(--brand-accent-soft);
+      }
+
+      .preflight-meta {
+        font-size: 12px;
+        color: var(--ink-secondary);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .setup-card {
+        margin-top: 16px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        background: var(--surface-muted);
+        overflow: hidden;
+      }
+
+      .setup-tabs {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 10px 14px;
+        border-bottom: 1px solid var(--border);
+        background: var(--brand-tint-surface);
+      }
+
+      .setup-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--brand-deep);
+        margin: 0;
+      }
+
+      .tablist {
+        display: inline-flex;
+        gap: 4px;
+      }
+
+      .tab-btn {
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: var(--radius-sm);
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--ink-secondary);
+        padding: 6px 11px;
+        min-height: 32px;
+        cursor: pointer;
+        transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+      }
+
+      .tab-btn:hover {
+        background: var(--brand-tab-hover);
+        color: var(--brand-primary);
+      }
+
+      .tab-btn[aria-selected="true"] {
+        background: #ffffff;
+        color: var(--brand-primary);
+        border-color: var(--border-strong);
+      }
+
+      .setup-panel {
+        padding: 14px 16px;
+        font-size: 13px;
+        line-height: 1.5;
+        color: var(--ink);
+      }
+
+      .setup-panel[hidden] {
+        display: none;
+      }
+
+      .setup-panel ol {
+        margin: 0;
+        padding-left: 18px;
+      }
+
+      .setup-panel li {
+        margin-bottom: 6px;
+      }
+
+      .setup-panel li:last-child {
+        margin-bottom: 0;
+      }
+
+      .setup-note {
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid var(--border);
+        font-size: 12px;
+        color: var(--ink-secondary);
+      }
+
+      .toast {
+        position: fixed;
+        bottom: 18px;
+        left: 16px;
+        right: 16px;
+        max-width: 500px;
+        margin: 0 auto;
+        background: var(--success);
+        color: #ffffff;
+        padding: 12px 16px;
+        border-radius: var(--radius-md);
+        font-size: 13.5px;
+        font-weight: 600;
+        box-shadow: 0 8px 24px rgba(13, 27, 42, 0.24);
+        display: none;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        z-index: 1000;
+      }
+
+      .toast-main {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+      }
+
+      .toast.toast-info {
+        background: var(--brand-primary);
+      }
+
+      .toast.toast-error {
+        background: var(--error);
+      }
+
+      .toast svg {
+        flex-shrink: 0;
+      }
+
+      .toast-undo-btn {
+        background: rgba(255, 255, 255, 0.18);
+        color: #ffffff;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 5px;
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 4px 10px;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+
+      .toast-undo-btn:hover {
+        background: rgba(255, 255, 255, 0.28);
+      }
+
+      .is-hidden {
+        display: none !important;
+      }
+    </style>
+    <script src="assets/assets-inline.js?v=2"></script>
+    <script src="assets/html2canvas.min.js"></script>
+    <script>
+      if (typeof html2canvas === "undefined") {
+        var s = document.createElement("script");
+        s.src = "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js";
+        document.head.appendChild(s);
+      }
+    </script>
+  </head>
+  <body data-brand="idg">
+    <a class="skip-link" href="#mainWorkspace">Skip to signature workspace</a>
+
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand-block">
+          <div class="brand-crest">
+            <img id="topbarCrest" src="assets/idg-logo.png" alt="IDG Security crest" width="34" height="34" />
+          </div>
+          <div>
+            <h1 class="brand-title" id="topbarTitle">IDG Security Signature Studio</h1>
+            <p class="brand-subtitle" id="topbarSubtitle">Corporate email signature builder across global IDG entities</p>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div class="brand-switcher" role="group" aria-label="Switch corporate brand">
+            <button type="button" class="brand-switch-btn" id="btnBrandIdg" aria-pressed="true">IDG Security</button>
+            <button type="button" class="brand-switch-btn" id="btnBrandGss" aria-pressed="false">GSS</button>
+          </div>
+
+          <div class="entity-context" aria-live="polite">
+            <span class="entity-context-name" id="activeEntityName">IDG Group DMCC</span>
+            <span class="entity-rule-tag" id="activeEntityRule">Option 4A · 3-ISO</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="workspace" id="mainWorkspace">
+      <div class="layout-grid">
+        <section class="panel" aria-labelledby="detailsHeading">
+          <div class="panel-header">
+            <h2 class="panel-title" id="detailsHeading">Employee Details</h2>
+            <div class="form-tools">
+              <button type="button" class="btn-ghost" id="btnLoadSample">Load Sample</button>
+              <button type="button" class="btn-ghost" id="btnNextEmployee" title="Shortcut: Alt + N">Next Employee</button>
+            </div>
+          </div>
+
+          <div class="panel-body">
+            <div class="form-group" id="groupIdgLocation">
+              <div class="label-row">
+                <label for="idgLocation">Office Location (Entity)</label>
+              </div>
+              <select id="idgLocation">
+                <optgroup label="UAE Headquarters">
+                  <option value="uae" selected>UAE - IDG Security (Dubai)</option>
+                  <option value="idg_group">UAE - IDG Group Logo (Dubai)</option>
+                </optgroup>
+                <optgroup label="Middle East Operations">
+                  <option value="iraq">Iraq (Baghdad - 5-ISO &amp; Stacked Title)</option>
+                </optgroup>
+                <optgroup label="Global Offices">
+                  <option value="usa">United States (Virginia)</option>
+                  <option value="myanmar">Myanmar (Yangon)</option>
+                  <option value="afghanistan">Afghanistan (Kabul)</option>
+                  <option value="india">India (Dehradun)</option>
+                  <option value="nepal">Nepal (Lalitpur)</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <div class="form-group is-hidden" id="groupGssEntity">
+              <div class="label-row">
+                <label for="gssEntity">GSS Entity / Office Location</label>
+              </div>
+              <select id="gssEntity">
+                <option value="afghanistan" selected>Afghanistan - Global Star Security (Kabul)</option>
+                <option value="uae">UAE - GSS International Limited (Dubai)</option>
+              </select>
+            </div>
+
+            <div class="form-group is-hidden" id="groupGssMode">
+              <div class="label-row">
+                <label for="gssNoticeMode">Signature Mode</label>
+              </div>
+              <select id="gssNoticeMode">
+                <option value="standard" selected>Standard</option>
+                <option value="transition">Transition (Business Continuity Notice)</option>
+              </select>
+            </div>
+
+            <div class="entity-note-box" id="entityNoteBox"></div>
+
+            <hr class="form-section-sep" />
+
+            <div class="form-group">
+              <div class="label-row">
+                <label for="fullName">Full Name</label>
+                <span class="field-hint">Required</span>
+              </div>
+              <input
+                type="text"
+                id="fullName"
+                value=""
+                placeholder="e.g. Tariq Al-Mansoor"
+                autocomplete="name"
+                aria-describedby="errFullName"
+              />
+              <div class="field-error" id="errFullName"></div>
+            </div>
+
+            <div class="form-group">
+              <div class="label-row">
+                <label for="jobTitle">Job Title</label>
+                <span class="field-hint">Required</span>
+              </div>
+              <input
+                type="text"
+                id="jobTitle"
+                value=""
+                placeholder="e.g. Operations Manager"
+                aria-describedby="errJobTitle"
+              />
+              <div class="field-error" id="errJobTitle"></div>
+            </div>
+
+            <hr class="form-section-sep" />
+
+            <div class="form-group">
+              <div class="label-row">
+                <label for="landline">Landline (Office Phone)</label>
+                <span class="field-hint">Optional</span>
+              </div>
+              <input
+                type="tel"
+                id="landline"
+                value="+971 (04) 514 4958"
+                placeholder="e.g. +971 (04) 514 4958"
+                aria-describedby="errLandline"
+              />
+              <div class="field-error" id="errLandline"></div>
+            </div>
+
+            <div class="form-group">
+              <div class="label-row">
+                <label for="mobile">Mobile / WhatsApp Number</label>
+                <span class="field-hint">Optional</span>
+              </div>
+              <input
+                type="tel"
+                id="mobile"
+                value=""
+                placeholder="e.g. +971 50 123 4567"
+                autocomplete="tel"
+                aria-describedby="errMobile"
+              />
+              <div class="field-error" id="errMobile"></div>
+            </div>
+
+            <div class="form-group">
+              <div class="label-row">
+                <label for="email" id="emailLabel">IDG Email Address</label>
+                <span class="field-hint">Required</span>
+              </div>
+              <input
+                type="email"
+                id="email"
+                value=""
+                placeholder="e.g. name@idg-security.com"
+                autocomplete="email"
+                aria-describedby="errEmail"
+              />
+              <div class="field-error" id="errEmail"></div>
+            </div>
+
+            <details class="overrides-disclosure is-hidden" id="gssOverrides">
+              <summary>
+                <span>Customize GSS Company, Address &amp; Website</span>
+                <span class="field-hint">Optional</span>
+              </summary>
+              <div class="overrides-body">
+                <div class="form-group">
+                  <label for="gssCompanyName">Entity / Company Name</label>
+                  <input type="text" id="gssCompanyName" value="Global Star Security Services Company" placeholder="e.g. Global Star Security Services Company" />
+                </div>
+                <div class="form-group">
+                  <label for="gssAddress">Office Address (2 lines recommended)</label>
+                  <textarea id="gssAddress" placeholder="Enter office address">House No. 2, Street 15, Wazir Akbar Khan Circle,
+Wazir Akbar Khan, Kabul - Afghanistan</textarea>
+                </div>
+                <div class="form-group">
+                  <label for="gssWebsite">Website</label>
+                  <input type="text" id="gssWebsite" value="www.globalstar-security.com" placeholder="e.g. www.globalstar-security.com" />
+                </div>
+                <div class="overrides-actions">
+                  <button type="button" class="btn-ghost" id="btnResetGssDefaults">Reset to Entity Defaults</button>
+                </div>
+              </div>
+            </details>
+
+            <div class="actions-block">
+              <button type="button" class="btn btn-primary" id="btnCopySignature" title="Shortcut: Alt + C">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Formatted Signature</span>
+              </button>
+
+              <div class="btn-secondary-grid">
+                <button type="button" class="btn btn-secondary" id="btnDownloadHtml">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  <span>Download .HTML</span>
+                </button>
+                <button type="button" class="btn btn-secondary" id="btnCopyCode">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="16 18 22 12 16 6"></polyline>
+                    <polyline points="8 6 2 12 8 18"></polyline>
+                  </svg>
+                  <span>Copy Raw HTML</span>
+                </button>
+              </div>
+              <p class="action-caption">
+                Copy Formatted for direct paste, Download .HTML to send an employee their file, or Copy Raw HTML for IT scripts. Shortcuts: <span class="kbd-hint">Alt+C</span> copy, <span class="kbd-hint">Alt+N</span> next employee.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="previewHeading">
+          <div class="panel-header">
+            <h2 class="panel-title" id="previewHeading">Live Signature Preview</h2>
+            <div class="preview-toolbar">
+              <div class="toolbar-group" role="group" aria-label="Preview zoom">
+                <button type="button" class="toggle-btn active" id="btnFitScreen" aria-pressed="true">Fit Screen</button>
+                <button type="button" class="toggle-btn" id="btnActualSize" aria-pressed="false">100% Size</button>
+              </div>
+
+              <span class="toolbar-divider" aria-hidden="true"></span>
+
+              <div class="toolbar-group" role="group" aria-label="Preview inspection modes">
+                <span class="tip-wrap" data-tip="Simulate dark-mode email clients against a dark canvas.">
+                  <button type="button" class="toggle-btn" id="btnDarkMode" aria-pressed="false">Dark Mode</button>
+                </span>
+                <span class="tip-wrap" data-tip="Pin a baseline snapshot and compare edits (press Esc to close).">
+                  <button type="button" class="toggle-btn" id="btnCompare" aria-pressed="false">Compare</button>
+                </span>
+              </div>
+
+              <span class="toolbar-divider" aria-hidden="true"></span>
+
+              <span class="tip-wrap" data-tip="Copy a 2x PNG image of the preview (or comparison) to share for approval.">
+                <button type="button" class="toggle-btn" id="btnCopyImage">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                    <polyline points="21 15 16 10 5 21"></polyline>
+                  </svg>
+                  <span>Copy Image</span>
+                </button>
+              </span>
+            </div>
+          </div>
+
+          <div class="panel-body">
+            <div class="preview-stage" id="previewBox">
+              <div class="compare-wrapper" id="compareWrapper" style="display: none">
+                <div class="compare-bar">
+                  <div class="compare-meta">
+                    <span class="compare-heading">Before / After Snapshot</span>
+                    <span class="compare-timestamp" id="compareTimestamp">Baseline ready</span>
+                  </div>
+                  <button type="button" class="btn-ghost" id="btnPinBefore">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M12 17v5"></path>
+                      <path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"></path>
+                    </svg>
+                    <span>Set Current as Before</span>
+                  </button>
+                </div>
+                <p class="compare-status-hint" id="compareStatusHint">Edit any field on the left to inspect changes against your pinned baseline.</p>
+                <div class="compare-grid" id="compareGrid">
+                  <div class="compare-pane">
+                    <div class="compare-tag before-tag">
+                      <span class="tag-dot" aria-hidden="true"></span>
+                      <span>Before (Pinned Baseline)</span>
+                    </div>
+                    <div class="compare-frame-viewport">
+                      <div class="compare-frame" id="beforePreview"></div>
+                    </div>
+                  </div>
+                  <div class="compare-pane">
+                    <div class="compare-tag after-tag">
+                      <span class="tag-dot" aria-hidden="true"></span>
+                      <span>After (Current Edit)</span>
+                    </div>
+                    <div class="compare-frame-viewport">
+                      <div class="compare-frame" id="afterPreview"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="preview-viewport" id="previewViewport" aria-label="Rendered email signature preview">
+                <div class="preview-scaler" id="previewScaler">
+                  <div id="signaturePreview"></div>
+                </div>
+              </div>
+
+              <div class="dark-mode-note" id="darkModeNote">
+                Dark-mode preview simulates inverted text on a dark canvas. Individual mail apps (Outlook, Apple Mail, Gmail) invert white-background certification banners differently.
+              </div>
+            </div>
+
+            <div class="preflight-bar" id="preflightBar" aria-live="polite">
+              <span class="preflight-left">
+                <span class="preflight-status is-warn" id="preflightStatus">Complete required fields (Full Name, Job Title, valid Email) to export</span>
+                <button type="button" class="preflight-action-btn is-hidden" id="btnSwapGssDomain">Use @gss-afg.com</button>
+              </span>
+              <span class="preflight-meta" id="preflightMeta">WYSIWYG 1:1 preview</span>
+            </div>
+
+            <div class="setup-card">
+              <div class="setup-tabs">
+                <h3 class="setup-title">Installation Guide</h3>
+                <div class="tablist" role="tablist" aria-label="Email client instructions">
+                  <button type="button" class="tab-btn" role="tab" id="tabOutlook" tabindex="0" aria-selected="true" aria-controls="panelOutlook">Outlook</button>
+                  <button type="button" class="tab-btn" role="tab" id="tabApple" tabindex="-1" aria-selected="false" aria-controls="panelApple">Apple Mail</button>
+                  <button type="button" class="tab-btn" role="tab" id="tabGmail" tabindex="-1" aria-selected="false" aria-controls="panelGmail">Gmail</button>
+                </div>
+              </div>
+
+              <div class="setup-panel" role="tabpanel" id="panelOutlook" aria-labelledby="tabOutlook">
+                <ol>
+                  <li>Click <strong>Copy Formatted Signature</strong> (or open the downloaded <code>.html</code> file and press <strong>Ctrl + A</strong>, then <strong>Ctrl + C</strong>).</li>
+                  <li>In Outlook, go to <strong>Settings &gt; Accounts &gt; Signatures</strong> (or <strong>File &gt; Options &gt; Mail &gt; Signatures</strong> in Classic Outlook).</li>
+                  <li>Create a new signature, paste (<strong>Ctrl + V</strong>), assign it to new messages and replies, and click <strong>Save</strong>.</li>
+                </ol>
+              </div>
+
+              <div class="setup-panel" role="tabpanel" id="panelApple" aria-labelledby="tabApple" hidden>
+                <ol>
+                  <li>Click <strong>Copy Formatted Signature</strong>.</li>
+                  <li>In Apple Mail, open <strong>Settings &gt; Signatures</strong> and click <strong>+</strong>.</li>
+                  <li>Select all (<strong>Cmd + A</strong>), delete default text, and paste (<strong>Cmd + V</strong>).</li>
+                  <li><strong>Uncheck</strong> <em>Always match my default message font</em> at the bottom.</li>
+                </ol>
+                <div class="setup-note">
+                  Images appear as blank boxes inside Apple Mail Settings, but load properly when composing new emails.
+                </div>
+              </div>
+
+              <div class="setup-panel" role="tabpanel" id="panelGmail" aria-labelledby="tabGmail" hidden>
+                <ol>
+                  <li>Click <strong>Copy Formatted Signature</strong>.</li>
+                  <li>In Gmail, open <strong>Settings (gear icon) &gt; See all settings &gt; General &gt; Signature</strong>.</li>
+                  <li>Click <strong>Create new</strong>, paste (<strong>Ctrl + V</strong> or <strong>Cmd + V</strong>), check <em>Insert signature before quoted text</em>, and click <strong>Save Changes</strong>.</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true">
+      <span class="toast-main">
+        <span id="toastIcon" aria-hidden="true"></span>
+        <span id="toastMsg">Signature copied to clipboard.</span>
+      </span>
+      <button type="button" class="toast-undo-btn is-hidden" id="btnToastUndo">Undo</button>
+    </div>
+
+    <script>
+      const DEFAULT_BRAND = "idg";
+      const STANDALONE_MODE = false;
+      const LOCAL_BRANDS = { idg: true, gss: true };
+      const IDG_EXPORT_BASE = "https://frenzelrgferrer.github.io/idg-esignature/assets/";
+      const GSS_EXPORT_BASE = "https://frenzelrgferrer.github.io/gss-esignature/assets/";
+      const DRAFT_KEY = "idg_gss_signature_studio_draft_v2";
+
+      const IDG_ENTITIES = {
+        uae: {
+          country: "United Arab Emirates",
+          entityName: "IDG Group DMCC",
+          logoFile: "idg-logo.png",
+          logoAlt: "IDG Security",
+          ruleLabel: "Option 4A · 3-ISO",
+          ruleNote: "",
+          addressHtml: '<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #003057; text-decoration: none">Unit 15&#8203;01, The Do&#8203;me Tow&#8203;er, Clu&#8203;ster N, Jum&#8203;eirah La&#8203;ke Tow&#8203;ers<br />Du&#8203;bai, Uni&#8203;ted Ar&#8203;ab Emi&#8203;rates</a>',
+          defaultLandline: "+971 (04) 514 4958",
+          landlinePlaceholder: "e.g. +971 (04) 514 4958",
+          mobilePlaceholder: "e.g. +971 50 123 4567",
+          sample: {
+            name: "Samira Haddad",
+            title: "Regional Operations Coordinator",
+            mobile: "+971 50 555 0188",
+            email: "samira.haddad@idg-security.com"
+          }
+        },
+        idg_group: {
+          country: "United Arab Emirates",
+          entityName: "IDG Group DMCC",
+          logoFile: "idg-group-logo.png",
+          logoAlt: "IDG Group",
+          logoWidth: 148,
+          logoHeight: 105,
+          logoTopPad: 0,
+          ruleLabel: "IDG Group Logo · 3-ISO",
+          ruleNote: "Uses the IDG Group corporate logo with the Option 4A single-line 3-ISO bar.",
+          addressHtml: '<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #003057; text-decoration: none">Unit 15&#8203;01, The Do&#8203;me Tow&#8203;er, Clu&#8203;ster N, Jum&#8203;eirah La&#8203;ke Tow&#8203;ers<br />Du&#8203;bai, Uni&#8203;ted Ar&#8203;ab Emi&#8203;rates</a>',
+          defaultLandline: "+971 (04) 514 4958",
+          landlinePlaceholder: "e.g. +971 (04) 514 4958",
+          mobilePlaceholder: "e.g. +971 50 123 4567",
+          sample: {
+            name: "Samira Haddad",
+            title: "Group Corporate Coordinator",
+            mobile: "+971 50 555 0188",
+            email: "samira.haddad@idg-group.com"
+          }
+        },
+        iraq: {
+          country: "Iraq",
+          entityName: "IDG for Security Services and Private Guards LLC",
+          ruleLabel: "Stacked Title · 5-ISO",
+          ruleNote: "Iraq rules active: Job Title stacks beneath Full Name with '- Iraq' appended automatically, and displays the full 5-ISO MSS banner (including ISO 14001 and 45001).",
+          addressHtml: '<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #003057; text-decoration: none">Vil&#8203;la 66, Str&#8203;eet 1, Dis&#8203;trict 609, Hun&#8203;ting Club Str&#8203;eet<br />Al Man&#8203;sour, Bagh&#8203;dad, Ir&#8203;aq</a>',
+          defaultLandline: "+964 788 000 5202",
+          landlinePlaceholder: "e.g. +964 788 000 5202",
+          mobilePlaceholder: "e.g. +964 780 123 4567",
+          stackNameRole: true,
+          jobTitleSuffix: " - Iraq",
+          fullMssBanner: true,
+          logoTopPad: 6,
+          sample: {
+            name: "Tariq Al-Bayati",
+            title: "Operations Manager",
+            mobile: "+964 780 555 0142",
+            email: "tariq.albayati@idg-security.com"
+          }
+        },
+        usa: {
+          country: "United States",
+          entityName: "IDG Americas Inc.",
+          ruleLabel: "Option 4A · 3-ISO",
+          ruleNote: "",
+          addressHtml: '<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #003057; text-decoration: none">164&#8203;0 Bo&#8203;ro Pla&#8203;ce, 4th Fl&#8203;oor Mc&#8203;Lean, Vir&#8203;ginia 221&#8203;02,<br />Uni&#8203;ted Sta&#8203;tes of Ame&#8203;rica</a>',
+          defaultLandline: "",
+          landlinePlaceholder: "e.g. +1 (703) 555-0100 (optional)",
+          mobilePlaceholder: "e.g. +1 (703) 555-0194",
+          sample: {
+            name: "Jordan Ellis",
+            title: "Program Director",
+            mobile: "+1 (703) 555-0194",
+            email: "jordan.ellis@idg-security.com"
+          }
+        },
+        myanmar: {
+          country: "Myanmar",
+          entityName: "IDG Myanmar Co Ltd.",
+          ruleLabel: "Option 4A · 3-ISO",
+          ruleNote: "",
+          addressHtml: '<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #003057; text-decoration: none">No. 5/35, Thi&#8203;ri Go&#8203;ne Hou&#8203;sing, Qua&#8203;rter 16, Thin&#8203;gangyun Tow&#8203;nship<br />Yan&#8203;gon, Myan&#8203;mar 110&#8203;71</a>',
+          defaultLandline: "",
+          landlinePlaceholder: "Enter Myanmar office phone (optional)",
+          mobilePlaceholder: "e.g. +95 9 555 0140",
+          sample: {
+            name: "Thura Aung",
+            title: "Country Risk Coordinator",
+            mobile: "+95 9 555 0140",
+            email: "thura.aung@idg-security.com"
+          }
+        },
+        afghanistan: {
+          country: "Afghanistan",
+          entityName: "IDG Security (Afghanistan) Ltd",
+          ruleLabel: "Option 4A · 3-ISO",
+          ruleNote: "",
+          addressHtml: '<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #003057; text-decoration: none">Pu&#8203;le Char&#8203;khi Ro&#8203;ad, Ou&#8203;dh Khel, ne&#8203;xt to UN&#8203;OCA Com&#8203;pound<br />Ka&#8203;bul, Afgha&#8203;nistan</a>',
+          defaultLandline: "",
+          landlinePlaceholder: "Enter Afghanistan office phone (optional)",
+          mobilePlaceholder: "e.g. +93 70 555 0140",
+          sample: {
+            name: "Farid Ahmad",
+            title: "Site Operations Supervisor",
+            mobile: "+93 70 555 0140",
+            email: "farid.ahmad@idg-security.com"
+          }
+        },
+        india: {
+          country: "India",
+          entityName: "IDG India (Dehradun Office)",
+          ruleLabel: "Option 4A · 3-ISO",
+          ruleNote: "",
+          addressHtml: '<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #003057; text-decoration: none">63B, Nim&#8203;buwala, Gar&#8203;hi Ca&#8203;ntt<br />Dehra&#8203;dun, Uttara&#8203;khand, In&#8203;dia</a>',
+          defaultLandline: "",
+          landlinePlaceholder: "Enter India office phone (optional)",
+          mobilePlaceholder: "e.g. +91 98 1155 0140",
+          sample: {
+            name: "Rohan Negi",
+            title: "Operations Support Lead",
+            mobile: "+91 98 1155 0140",
+            email: "rohan.negi@idg-security.com"
+          }
+        },
+        nepal: {
+          country: "Nepal",
+          entityName: "IDG Nepal",
+          ruleLabel: "Option 4A · 3-ISO",
+          ruleNote: "",
+          addressHtml: '<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #003057; text-decoration: none">Nakhi&#8203;pot - 14<br />Lalit&#8203;pur Metro&#8203;politan Ci&#8203;ty, Ne&#8203;pal</a>',
+          defaultLandline: "",
+          landlinePlaceholder: "Enter Nepal office phone (optional)",
+          mobilePlaceholder: "e.g. +977 98 5110 0140",
+          sample: {
+            name: "Suman Thapa",
+            title: "Field Operations Officer",
+            mobile: "+977 98 5110 0140",
+            email: "suman.thapa@idg-security.com"
+          }
+        }
+      };
+
+      const GSS_ENTITIES = {
+        afghanistan: {
+          companyName: "Global Star Security Services Company",
+          address: "House No. 2, Street 15, Wazir Akbar Khan Circle,\nWazir Akbar Khan, Kabul - Afghanistan",
+          defaultPhone: "+93 (0) 72 875 5360",
+          phonePlaceholder: "e.g. +93 (0) 72 875 5360",
+          mobilePlaceholder: "e.g. +93 (0) 70 123 4567",
+          sample: {
+            name: "David Al-Hassan",
+            title: "Deputy Security Manager",
+            mobile: "+93 (0) 70 555 0140"
+          }
+        },
+        uae: {
+          companyName: "GSS International Limited",
+          address: "Unit 200, Building A2, Dubai Digital Park,\nDubai, United Arab Emirates",
+          defaultPhone: "",
+          phonePlaceholder: "e.g. +971 4 123 4567 (optional)",
+          mobilePlaceholder: "e.g. +971 50 123 4567",
+          sample: {
+            name: "Nadia Al-Mansoori",
+            title: "Regional Liaison Officer",
+            mobile: "+971 50 555 0140"
+          }
+        }
+      };
+
+      const urlBrandParam = new URLSearchParams(window.location.search).get("brand");
+      let currentBrand = urlBrandParam === "gss" || urlBrandParam === "idg" ? urlBrandParam : DEFAULT_BRAND;
+      let previousIdgLocation = "uae";
+      let previousGssEntity = "afghanistan";
+      let autoFitEnabled = true;
+      let isCompareMode = false;
+      let beforeSnapshotHtml = "";
+      let lastClearedState = null;
+
+      const brandState = {
+        idg: {
+          location: "uae",
+          name: "",
+          title: "",
+          landline: IDG_ENTITIES.uae.defaultLandline,
+          mobile: "",
+          email: ""
+        },
+        gss: {
+          entity: "afghanistan",
+          mode: "standard",
+          name: "",
+          title: "",
+          landline: GSS_ENTITIES.afghanistan.defaultPhone,
+          mobile: "",
+          email: "",
+          company: GSS_ENTITIES.afghanistan.companyName,
+          address: GSS_ENTITIES.afghanistan.address,
+          website: "www.globalstar-security.com"
+        }
+      };
+
+      const btnBrandIdg = document.getElementById("btnBrandIdg");
+      const btnBrandGss = document.getElementById("btnBrandGss");
+      const topbarCrest = document.getElementById("topbarCrest");
+      const topbarTitle = document.getElementById("topbarTitle");
+      const topbarSubtitle = document.getElementById("topbarSubtitle");
+      const activeEntityName = document.getElementById("activeEntityName");
+      const activeEntityRule = document.getElementById("activeEntityRule");
+      const entityNoteBox = document.getElementById("entityNoteBox");
+
+      const groupIdgLocation = document.getElementById("groupIdgLocation");
+      const groupGssEntity = document.getElementById("groupGssEntity");
+      const groupGssMode = document.getElementById("groupGssMode");
+      const gssOverrides = document.getElementById("gssOverrides");
+
+      const selectIdgLocation = document.getElementById("idgLocation");
+      const selectGssEntity = document.getElementById("gssEntity");
+      const selectGssMode = document.getElementById("gssNoticeMode");
+
+      const inputName = document.getElementById("fullName");
+      const inputTitle = document.getElementById("jobTitle");
+      const inputLandline = document.getElementById("landline");
+      const inputMobile = document.getElementById("mobile");
+      const inputEmail = document.getElementById("email");
+      const emailLabel = document.getElementById("emailLabel");
+      const inputGssCompany = document.getElementById("gssCompanyName");
+      const inputGssAddress = document.getElementById("gssAddress");
+      const inputGssWebsite = document.getElementById("gssWebsite");
+
+      const errFullName = document.getElementById("errFullName");
+      const errJobTitle = document.getElementById("errJobTitle");
+      const errLandline = document.getElementById("errLandline");
+      const errMobile = document.getElementById("errMobile");
+      const errEmail = document.getElementById("errEmail");
+
+      const preflightBar = document.getElementById("preflightBar");
+      const preflightStatus = document.getElementById("preflightStatus");
+      const btnSwapGssDomain = document.getElementById("btnSwapGssDomain");
+      const preflightMeta = document.getElementById("preflightMeta");
+
+      const previewBox = document.getElementById("previewBox");
+      const previewViewport = document.getElementById("previewViewport");
+      const previewScaler = document.getElementById("previewScaler");
+      const signaturePreview = document.getElementById("signaturePreview");
+      const darkModeNote = document.getElementById("darkModeNote");
+      const btnFitScreen = document.getElementById("btnFitScreen");
+      const btnActualSize = document.getElementById("btnActualSize");
+      const btnDarkMode = document.getElementById("btnDarkMode");
+      const btnCompare = document.getElementById("btnCompare");
+      const compareWrapper = document.getElementById("compareWrapper");
+      const btnCopyImage = document.getElementById("btnCopyImage");
+      const btnToastUndo = document.getElementById("btnToastUndo");
+
+      function getBrandAssetBase(brand) {
+        if (!STANDALONE_MODE && LOCAL_BRANDS[brand]) {
+          if (window.location.protocol === "http:" || window.location.protocol === "https:") {
+            return new URL("assets/", window.location.href).href;
+          }
+          return "assets/";
+        }
+        return brand === "gss" ? GSS_EXPORT_BASE : IDG_EXPORT_BASE;
+      }
+
+      function resolvePreviewAsset(assetBase, filename) {
+        if (window.INLINE_ASSETS && window.INLINE_ASSETS[filename]) {
+          return window.INLINE_ASSETS[filename];
+        }
+        return assetBase + filename;
+      }
+
+      function escapeHtml(str) {
+        return str
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function protectAddressText(text) {
+        return escapeHtml(text)
+          .replace(/\r?\n/g, "<br />")
+          .replace(/(\d+)/g, "$1&#8203;");
+      }
+
+      function sanitizePhoneForTel(phone) {
+        const noTrunk = phone
+          .replace(/\(\s*0\s*\)/g, "")
+          .replace(/\(\s*0(\d+)\s*\)/g, "$1");
+        const cleaned = noTrunk.replace(/[^\d+]/g, "");
+        return cleaned ? "tel:" + cleaned : "";
+      }
+
+      function sanitizePhoneForWhatsApp(phone) {
+        let digits = phone
+          .replace(/\(\s*0\s*\)/g, "")
+          .replace(/\(\s*0(\d+)\s*\)/g, "$1")
+          .replace(/[^0-9]/g, "");
+        if (!digits) return "";
+        if (digits.startsWith("00")) {
+          digits = digits.substring(2);
+        }
+        if (digits.startsWith("05") && digits.length === 10) {
+          digits = "971" + digits.substring(1);
+        }
+        if (digits.startsWith("07") && digits.length === 11) {
+          digits = "964" + digits.substring(1);
+        } else if (
+          digits.startsWith("07") &&
+          digits.length === 10 &&
+          (currentBrand === "gss" || selectIdgLocation.value === "afghanistan")
+        ) {
+          digits = "93" + digits.substring(1);
+        }
+        return "https://wa.me/" + digits;
+      }
+
+      function normalizeWebsiteUrl(site) {
+        const trimmed = site.trim() || "www.globalstar-security.com";
+        return /^https?:\/\//i.test(trimmed) ? trimmed : "https://" + trimmed;
+      }
+
+      function setFieldError(inputEl, errEl, message) {
+        if (message) {
+          inputEl.setAttribute("aria-invalid", "true");
+          errEl.textContent = message;
+          errEl.classList.add("visible");
+        } else {
+          inputEl.removeAttribute("aria-invalid");
+          errEl.textContent = "";
+          errEl.classList.remove("visible");
+        }
+      }
+
+      function clearAllFieldErrors() {
+        setFieldError(inputName, errFullName, "");
+        setFieldError(inputTitle, errJobTitle, "");
+        setFieldError(inputLandline, errLandline, "");
+        setFieldError(inputMobile, errMobile, "");
+        setFieldError(inputEmail, errEmail, "");
+      }
+
+      function getFieldError(fieldKey) {
+        if (fieldKey === "name") {
+          return !inputName.value.trim() ? "Enter the employee's full name before exporting." : "";
+        }
+        if (fieldKey === "title") {
+          return !inputTitle.value.trim() ? "Enter the employee's job title before exporting." : "";
+        }
+        if (fieldKey === "email") {
+          const emailVal = inputEmail.value.trim();
+          if (!emailVal) {
+            return currentBrand === "gss"
+              ? "Enter a GSS email address before exporting."
+              : "Enter an IDG email address before exporting.";
+          }
+          return !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal) ? "Enter a valid email address." : "";
+        }
+        if (fieldKey === "landline") {
+          const val = inputLandline.value.trim();
+          const digits = val.replace(/[^0-9]/g, "");
+          return val && digits.length < 7
+            ? "Office phone looks incomplete. Include at least 7 digits or leave blank."
+            : "";
+        }
+        if (fieldKey === "mobile") {
+          const val = inputMobile.value.trim();
+          const digits = val.replace(/[^0-9]/g, "");
+          return val && digits.length < 7
+            ? "Mobile number looks incomplete. Include at least 7 digits or leave blank."
+            : "";
+        }
+        return "";
+      }
+
+      const FIELD_MAP = [
+        ["name", inputName, errFullName],
+        ["title", inputTitle, errJobTitle],
+        ["landline", inputLandline, errLandline],
+        ["mobile", inputMobile, errMobile],
+        ["email", inputEmail, errEmail]
+      ];
+
+      function validateSingleField(fieldKey, showError) {
+        const entry = FIELD_MAP.find(([k]) => k === fieldKey);
+        if (!entry) return "";
+        const [, inp, errEl] = entry;
+        const msg = getFieldError(fieldKey);
+        if (showError) {
+          setFieldError(inp, errEl, msg);
+        }
+        return msg;
+      }
+
+      function validateForm(showErrors) {
+        const errors = [];
+        FIELD_MAP.forEach(([key, inp, errEl]) => {
+          const msg = getFieldError(key);
+          if (showErrors) {
+            setFieldError(inp, errEl, msg);
+          }
+          if (msg) errors.push([inp, msg]);
+        });
+        return {
+          valid: errors.length === 0,
+          count: errors.length,
+          firstInvalid: errors.length ? errors[0][0] : null
+        };
+      }
+
+      function getDomainWarning() {
+        const emailVal = inputEmail.value.trim().toLowerCase();
+        if (!emailVal || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+          return { message: "", canSwapGssAfg: false };
+        }
+        const domain = emailVal.split("@").pop();
+        if (currentBrand === "idg") {
+          if (domain.includes("globalstar") || domain.includes("gss-afg")) {
+            return { message: "Cross-brand domain detected: GSS email inside IDG Studio.", canSwapGssAfg: false };
+          }
+          if (domain !== "idg-security.com" && domain !== "idg-group.com") {
+            return { message: `Non-standard IDG domain (@${domain}). Verify before exporting.`, canSwapGssAfg: false };
+          }
+        } else {
+          if (domain.includes("idg-security") || domain.includes("idg-group")) {
+            return { message: "Cross-brand domain detected: IDG email inside GSS Studio.", canSwapGssAfg: false };
+          }
+          if (selectGssMode.value === "transition" && domain !== "gss-afg.com") {
+            return { message: "Transition notice is active, but email is not @gss-afg.com.", canSwapGssAfg: true };
+          }
+          if (domain !== "globalstarsecurityservices.com" && domain !== "gss-afg.com" && domain !== "globalstar-security.com") {
+            return { message: `Non-standard GSS domain (@${domain}). Verify before exporting.`, canSwapGssAfg: false };
+          }
+        }
+        return { message: "", canSwapGssAfg: false };
+      }
+
+      function buildIdgBannersHtml(assetUrlFn, isFull) {
+        if (isFull) {
+          return `
+          <table width="580" cellpadding="0" cellspacing="0" border="0" style="width: 100%; max-width: 580px; border-collapse: collapse">
+            <tbody>
+              <tr>
+                <td valign="top" style="padding: 0 0 4px 0">
+                  <a href="https://www.mssglobal.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="display: block; text-decoration: none">
+                    <img src="${assetUrlFn("banner-mss-white.png")}" nosend="1" border="0" width="580" height="44" alt="MSS Global Certifications" title="MSS Global Certifications" style="display: block; width: 100%; height: auto; border: 0" />
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top" style="padding: 0">
+                  <table width="580" cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: collapse; table-layout: fixed">
+                    <tbody>
+                      <tr>
+                        <td width="195" valign="top" style="width: 33.62%; padding: 0">
+                          <a href="https://icoca.ch/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="display: block; text-decoration: none">
+                            <img src="${assetUrlFn("banner-icoca.png")}" nosend="1" border="0" width="195" height="44" alt="ICoCA - The Responsible Security Association" title="ICoCA - The Responsible Security Association" style="display: block; width: 100%; height: auto; border: 0" />
+                          </a>
+                        </td>
+                        <td width="4" style="width: 0.69%; padding: 0; font-size: 1px; line-height: 1px">&nbsp;</td>
+                        <td width="182" valign="top" style="width: 31.38%; padding: 0">
+                          <a href="https://unglobalcompact.org/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="display: block; text-decoration: none">
+                            <img src="${assetUrlFn("banner-ungc.png")}" nosend="1" border="0" width="182" height="44" alt="United Nations Global Compact" title="United Nations Global Compact" style="display: block; width: 100%; height: auto; border: 0" />
+                          </a>
+                        </td>
+                        <td width="4" style="width: 0.69%; padding: 0; font-size: 1px; line-height: 1px">&nbsp;</td>
+                        <td width="195" valign="top" style="width: 33.62%; padding: 0">
+                          <a href="https://www.ncsc.gov.uk/cyberessentials/overview" target="_blank" rel="noopener noreferrer" tabindex="-1" style="display: block; text-decoration: none">
+                            <img src="${assetUrlFn("banner-cyber.png")}" nosend="1" border="0" width="195" height="44" alt="Cyber Essentials" title="Cyber Essentials" style="display: block; width: 100%; height: auto; border: 0" />
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>`;
+        }
+        return `
+          <table width="580" cellpadding="0" cellspacing="0" border="0" style="width: 100%; max-width: 580px; border-collapse: collapse; table-layout: fixed">
+            <tbody>
+              <tr>
+                <td width="270" valign="top" style="width: 46.55%; padding: 0">
+                  <a href="https://www.mssglobal.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="display: block; text-decoration: none">
+                    <img src="${assetUrlFn("banner-mss-3iso.png")}" nosend="1" border="0" width="270" height="55" alt="MSS Global Certifications" title="MSS Global Certifications" style="display: block; width: 100%; height: auto; border: 0" />
+                  </a>
+                </td>
+                <td width="4" style="width: 0.69%; padding: 0; font-size: 1px; line-height: 1px">&nbsp;</td>
+                <td width="100" valign="top" style="width: 17.24%; padding: 0">
+                  <a href="https://icoca.ch/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="display: block; text-decoration: none">
+                    <img src="${assetUrlFn("banner-icoca-tile.png")}" nosend="1" border="0" width="100" height="55" alt="ICoCA - The Responsible Security Association" title="ICoCA - The Responsible Security Association" style="display: block; width: 100%; height: auto; border: 0" />
+                  </a>
+                </td>
+                <td width="3" style="width: 0.52%; padding: 0; font-size: 1px; line-height: 1px">&nbsp;</td>
+                <td width="100" valign="top" style="width: 17.24%; padding: 0">
+                  <a href="https://unglobalcompact.org/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="display: block; text-decoration: none">
+                    <img src="${assetUrlFn("banner-ungc-tile.png")}" nosend="1" border="0" width="100" height="55" alt="United Nations Global Compact" title="United Nations Global Compact" style="display: block; width: 100%; height: auto; border: 0" />
+                  </a>
+                </td>
+                <td width="3" style="width: 0.52%; padding: 0; font-size: 1px; line-height: 1px">&nbsp;</td>
+                <td width="100" valign="top" style="width: 17.24%; padding: 0">
+                  <a href="https://www.ncsc.gov.uk/cyberessentials/overview" target="_blank" rel="noopener noreferrer" tabindex="-1" style="display: block; text-decoration: none">
+                    <img src="${assetUrlFn("banner-cyber-tile.png")}" nosend="1" border="0" width="100" height="55" alt="Cyber Essentials" title="Cyber Essentials" style="display: block; width: 100%; height: auto; border: 0" />
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>`;
+      }
+
+      function buildIdgSignatureHtml(assetUrlFn) {
+        const selectedLoc = selectIdgLocation.value;
+        const entityData = IDG_ENTITIES[selectedLoc] || IDG_ENTITIES.uae;
+        const rawName = inputName.value.trim();
+        const rawTitle = inputTitle.value.trim();
+        const rawLandline = inputLandline.value.trim();
+        const rawMobile = inputMobile.value.trim();
+        const rawEmail = inputEmail.value.trim();
+
+        let nameRoleHtml = "";
+        let namePad = "0 0 7px 0";
+        if (entityData.stackNameRole) {
+          namePad = "0 0 5px 0";
+          const nameOut = escapeHtml(rawName || "[Full Name]");
+          const baseTitle = rawTitle || "[Job Title]";
+          const suffix = entityData.jobTitleSuffix || "";
+          const formattedTitle = suffix && !/\biraq\b/i.test(baseTitle) ? baseTitle + suffix : baseTitle;
+          nameRoleHtml = `${nameOut}<br /><span style="font-size: 12.5px; line-height: 15px; font-weight: bold; color: #003057">${escapeHtml(formattedTitle)}</span>`;
+        } else {
+          const nameOut = escapeHtml(rawName || "[Full Name]");
+          const titleOut = escapeHtml(rawTitle || "[Job Title]");
+          nameRoleHtml = `${nameOut}&nbsp;&middot;&nbsp;${titleOut}`;
+        }
+
+        const logoFile = entityData.logoFile || "idg-logo.png";
+        const logoAlt = escapeHtml(entityData.logoAlt || "IDG Security");
+        const logoW = entityData.logoWidth || 114;
+        const logoH = entityData.logoHeight || 105;
+        const logoTopPad = entityData.logoTopPad || 0;
+
+        const telHref = rawLandline ? sanitizePhoneForTel(rawLandline) : "";
+        const hasLandline = Boolean(rawLandline && telHref);
+        const landlineIconCell = hasLandline
+          ? `<a href="${escapeHtml(telHref)}" tabindex="-1" style="text-decoration: none; border: 0; display: block; line-height: 0"><img src="${assetUrlFn("icon-phone.png")}" nosend="1" border="0" width="13" height="13" alt="Phone" style="display: block; width: 13px; height: 13px; border: 0" /></a>`
+          : "&nbsp;";
+        const landlineTextCell = hasLandline
+          ? `<a href="${escapeHtml(telHref)}" tabindex="-1" style="color: #003057; text-decoration: none">${escapeHtml(rawLandline)}</a>`
+          : "&nbsp;";
+
+        const waHref = rawMobile ? sanitizePhoneForWhatsApp(rawMobile) : "";
+        const hasMobile = Boolean(rawMobile && waHref);
+        const mobileIconCell = hasMobile
+          ? `<a href="${escapeHtml(waHref)}" target="_blank" rel="noopener noreferrer" tabindex="-1" style="text-decoration: none; border: 0; display: block; line-height: 0"><img src="${assetUrlFn("icon-mobile.png")}" nosend="1" border="0" width="13" height="13" alt="WhatsApp" title="WhatsApp" style="display: block; width: 13px; height: 13px; border: 0" /></a>`
+          : "&nbsp;";
+        const mobileTextCell = hasMobile
+          ? `<a href="${escapeHtml(waHref)}" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #003057; text-decoration: none">${escapeHtml(rawMobile)}</a>`
+          : "&nbsp;";
+
+        const linkedinIconHtml = `<a href="https://www.linkedin.com/company/idg-security/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="text-decoration: none; border: 0; display: block; line-height: 0"><img src="${assetUrlFn("icon-linkedin.png")}" nosend="1" border="0" width="14" height="13" alt="LinkedIn" title="LinkedIn" style="display: block; width: 14px; height: 13px; border: 0" /></a>`;
+        const linkedinTextHtml = `<a href="https://www.linkedin.com/company/idg-security/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #003057; text-decoration: none">IDG Security</a>`;
+        const webIconHtml = `<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="text-decoration: none; border: 0; display: block; line-height: 0"><img src="${assetUrlFn("icon-web.png")}" nosend="1" border="0" width="13" height="13" alt="Web" style="display: block; width: 13px; height: 13px; border: 0" /></a>`;
+        const webTextHtml = `<a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #003057; text-decoration: none">www.idg-security.com</a>`;
+
+        const emailLinkHtml = rawEmail
+          ? `<a href="mailto:${escapeHtml(rawEmail)}" tabindex="-1" style="color: #003057; text-decoration: none">${escapeHtml(rawEmail)}</a>`
+          : `<span style="color: #003057">[Email Address]</span>`;
+
+        let contactRowsHtml = "";
+        if (!hasLandline && !hasMobile) {
+          contactRowsHtml = `
+            <tr>
+              <td valign="middle" style="width: 20px; padding: 0 2px 3px 0; font-size: 0; line-height: 0">${linkedinIconHtml}</td>
+              <td valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #003057; padding: 0 0 3px 0; white-space: nowrap">${linkedinTextHtml}</td>
+            </tr>
+            <tr>
+              <td valign="middle" style="width: 20px; padding: 0 2px 3px 0; font-size: 0; line-height: 0">${webIconHtml}</td>
+              <td valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #003057; padding: 0 0 3px 0; white-space: nowrap">${webTextHtml}</td>
+            </tr>
+            <tr>
+              <td valign="middle" style="width: 20px; padding: 0 2px 0 0; font-size: 0; line-height: 0">
+                <img src="${assetUrlFn("icon-email.png")}" nosend="1" border="0" width="13" height="10" alt="Email" style="display: block; width: 13px; height: 10px; border: 0" />
+              </td>
+              <td valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #003057; padding: 0; word-break: break-word">${emailLinkHtml}</td>
+            </tr>`;
+        } else {
+          const row1Icon = hasLandline ? landlineIconCell : mobileIconCell;
+          const row1Text = hasLandline ? landlineTextCell : mobileTextCell;
+          const row2Icon = hasLandline && hasMobile ? mobileIconCell : "&nbsp;";
+          const row2Text = hasLandline && hasMobile ? mobileTextCell : "&nbsp;";
+          contactRowsHtml = `
+            <tr>
+              <td valign="middle" style="width: 20px; padding: 0 2px 3px 0; font-size: 0; line-height: 0">${row1Icon}</td>
+              <td valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #003057; padding: 0 32px 3px 0; white-space: nowrap">${row1Text}</td>
+              <td valign="middle" style="width: 20px; padding: 0 2px 3px 0; font-size: 0; line-height: 0">${linkedinIconHtml}</td>
+              <td valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #003057; padding: 0 0 3px 0; white-space: nowrap">${linkedinTextHtml}</td>
+            </tr>
+            <tr>
+              <td valign="middle" style="width: 20px; padding: 0 2px 3px 0; font-size: 0; line-height: 0">${row2Icon}</td>
+              <td valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #003057; padding: 0 32px 3px 0; white-space: nowrap">${row2Text}</td>
+              <td valign="middle" style="width: 20px; padding: 0 2px 3px 0; font-size: 0; line-height: 0">${webIconHtml}</td>
+              <td valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #003057; padding: 0 0 3px 0; white-space: nowrap">${webTextHtml}</td>
+            </tr>
+            <tr>
+              <td valign="middle" style="width: 20px; padding: 0 2px 0 0; font-size: 0; line-height: 0">
+                <img src="${assetUrlFn("icon-email.png")}" nosend="1" border="0" width="13" height="10" alt="Email" style="display: block; width: 13px; height: 10px; border: 0" />
+              </td>
+              <td colspan="3" valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #003057; padding: 0; word-break: break-word">${emailLinkHtml}</td>
+            </tr>`;
+        }
+
+        const bannersHtml = buildIdgBannersHtml(assetUrlFn, Boolean(entityData.fullMssBanner));
+
+        return `<table role="presentation" width="580" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse; font-family: Helvetica, Arial, sans-serif; color: #003057; width: 580px; min-width: 580px; max-width: 580px; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%">
+          <tbody>
+            <tr>
+              <td style="padding: 0 0 5px 0">
+                <table cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: collapse">
+                  <tbody>
+                    <tr>
+                      <td valign="top" align="left" style="width: ${logoW}px; padding: ${logoTopPad}px 14px 0 0; font-size: 0; line-height: 0">
+                        <a href="https://idg-security.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="text-decoration: none; display: block; line-height: 0">
+                          <img src="${assetUrlFn(logoFile)}" nosend="1" border="0" width="${logoW}" height="${logoH}" alt="${logoAlt}" title="${logoAlt}" style="display: block; width: ${logoW}px; height: ${logoH}px; border: 0" />
+                        </a>
+                      </td>
+                      <td valign="top" style="padding: 0">
+                        <table cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: collapse">
+                          <tbody>
+                            <tr>
+                              <td colspan="2" valign="top" style="font-family: Helvetica, Arial, sans-serif; font-size: 13.5px; line-height: 16px; font-weight: bold; color: #003057; letter-spacing: 0.2px; padding: ${namePad}">${nameRoleHtml}</td>
+                            </tr>
+                            <tr>
+                              <td valign="top" style="width: 20px; padding: 1px 2px 3px 0; font-size: 0; line-height: 0">
+                                <img src="${assetUrlFn("icon-location.png")}" nosend="1" border="0" width="14" height="15" alt="Location" style="display: block; width: 14px; height: 15px; border: 0" />
+                              </td>
+                              <td valign="top" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #003057; padding: 0 0 3px 0">${entityData.addressHtml}</td>
+                            </tr>
+                            <tr>
+                              <td colspan="2" style="padding: 0; font-size: 0; line-height: 0">
+                                <table cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse">
+                                  <tbody>
+                                    ${contactRowsHtml}
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 0 0 4px 0">
+                <div style="font-family: Helvetica, Arial, sans-serif; font-size: 10.5px; line-height: 1.25; font-weight: normal; font-style: italic; color: #003057; margin: 0 0 2px 0">An ISO 9001:2015 Certified Company</div>
+                <div align="justify" style="font-family: Helvetica, Arial, sans-serif; font-size: 9.5px; line-height: 1.4; color: #475569; text-align: justify; margin: 0 0 3px 0">
+                  This email is intended only for the named recipient(s) above and may contain information that is privileged, confidential and/or exempt from disclosure under applicable law. If you have received this message in error, or are not the named recipient(s), please immediately notify the sender and permanently delete this email message and any attachments, without retaining a copy.
+                </div>
+                <div style="font-family: Helvetica, Arial, sans-serif; font-size: 9.5px; line-height: 1.4; font-weight: normal; color: #15803d; margin: 0">
+                  Please consider the environment before printing this email.
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 0">${bannersHtml}</td>
+            </tr>
+          </tbody>
+        </table>`;
+      }
+
+      function buildGssSignatureHtml(assetUrlFn) {
+        const rawName = inputName.value.trim();
+        const rawTitle = inputTitle.value.trim();
+        const rawCompany = inputGssCompany.value.trim();
+        const rawAddr = inputGssAddress.value.trim();
+        const rawPhone = inputLandline.value.trim();
+        const rawMobile = inputMobile.value.trim();
+        const rawEmail = inputEmail.value.trim();
+        const rawWeb = inputGssWebsite.value.trim();
+        const isTransition = selectGssMode.value === "transition";
+
+        const nameRoleText = `${rawName || "[Full Name]"} | ${rawTitle || "[Job Title]"}`;
+
+        const webHref = normalizeWebsiteUrl(rawWeb);
+        const telHref = rawPhone ? sanitizePhoneForTel(rawPhone) : "";
+        const waHref = rawMobile ? sanitizePhoneForWhatsApp(rawMobile) : "";
+        const hasPhone = Boolean(rawPhone && telHref);
+        const hasWa = Boolean(rawMobile && waHref);
+        const hasWeb = Boolean(rawWeb);
+
+        const phoneIconCell = hasPhone
+          ? `<a href="${escapeHtml(telHref)}" tabindex="-1" style="text-decoration: none; border: 0; display: block; line-height: 0"><img src="${assetUrlFn("gss-icon-phone.png")}" nosend="1" border="0" width="13" height="13" alt="Phone" style="display: block; width: 13px; height: 13px; border: 0" /></a>`
+          : "&nbsp;";
+        const phoneTextCell = hasPhone
+          ? `<a href="${escapeHtml(telHref)}" tabindex="-1" style="color: #000000; text-decoration: none">${escapeHtml(rawPhone)}</a>`
+          : "&nbsp;";
+
+        const waIconCell = hasWa
+          ? `<a href="${escapeHtml(waHref)}" target="_blank" rel="noopener noreferrer" tabindex="-1" style="text-decoration: none; border: 0; display: block; line-height: 0"><img src="${assetUrlFn("gss-icon-whatsapp.png")}" nosend="1" border="0" width="13" height="13" alt="WhatsApp" title="WhatsApp" style="display: block; width: 13px; height: 13px; border: 0" /></a>`
+          : "&nbsp;";
+        const waTextCell = hasWa
+          ? `<a href="${escapeHtml(waHref)}" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #000000; text-decoration: none">${escapeHtml(rawMobile)}</a>`
+          : "&nbsp;";
+
+        const linkedinIconHtml = `<a href="https://www.linkedin.com/company/global-star-security-services/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="text-decoration: none; border: 0; display: block; line-height: 0"><img src="${assetUrlFn("gss-icon-linkedin.png")}" nosend="1" border="0" width="14" height="13" alt="LinkedIn" title="LinkedIn" style="display: block; width: 14px; height: 13px; border: 0" /></a>`;
+        const linkedinTextHtml = `<a href="https://www.linkedin.com/company/global-star-security-services/" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #000000; text-decoration: none">Global Star Security Services</a>`;
+
+        const webIconCell = hasWeb
+          ? `<a href="${escapeHtml(webHref)}" target="_blank" rel="noopener noreferrer" tabindex="-1" style="text-decoration: none; border: 0; display: block; line-height: 0"><img src="${assetUrlFn("gss-icon-web.png")}" nosend="1" border="0" width="13" height="13" alt="Website" style="display: block; width: 13px; height: 13px; border: 0" /></a>`
+          : "&nbsp;";
+        const webTextCell = hasWeb
+          ? `<a href="${escapeHtml(webHref)}" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #000000; text-decoration: none">${escapeHtml(rawWeb)}</a>`
+          : "&nbsp;";
+
+        const emailLinkHtml = rawEmail
+          ? `<a href="mailto:${escapeHtml(rawEmail)}" tabindex="-1" style="color: #000000; text-decoration: none">${escapeHtml(rawEmail)}</a>`
+          : `<span style="color: #000000">[Email Address]</span>`;
+
+        const emailIconHtml = `<img src="${assetUrlFn("gss-icon-email.png")}" nosend="1" border="0" width="13" height="10" alt="Email" style="display: block; width: 13px; height: 10px; border: 0" />`;
+
+        let contactRowsHtml = "";
+        if (!hasPhone && !hasWa) {
+          const webRow = hasWeb
+            ? `<tr>
+                 <td valign="middle" style="width: 20px; padding: 0 4px 4px 0; font-size: 0; line-height: 0">${webIconCell}</td>
+                 <td valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #000000; padding: 0 0 4px 0; white-space: nowrap">${webTextCell}</td>
+               </tr>`
+            : "";
+          contactRowsHtml = `
+            <tr>
+              <td valign="middle" style="width: 20px; padding: 0 4px 4px 0; font-size: 0; line-height: 0">${linkedinIconHtml}</td>
+              <td valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #000000; padding: 0 0 4px 0; white-space: nowrap">${linkedinTextHtml}</td>
+            </tr>
+            ${webRow}
+            <tr>
+              <td valign="middle" style="width: 20px; padding: 0 4px 0 0; font-size: 0; line-height: 0">${emailIconHtml}</td>
+              <td valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #000000; padding: 0; word-break: break-word">${emailLinkHtml}</td>
+            </tr>`;
+        } else {
+          const row1Icon = hasPhone ? phoneIconCell : waIconCell;
+          const row1Text = hasPhone ? phoneTextCell : waTextCell;
+          const hasRow2Left = hasPhone && hasWa;
+          const row2Icon = hasRow2Left ? waIconCell : "&nbsp;";
+          const row2Text = hasRow2Left ? waTextCell : "&nbsp;";
+          const row2Html = hasRow2Left || hasWeb
+            ? `<tr>
+                 <td valign="middle" style="width: 20px; padding: 0 4px 4px 0; font-size: 0; line-height: 0">${row2Icon}</td>
+                 <td valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #000000; padding: 0 28px 4px 0; white-space: nowrap">${row2Text}</td>
+                 <td valign="middle" style="width: 20px; padding: 0 4px 4px 0; font-size: 0; line-height: 0">${webIconCell}</td>
+                 <td valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #000000; padding: 0 0 4px 0; white-space: nowrap">${webTextCell}</td>
+               </tr>`
+            : "";
+          contactRowsHtml = `
+            <tr>
+              <td valign="middle" style="width: 20px; padding: 0 4px 4px 0; font-size: 0; line-height: 0">${row1Icon}</td>
+              <td valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #000000; padding: 0 28px 4px 0; white-space: nowrap">${row1Text}</td>
+              <td valign="middle" style="width: 20px; padding: 0 4px 4px 0; font-size: 0; line-height: 0">${linkedinIconHtml}</td>
+              <td valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #000000; padding: 0 0 4px 0; white-space: nowrap">${linkedinTextHtml}</td>
+            </tr>
+            ${row2Html}
+            <tr>
+              <td valign="middle" style="width: 20px; padding: 0 4px 0 0; font-size: 0; line-height: 0">${emailIconHtml}</td>
+              <td colspan="3" valign="middle" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #000000; padding: 0; word-break: break-word">${emailLinkHtml}</td>
+            </tr>`;
+        }
+
+        const companyHtml = rawCompany
+          ? `<div style="font-family: Helvetica, Arial, sans-serif; font-size: 12.5px; line-height: 16px; font-weight: bold; color: #000000; margin: 0">${escapeHtml(rawCompany)}</div>`
+          : "";
+
+        const addressRowHtml = rawAddr
+          ? `<tr>
+               <td valign="top" style="width: 20px; padding: 1px 4px 4px 0; font-size: 0; line-height: 0">
+                 <img src="${assetUrlFn("gss-icon-location.png")}" nosend="1" border="0" width="13" height="14" alt="Location" style="display: block; width: 13px; height: 14px; border: 0" />
+               </td>
+               <td valign="top" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; line-height: 14.5px; color: #000000; padding: 0 0 4px 0">
+                 <a href="${escapeHtml(webHref)}" target="_blank" rel="noopener noreferrer" tabindex="-1" style="color: #000000; text-decoration: none">${protectAddressText(rawAddr)}</a>
+               </td>
+             </tr>`
+          : "";
+
+        const transitionRowHtml = isTransition
+          ? `<tr>
+               <td style="padding: 8px 0 0 0">
+                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: collapse">
+                   <tbody>
+                     <tr>
+                       <td style="border-top: 1px solid #b48a28; padding: 0 0 8px 0; font-size: 0; line-height: 0">&nbsp;</td>
+                     </tr>
+                     <tr>
+                       <td style="padding: 0">
+                         <div align="left" style="font-family: Helvetica, Arial, sans-serif; font-size: 9px; line-height: 1.4; color: #000000; text-align: left; margin: 0">
+                           <strong style="color: #000000">BUSINESS CONTINUITY NOTICE:</strong> This secondary GSS email domain is currently being tested. Please continue to copy our globalstarsecurityservices.com email address during this period to help verify email delivery.
+                         </div>
+                       </td>
+                     </tr>
+                   </tbody>
+                 </table>
+               </td>
+             </tr>`
+          : "";
+
+        return `<table role="presentation" width="580" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse; font-family: Helvetica, Arial, sans-serif; color: #000000; width: 580px; min-width: 580px; max-width: 580px; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%">
+          <tbody>
+            <tr>
+              <td style="padding: 0 0 8px 0">
+                <div style="font-family: Helvetica, Arial, sans-serif; font-size: 13.5px; line-height: 17px; font-weight: bold; color: #000000; margin: 0 0 1px 0">${escapeHtml(nameRoleText)}</div>
+                ${companyHtml}
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 0 0 10px 0">
+                <table cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: collapse">
+                  <tbody>
+                    <tr>
+                      <td valign="middle" align="left" style="width: 108px; padding: 0 14px 0 0; border-right: 1px solid #cbd5e1; font-size: 0; line-height: 0">
+                        <a href="${escapeHtml(webHref)}" target="_blank" rel="noopener noreferrer" tabindex="-1" style="text-decoration: none; display: block; line-height: 0">
+                          <img src="${assetUrlFn("gss-logo.png")}" nosend="1" border="0" width="93" height="96" alt="Global Star Security Services" title="Global Star Security Services" style="display: block; width: 93px; height: 96px; border: 0" />
+                        </a>
+                      </td>
+                      <td valign="middle" style="padding: 0 0 0 14px">
+                        <table cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: collapse">
+                          <tbody>
+                            ${addressRowHtml}
+                            <tr>
+                              <td colspan="2" style="padding: 0; font-size: 0; line-height: 0">
+                                <table cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse">
+                                  <tbody>
+                                    ${contactRowsHtml}
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 0">
+                <div align="justify" style="font-family: Helvetica, Arial, sans-serif; font-size: 9px; line-height: 1.4; color: #000000; text-align: justify; margin: 0">
+                  <strong style="color: #000000">CONFIDENTIALITY NOTICE:</strong> This email is intended only for the named recipient(s) above and may contain information that is privileged, confidential and/or exempt from disclosure under applicable law. If you have received this message in error, or are not the named recipient(s), please immediately notify the sender and permanently delete this email message and any attachments, without retaining a copy.
+                </div>
+              </td>
+            </tr>
+            ${transitionRowHtml}
+          </tbody>
+        </table>`;
+      }
+
+      function stripIds(html) {
+        const temp = document.createElement("div");
+        temp.innerHTML = html;
+        temp.querySelectorAll("[id]").forEach((el) => el.removeAttribute("id"));
+        return temp.innerHTML;
+      }
+
+      function getExportSignatureHtml() {
+        const exportBase = currentBrand === "gss" ? GSS_EXPORT_BASE : IDG_EXPORT_BASE;
+        const exportAssetFn = (filename) => exportBase + filename;
+        const rawHtml = currentBrand === "gss"
+          ? buildGssSignatureHtml(exportAssetFn)
+          : buildIdgSignatureHtml(exportAssetFn);
+        const temp = document.createElement("div");
+        temp.innerHTML = rawHtml;
+        temp.querySelectorAll("[tabindex]").forEach((el) => el.removeAttribute("tabindex"));
+        return temp.innerHTML.trim();
+      }
+
+      function getCleanPlainText(exportHtml) {
+        const temp = document.createElement("div");
+        temp.style.position = "fixed";
+        temp.style.left = "-9999px";
+        temp.innerHTML = exportHtml;
+        document.body.appendChild(temp);
+        const text = temp.innerText
+          .replace(/\u200B/g, "")
+          .replace(/\n{3,}/g, "\n\n")
+          .trim();
+        document.body.removeChild(temp);
+        return text;
+      }
+
+      function captureCurrentBrandState() {
+        if (currentBrand === "gss") {
+          brandState.gss = {
+            entity: selectGssEntity.value,
+            mode: selectGssMode.value,
+            name: inputName.value,
+            title: inputTitle.value,
+            landline: inputLandline.value,
+            mobile: inputMobile.value,
+            email: inputEmail.value,
+            company: inputGssCompany.value,
+            address: inputGssAddress.value,
+            website: inputGssWebsite.value
+          };
+        } else {
+          brandState.idg = {
+            location: selectIdgLocation.value,
+            name: inputName.value,
+            title: inputTitle.value,
+            landline: inputLandline.value,
+            mobile: inputMobile.value,
+            email: inputEmail.value
+          };
+        }
+      }
+
+      function applyBrandStateToDom(brand) {
+        clearAllFieldErrors();
+        if (brand === "gss") {
+          const s = brandState.gss;
+          selectGssEntity.value = GSS_ENTITIES[s.entity] ? s.entity : "afghanistan";
+          previousGssEntity = selectGssEntity.value;
+          selectGssMode.value = s.mode === "transition" ? "transition" : "standard";
+          inputName.value = s.name;
+          inputTitle.value = s.title;
+          inputLandline.value = s.landline;
+          inputMobile.value = s.mobile;
+          inputEmail.value = s.email;
+          inputGssCompany.value = s.company;
+          inputGssAddress.value = s.address;
+          inputGssWebsite.value = s.website;
+        } else {
+          const s = brandState.idg;
+          selectIdgLocation.value = IDG_ENTITIES[s.location] ? s.location : "uae";
+          previousIdgLocation = selectIdgLocation.value;
+          inputName.value = s.name;
+          inputTitle.value = s.title;
+          inputLandline.value = s.landline;
+          inputMobile.value = s.mobile;
+          inputEmail.value = s.email;
+        }
+      }
+
+      function updatePreflight() {
+        const check = validateForm(false);
+        const warnInfo = getDomainWarning();
+        const activeContactCount =
+          (inputLandline.value.trim() ? 1 : 0) +
+          (inputMobile.value.trim() ? 1 : 0) +
+          (inputEmail.value.trim() ? 1 : 0);
+
+        preflightBar.classList.remove("has-warn");
+        btnSwapGssDomain.classList.toggle("is-hidden", !(check.valid && warnInfo.canSwapGssAfg));
+        if (!check.valid) {
+          preflightStatus.textContent = "Complete required fields (Full Name, Job Title, valid Email) to export";
+          preflightStatus.className = "preflight-status is-warn";
+        } else if (warnInfo.message) {
+          preflightBar.classList.add("has-warn");
+          preflightStatus.textContent = warnInfo.message;
+          preflightStatus.className = "preflight-status is-warn";
+        } else {
+          preflightStatus.textContent = "Ready to export (1:1 WYSIWYG)";
+          preflightStatus.className = "preflight-status is-ready";
+        }
+        preflightMeta.textContent = `Contact links: ${activeContactCount} · Export target: ${currentBrand === "gss" ? "GSS" : "IDG"}`;
+      }
+
+      function updateBrandChrome() {
+        const isGss = currentBrand === "gss";
+        document.body.setAttribute("data-brand", currentBrand);
+        document.title = isGss
+          ? "GSS Signature Studio - Global Star Security Services"
+          : "Corporate Email Signature Studio - IDG Security & GSS";
+        btnBrandIdg.setAttribute("aria-pressed", String(!isGss));
+        btnBrandGss.setAttribute("aria-pressed", String(isGss));
+
+        const assetBase = getBrandAssetBase(currentBrand);
+        topbarCrest.src = resolvePreviewAsset(assetBase, isGss ? "gss-logo.png" : "idg-logo.png");
+        topbarCrest.alt = isGss ? "GSS shield crest" : "IDG Security crest";
+        topbarTitle.textContent = isGss ? "GSS Signature Studio" : "IDG Security Signature Studio";
+        topbarSubtitle.textContent = isGss
+          ? "Global Star Security Services email signature builder"
+          : "Corporate email signature builder across global IDG entities";
+
+        groupIdgLocation.classList.toggle("is-hidden", isGss);
+        groupGssEntity.classList.toggle("is-hidden", !isGss);
+        groupGssMode.classList.toggle("is-hidden", !isGss);
+        gssOverrides.classList.toggle("is-hidden", !isGss);
+
+        emailLabel.textContent = isGss ? "GSS Email Address" : "IDG Email Address";
+        if (isGss) {
+          const gss = GSS_ENTITIES[selectGssEntity.value] || GSS_ENTITIES.afghanistan;
+          const isTrans = selectGssMode.value === "transition";
+          inputLandline.placeholder = gss.phonePlaceholder;
+          inputMobile.placeholder = gss.mobilePlaceholder;
+          inputEmail.placeholder = isTrans ? "e.g. name@gss-afg.com" : "e.g. name@globalstarsecurityservices.com";
+          darkModeNote.textContent =
+            "Dark-mode preview simulates inverted text on a dark canvas. Individual mail apps (Outlook, Apple Mail, Gmail) adjust logos and dividers differently.";
+        } else {
+          const idg = IDG_ENTITIES[selectIdgLocation.value] || IDG_ENTITIES.uae;
+          inputLandline.placeholder = idg.landlinePlaceholder;
+          inputMobile.placeholder = idg.mobilePlaceholder;
+          inputEmail.placeholder = selectIdgLocation.value === "idg_group" ? "e.g. name@idg-group.com" : "e.g. name@idg-security.com";
+          darkModeNote.textContent =
+            "Dark-mode preview simulates inverted text on a dark canvas. Individual mail apps (Outlook, Apple Mail, Gmail) invert white-background certification banners differently.";
+        }
+      }
+
+      function saveDraft() {
+        try {
+          captureCurrentBrandState();
+          const payload = {
+            activeBrand: currentBrand,
+            idg: brandState.idg,
+            gss: brandState.gss
+          };
+          localStorage.setItem(DRAFT_KEY, JSON.stringify(payload));
+        } catch (e) {}
+      }
+
+      function restoreDraft() {
+        try {
+          const raw = localStorage.getItem(DRAFT_KEY);
+          if (!raw) return;
+          const d = JSON.parse(raw);
+          if (!d || typeof d !== "object") return;
+          if ((d.activeBrand === "gss" || d.activeBrand === "idg") && !urlBrandParam) {
+            currentBrand = d.activeBrand;
+          }
+          if (d.idg && typeof d.idg === "object") {
+            if (d.idg.location && IDG_ENTITIES[d.idg.location]) brandState.idg.location = d.idg.location;
+            if (typeof d.idg.name === "string") brandState.idg.name = d.idg.name;
+            if (typeof d.idg.title === "string") brandState.idg.title = d.idg.title;
+            if (typeof d.idg.landline === "string") brandState.idg.landline = d.idg.landline;
+            if (typeof d.idg.mobile === "string") brandState.idg.mobile = d.idg.mobile;
+            if (typeof d.idg.email === "string") brandState.idg.email = d.idg.email;
+          }
+          if (d.gss && typeof d.gss === "object") {
+            if (d.gss.entity && GSS_ENTITIES[d.gss.entity]) brandState.gss.entity = d.gss.entity;
+            if (d.gss.mode === "transition" || d.gss.mode === "standard") brandState.gss.mode = d.gss.mode;
+            if (typeof d.gss.name === "string") brandState.gss.name = d.gss.name;
+            if (typeof d.gss.title === "string") brandState.gss.title = d.gss.title;
+            if (typeof d.gss.landline === "string") brandState.gss.landline = d.gss.landline;
+            if (typeof d.gss.mobile === "string") brandState.gss.mobile = d.gss.mobile;
+            if (typeof d.gss.email === "string") brandState.gss.email = d.gss.email;
+            if (typeof d.gss.company === "string") brandState.gss.company = d.gss.company;
+            if (typeof d.gss.address === "string") brandState.gss.address = d.gss.address;
+            if (typeof d.gss.website === "string") brandState.gss.website = d.gss.website;
+          }
+        } catch (e) {}
+      }
+
+      function updateSignature() {
+        const assetBase = getBrandAssetBase(currentBrand);
+        const previewAssetFn = (filename) => resolvePreviewAsset(assetBase, filename);
+        updateBrandChrome();
+
+        if (currentBrand === "gss") {
+          const isTrans = selectGssMode.value === "transition";
+          activeEntityName.textContent = inputGssCompany.value.trim() || "Global Star Security Services";
+          activeEntityRule.textContent = isTrans ? "Transition · Pure Black" : "Standard · Pure Black";
+          if (isTrans) {
+            entityNoteBox.textContent = "Transition mode active: adds the gold divider and Business Continuity Notice for @gss-afg.com testing.";
+            entityNoteBox.classList.add("visible");
+          } else {
+            entityNoteBox.textContent = "";
+            entityNoteBox.classList.remove("visible");
+          }
+          signaturePreview.innerHTML = buildGssSignatureHtml(previewAssetFn);
+        } else {
+          const entityData = IDG_ENTITIES[selectIdgLocation.value] || IDG_ENTITIES.uae;
+          activeEntityName.textContent = entityData.entityName;
+          activeEntityRule.textContent = entityData.ruleLabel;
+          if (entityData.ruleNote) {
+            entityNoteBox.textContent = entityData.ruleNote;
+            entityNoteBox.classList.add("visible");
+          } else {
+            entityNoteBox.textContent = "";
+            entityNoteBox.classList.remove("visible");
+          }
+          signaturePreview.innerHTML = buildIdgSignatureHtml(previewAssetFn);
+        }
+
+        adjustPreviewScaling();
+        updatePreflight();
+        saveDraft();
+
+        if (isCompareMode) {
+          const afterFrame = document.getElementById("afterPreview");
+          if (afterFrame) {
+            afterFrame.innerHTML = stripIds(signaturePreview.innerHTML);
+          }
+          scaleCompareFrames();
+          updateCompareHint();
+        }
+      }
+
+      function adjustPreviewScaling() {
+        if (!previewBox || !previewViewport || !previewScaler || !signaturePreview) return;
+        if (isCompareMode) {
+          scaleCompareFrames();
+          return;
+        }
+
+        const boxStyles = window.getComputedStyle(previewBox);
+        const paddingLeft = parseFloat(boxStyles.paddingLeft) || 16;
+        const paddingRight = parseFloat(boxStyles.paddingRight) || 16;
+        const availableWidth = previewBox.clientWidth - (paddingLeft + paddingRight);
+        const targetWidth = 580;
+
+        if (autoFitEnabled) {
+          previewViewport.scrollLeft = 0;
+          if (availableWidth < targetWidth && availableWidth > 0) {
+            const scale = availableWidth / targetWidth;
+            const nextTransform = `scale(${scale})`;
+            if (previewScaler.style.transform !== nextTransform) {
+              previewScaler.style.transform = nextTransform;
+            }
+            previewScaler.style.width = `${targetWidth}px`;
+            const unscaledHeight = signaturePreview.offsetHeight || 300;
+            const nextHeight = `${Math.ceil(unscaledHeight * scale)}px`;
+            if (previewViewport.style.height !== nextHeight) {
+              previewViewport.style.height = nextHeight;
+            }
+            previewViewport.style.overflowX = "hidden";
+            previewViewport.style.overflowY = "hidden";
+          } else {
+            if (previewScaler.style.transform !== "none") previewScaler.style.transform = "none";
+            previewScaler.style.width = "580px";
+            if (previewViewport.style.height !== "auto") previewViewport.style.height = "auto";
+            previewViewport.style.overflowX = "hidden";
+            previewViewport.style.overflowY = "visible";
+          }
+        } else {
+          if (previewScaler.style.transform !== "none") previewScaler.style.transform = "none";
+          previewScaler.style.width = "580px";
+          if (previewViewport.style.height !== "auto") previewViewport.style.height = "auto";
+          previewViewport.style.overflowX = "auto";
+          previewViewport.style.overflowY = "hidden";
+        }
+      }
+
+      function scaleCompareFrames() {
+        document.querySelectorAll(".compare-frame-viewport").forEach((vp) => {
+          const frame = vp.querySelector(".compare-frame");
+          if (!frame) return;
+          const avail = vp.clientWidth;
+          if (avail > 0 && avail < 580) {
+            const scale = avail / 580;
+            const nextTr = `scale(${scale})`;
+            if (frame.style.transform !== nextTr) frame.style.transform = nextTr;
+            const nextH = `${Math.ceil((frame.offsetHeight || 280) * scale)}px`;
+            if (vp.style.height !== nextH) vp.style.height = nextH;
+          } else {
+            if (frame.style.transform !== "none") frame.style.transform = "none";
+            if (vp.style.height !== "auto") vp.style.height = "auto";
+          }
+        });
+      }
+
+      let scaleRafId = 0;
+      function scheduleScaling() {
+        if (scaleRafId) return;
+        scaleRafId = requestAnimationFrame(() => {
+          scaleRafId = 0;
+          adjustPreviewScaling();
+        });
+      }
+
+      function switchBrand(targetBrand) {
+        if (currentBrand === targetBrand) return;
+        captureCurrentBrandState();
+        if (isCompareMode) {
+          setCompareMode(false);
+        }
+        beforeSnapshotHtml = "";
+        lastClearedState = null;
+        currentBrand = targetBrand;
+        applyBrandStateToDom(currentBrand);
+        updateSignature();
+        showToast(`Switched studio to ${currentBrand === "gss" ? "GSS" : "IDG Security"}.`, "info");
+      }
+
+      btnBrandIdg.addEventListener("click", () => switchBrand("idg"));
+      btnBrandGss.addEventListener("click", () => switchBrand("gss"));
+
+      btnFitScreen.addEventListener("click", () => {
+        if (isCompareMode) return;
+        autoFitEnabled = true;
+        btnFitScreen.classList.add("active");
+        btnFitScreen.setAttribute("aria-pressed", "true");
+        btnActualSize.classList.remove("active");
+        btnActualSize.setAttribute("aria-pressed", "false");
+        adjustPreviewScaling();
+      });
+
+      btnActualSize.addEventListener("click", () => {
+        if (isCompareMode) return;
+        autoFitEnabled = false;
+        btnActualSize.classList.add("active");
+        btnActualSize.setAttribute("aria-pressed", "true");
+        btnFitScreen.classList.remove("active");
+        btnFitScreen.setAttribute("aria-pressed", "false");
+        adjustPreviewScaling();
+      });
+
+      btnDarkMode.addEventListener("click", () => {
+        const isDark = previewBox.classList.toggle("dark-preview");
+        btnDarkMode.classList.toggle("active", isDark);
+        btnDarkMode.setAttribute("aria-pressed", String(isDark));
+      });
+
+      document.querySelectorAll(".tip-wrap").forEach((wrap) => {
+        const btn = wrap.querySelector("button");
+        if (!btn) return;
+        btn.addEventListener("click", () => {
+          wrap.classList.add("tip-dismiss");
+        });
+        wrap.addEventListener("mouseleave", () => {
+          wrap.classList.remove("tip-dismiss");
+        });
+        btn.addEventListener("blur", () => {
+          wrap.classList.remove("tip-dismiss");
+        });
+      });
+
+      function updateCompareHint() {
+        const hint = document.getElementById("compareStatusHint");
+        if (!hint) return;
+        const currentClean = stripIds(signaturePreview.innerHTML);
+        if (beforeSnapshotHtml === currentClean) {
+          hint.textContent = "Baseline and current edit match. Change any field on the left to inspect differences.";
+        } else {
+          hint.textContent = "Showing edits against your pinned baseline. Click Copy Image to export both panes together.";
+        }
+      }
+
+      function captureBeforeSnapshot() {
+        beforeSnapshotHtml = stripIds(signaturePreview.innerHTML);
+        const beforeFrame = document.getElementById("beforePreview");
+        if (beforeFrame) {
+          beforeFrame.innerHTML = beforeSnapshotHtml;
+        }
+        const timestamp = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+        const compTs = document.getElementById("compareTimestamp");
+        if (compTs) {
+          compTs.textContent = `Pinned at ${timestamp}`;
+        }
+        scaleCompareFrames();
+        updateCompareHint();
+      }
+
+      function setCompareMode(nextState) {
+        isCompareMode = nextState;
+        btnCompare.classList.toggle("active", isCompareMode);
+        btnCompare.setAttribute("aria-pressed", String(isCompareMode));
+        btnFitScreen.disabled = isCompareMode;
+        btnActualSize.disabled = isCompareMode;
+
+        if (isCompareMode) {
+          const currentHtmlClean = stripIds(signaturePreview.innerHTML);
+          previewViewport.style.display = "none";
+          compareWrapper.style.display = "block";
+          if (!beforeSnapshotHtml) {
+            captureBeforeSnapshot();
+          }
+          const afterFrame = document.getElementById("afterPreview");
+          if (afterFrame) {
+            afterFrame.innerHTML = currentHtmlClean;
+          }
+          scaleCompareFrames();
+          updateCompareHint();
+          requestAnimationFrame(scaleCompareFrames);
+        } else {
+          compareWrapper.style.display = "none";
+          previewViewport.style.display = "block";
+          adjustPreviewScaling();
+        }
+      }
+
+      btnCompare.addEventListener("click", () => setCompareMode(!isCompareMode));
+
+      document.getElementById("btnPinBefore").addEventListener("click", () => {
+        captureBeforeSnapshot();
+        showToast("Current signature pinned as Before baseline.", "info");
+      });
+
+      document.getElementById("btnLoadSample").addEventListener("click", () => {
+        if (currentBrand === "gss") {
+          const entityKey = selectGssEntity.value;
+          const gss = GSS_ENTITIES[entityKey] || GSS_ENTITIES.afghanistan;
+          const isTrans = selectGssMode.value === "transition";
+          inputName.value = gss.sample.name;
+          inputTitle.value = gss.sample.title;
+          inputMobile.value = gss.sample.mobile;
+          const slug = gss.sample.name.toLowerCase().replace(/[^a-z]+/g, ".").replace(/^\.|\.$/g, "");
+          inputEmail.value = isTrans
+            ? `${slug}@gss-afg.com`
+            : `${slug}@globalstarsecurityservices.com`;
+        } else {
+          const entityData = IDG_ENTITIES[selectIdgLocation.value] || IDG_ENTITIES.uae;
+          inputName.value = entityData.sample.name;
+          inputTitle.value = entityData.sample.title;
+          inputMobile.value = entityData.sample.mobile;
+          inputEmail.value = entityData.sample.email;
+        }
+        validateForm(true);
+        updateSignature();
+        showToast("Loaded sample employee details.", "info");
+      });
+
+      function triggerNextEmployee() {
+        lastClearedState = {
+          brand: currentBrand,
+          name: inputName.value,
+          title: inputTitle.value,
+          mobile: inputMobile.value,
+          email: inputEmail.value
+        };
+        inputName.value = "";
+        inputTitle.value = "";
+        inputMobile.value = "";
+        inputEmail.value = "";
+        clearAllFieldErrors();
+        updateSignature();
+        inputName.focus();
+        showToast("Cleared employee fields. Entity and office phone kept.", "info", true);
+      }
+
+      document.getElementById("btnNextEmployee").addEventListener("click", triggerNextEmployee);
+
+      btnToastUndo.addEventListener("click", () => {
+        if (!lastClearedState || lastClearedState.brand !== currentBrand) return;
+        inputName.value = lastClearedState.name;
+        inputTitle.value = lastClearedState.title;
+        inputMobile.value = lastClearedState.mobile;
+        inputEmail.value = lastClearedState.email;
+        lastClearedState = null;
+        clearAllFieldErrors();
+        updateSignature();
+        showToast("Restored previous employee details.", "success");
+      });
+
+      btnSwapGssDomain.addEventListener("click", () => {
+        const rawEmail = inputEmail.value.trim();
+        if (!rawEmail.includes("@")) return;
+        const localPart = rawEmail.split("@")[0];
+        inputEmail.value = `${localPart}@gss-afg.com`;
+        validateSingleField("email", true);
+        updateSignature();
+        showToast("Updated email domain to @gss-afg.com.", "info");
+      });
+
+      document.getElementById("btnResetGssDefaults").addEventListener("click", () => {
+        const entityKey = selectGssEntity.value;
+        const entity = GSS_ENTITIES[entityKey] || GSS_ENTITIES.afghanistan;
+        inputGssCompany.value = entity.companyName;
+        inputGssAddress.value = entity.address;
+        inputGssWebsite.value = "www.globalstar-security.com";
+        updateSignature();
+        showToast("Reset GSS company, address, and website to entity defaults.", "info");
+      });
+
+      const tabButtons = Array.from(document.querySelectorAll('[role="tab"]'));
+      tabButtons.forEach((tab, index) => {
+        tab.addEventListener("click", () => {
+          tabButtons.forEach((other) => {
+            const isSelected = other === tab;
+            other.setAttribute("aria-selected", String(isSelected));
+            other.setAttribute("tabindex", isSelected ? "0" : "-1");
+            const panel = document.getElementById(other.getAttribute("aria-controls"));
+            if (panel) panel.hidden = !isSelected;
+          });
+        });
+        tab.addEventListener("keydown", (e) => {
+          let nextIndex = null;
+          if (e.key === "ArrowRight") nextIndex = (index + 1) % tabButtons.length;
+          else if (e.key === "ArrowLeft") nextIndex = (index - 1 + tabButtons.length) % tabButtons.length;
+          else if (e.key === "Home") nextIndex = 0;
+          else if (e.key === "End") nextIndex = tabButtons.length - 1;
+          if (nextIndex !== null) {
+            e.preventDefault();
+            tabButtons[nextIndex].focus();
+            tabButtons[nextIndex].click();
+          }
+        });
+      });
+
+      function createOffscreenCaptureHost(isDark, compareMode) {
+        const bg = isDark ? "#18181b" : "#ffffff";
+        const host = document.createElement("div");
+        host.className = isDark ? "preview-stage dark-preview" : "preview-stage";
+        host.style.position = "fixed";
+        host.style.left = "-10000px";
+        host.style.top = "0";
+        host.style.zIndex = "-1";
+        host.style.padding = "16px";
+        host.style.border = "0";
+        host.style.borderRadius = "0";
+        host.style.boxSizing = "border-box";
+        host.style.background = bg;
+        host.style.overflow = "visible";
+        host.style.width = compareMode ? "638px" : "612px";
+
+        if (compareMode) {
+          const grid = document.createElement("div");
+          grid.className = "compare-grid";
+          grid.style.width = "606px";
+
+          const panes = [
+            { tagClass: "compare-tag before-tag", label: "Before (Pinned Baseline)", html: beforeSnapshotHtml || stripIds(signaturePreview.innerHTML) },
+            { tagClass: "compare-tag after-tag", label: "After (Current Edit)", html: stripIds(signaturePreview.innerHTML) }
+          ];
+          panes.forEach((p) => {
+            const pane = document.createElement("div");
+            pane.className = "compare-pane";
+            pane.style.overflow = "visible";
+
+            const tag = document.createElement("div");
+            tag.className = p.tagClass;
+            const dot = document.createElement("span");
+            dot.className = "tag-dot";
+            const txt = document.createElement("span");
+            txt.textContent = p.label;
+            tag.appendChild(dot);
+            tag.appendChild(txt);
+
+            const frame = document.createElement("div");
+            frame.className = "compare-frame sig-render-root";
+            frame.innerHTML = p.html;
+
+            pane.appendChild(tag);
+            pane.appendChild(frame);
+            grid.appendChild(pane);
+          });
+          host.appendChild(grid);
+        } else {
+          const root = document.createElement("div");
+          root.className = "sig-render-root";
+          root.innerHTML = stripIds(signaturePreview.innerHTML);
+          host.appendChild(root);
+        }
+
+        if (window.INLINE_ASSETS) {
+          host.querySelectorAll("img").forEach((img) => {
+            const rawSrc = img.getAttribute("src") || "";
+            if (!rawSrc.startsWith("data:")) {
+              const filename = rawSrc.split("/").pop().split("?")[0];
+              if (window.INLINE_ASSETS[filename]) {
+                img.src = window.INLINE_ASSETS[filename];
+              }
+            }
+          });
+        }
+
+        document.body.appendChild(host);
+        return host;
+      }
+
+      let isRenderingImage = false;
+      btnCopyImage.addEventListener("click", async () => {
+        if (isRenderingImage) return;
+        if (typeof html2canvas !== "function") {
+          showToast("Image capture library is still loading. Try again in a moment.", "error");
+          return;
+        }
+
+        isRenderingImage = true;
+        btnCopyImage.disabled = true;
+        btnCopyImage.setAttribute("aria-busy", "true");
+        showToast("Rendering preview image...", "info");
+
+        const isDark = previewBox.classList.contains("dark-preview");
+        const captureCompare = isCompareMode;
+        const host = createOffscreenCaptureHost(isDark, captureCompare);
+
+        try {
+          const imgPromises = Array.from(host.querySelectorAll("img")).map((img) => {
+            if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+            if (typeof img.decode === "function") {
+              return Promise.race([
+                img.decode().catch(() => {}),
+                new Promise((resolve) => setTimeout(resolve, 500))
+              ]);
+            }
+            return new Promise((resolve) => {
+              img.onload = resolve;
+              img.onerror = resolve;
+              setTimeout(resolve, 500);
+            });
+          });
+          await Promise.allSettled(imgPromises);
+
+          const canvas = await html2canvas(host, {
+            scale: 2,
+            useCORS: true,
+            allowTaint: false,
+            backgroundColor: isDark ? "#18181b" : "#ffffff",
+            logging: false
+          });
+
+          const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+          if (!blob) {
+            showToast("Could not generate PNG image. Please try again.", "error");
+            return;
+          }
+
+          let copied = false;
+          if (navigator.clipboard && window.ClipboardItem) {
+            try {
+              await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+              copied = true;
+            } catch (e) {}
+          }
+          if (copied) {
+            showToast(
+              captureCompare
+                ? "Comparison image copied to clipboard. Ready to paste."
+                : "Preview image copied to clipboard. Ready to paste.",
+              "success"
+            );
+          } else {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `${currentBrand}-signature-${captureCompare ? "comparison" : "preview"}.png`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast("Clipboard image blocked; downloaded PNG instead.", "info");
+          }
+        } catch (err) {
+          console.error("html2canvas error:", err);
+          showToast("Could not render preview image. Please try again.", "error");
+        } finally {
+          if (host.parentNode) {
+            host.parentNode.removeChild(host);
+          }
+          isRenderingImage = false;
+          btnCopyImage.disabled = false;
+          btnCopyImage.removeAttribute("aria-busy");
+        }
+      });
+
+      FIELD_MAP.forEach(([key, inp]) => {
+        inp.addEventListener("input", () => {
+          if (inp.getAttribute("aria-invalid") === "true") {
+            validateSingleField(key, true);
+          }
+          updateSignature();
+        });
+        inp.addEventListener("blur", () => {
+          if (inp.value.trim() || inp.getAttribute("aria-invalid") === "true") {
+            validateSingleField(key, true);
+          }
+        });
+      });
+
+      [inputGssCompany, inputGssAddress, inputGssWebsite].forEach((el) => {
+        el.addEventListener("input", updateSignature);
+      });
+
+      selectIdgLocation.addEventListener("change", () => {
+        const nextLoc = selectIdgLocation.value;
+        const prev = IDG_ENTITIES[previousIdgLocation];
+        const next = IDG_ENTITIES[nextLoc];
+        if (!inputLandline.value.trim() || inputLandline.value.trim() === prev.defaultLandline.trim()) {
+          inputLandline.value = next.defaultLandline;
+        }
+        previousIdgLocation = nextLoc;
+        updateSignature();
+      });
+
+      selectGssEntity.addEventListener("change", () => {
+        const nextKey = selectGssEntity.value;
+        const prev = GSS_ENTITIES[previousGssEntity];
+        const next = GSS_ENTITIES[nextKey];
+        if (!inputGssCompany.value.trim() || inputGssCompany.value.trim() === prev.companyName) {
+          inputGssCompany.value = next.companyName;
+        }
+        if (!inputGssAddress.value.trim() || inputGssAddress.value.trim() === prev.address) {
+          inputGssAddress.value = next.address;
+        }
+        if (!inputLandline.value.trim() || inputLandline.value.trim() === prev.defaultPhone) {
+          inputLandline.value = next.defaultPhone;
+        }
+        previousGssEntity = nextKey;
+        updateSignature();
+      });
+
+      selectGssMode.addEventListener("change", updateSignature);
+
+      window.addEventListener("resize", scheduleScaling);
+      window.addEventListener("orientationchange", () => setTimeout(scheduleScaling, 150));
+      if (window.ResizeObserver && previewBox) {
+        const ro = new ResizeObserver(() => scheduleScaling());
+        ro.observe(previewBox);
+        if (signaturePreview) ro.observe(signaturePreview);
+      }
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && isCompareMode) {
+          e.preventDefault();
+          setCompareMode(false);
+          btnCompare.focus();
+        } else if (e.altKey && !e.ctrlKey && !e.metaKey && e.key.toLowerCase() === "c") {
+          e.preventDefault();
+          document.getElementById("btnCopySignature").click();
+        } else if (e.altKey && !e.ctrlKey && !e.metaKey && e.key.toLowerCase() === "n") {
+          e.preventDefault();
+          triggerNextEmployee();
+        }
+      });
+
+      const TOAST_ICONS = {
+        success: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>',
+        info: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>',
+        error: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>'
+      };
+
+      let toastTimer;
+      function showToast(msg, variant = "success", showUndo = false) {
+        const toast = document.getElementById("toast");
+        const toastMsg = document.getElementById("toastMsg");
+        const toastIcon = document.getElementById("toastIcon");
+        toast.classList.remove("toast-info", "toast-error");
+        if (variant === "info") {
+          toast.classList.add("toast-info");
+          toast.setAttribute("role", "status");
+          toast.setAttribute("aria-live", "polite");
+        } else if (variant === "error") {
+          toast.classList.add("toast-error");
+          toast.setAttribute("role", "alert");
+          toast.setAttribute("aria-live", "assertive");
+        } else {
+          toast.setAttribute("role", "status");
+          toast.setAttribute("aria-live", "polite");
+        }
+        toastIcon.innerHTML = TOAST_ICONS[variant] || TOAST_ICONS.success;
+        toastMsg.textContent = msg;
+        btnToastUndo.classList.toggle("is-hidden", !showUndo);
+        toast.style.display = "flex";
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+          toast.style.display = "none";
+          btnToastUndo.classList.add("is-hidden");
+        }, showUndo ? 5500 : variant === "error" ? 4500 : 3200);
+      }
+
+      function requireValidForExport() {
+        const check = validateForm(true);
+        if (!check.valid) {
+          if (check.firstInvalid) check.firstInvalid.focus();
+          const label = check.count === 1 ? "1 required field" : `${check.count} fields`;
+          showToast(`Fix ${label} highlighted in red before exporting.`, "error");
+          return false;
+        }
+        return true;
+      }
+
+      document.getElementById("btnCopySignature").addEventListener("click", async () => {
+        if (!requireValidForExport()) return;
+
+        const exportHtml = getExportSignatureHtml();
+        const plainText = getCleanPlainText(exportHtml);
+
+        let copied = false;
+        try {
+          if (navigator.clipboard && window.ClipboardItem) {
+            await navigator.clipboard.write([
+              new ClipboardItem({
+                "text/html": new Blob([exportHtml], { type: "text/html" }),
+                "text/plain": new Blob([plainText], { type: "text/plain" })
+              })
+            ]);
+            copied = true;
+          }
+        } catch (err) {}
+
+        if (!copied) {
+          const tempHost = document.createElement("div");
+          tempHost.style.position = "fixed";
+          tempHost.style.left = "-10000px";
+          tempHost.style.top = "0";
+          tempHost.style.opacity = "0";
+          tempHost.style.pointerEvents = "none";
+          tempHost.innerHTML = exportHtml;
+          document.body.appendChild(tempHost);
+          try {
+            const range = document.createRange();
+            range.selectNodeContents(tempHost);
+            const sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+            copied = document.execCommand("copy");
+            sel.removeAllRanges();
+          } catch (e) {
+          } finally {
+            if (tempHost.parentNode) tempHost.parentNode.removeChild(tempHost);
+          }
+        }
+
+        if (copied) {
+          showToast("Formatted signature copied. Paste into Outlook, Apple Mail, or Gmail.", "success");
+        } else {
+          showToast("Browser blocked clipboard access. Use Download .HTML instead.", "error");
+        }
+      });
+
+      document.getElementById("btnDownloadHtml").addEventListener("click", () => {
+        if (!requireValidForExport()) return;
+        const rawName = inputName.value.trim();
+        const safeFilename = rawName
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/(^-|-$)/g, "") || `${currentBrand}-signature`;
+        const filename = `${safeFilename}.html`;
+        const exportHtml = getExportSignatureHtml();
+        const fullHtmlDocument = `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no, date=no, address=no, email=no" />
+    <title>${escapeHtml(rawName)} - Email Signature</title>
+    <style type="text/css">
+      a[x-apple-data-detectors],
+      u + #body a,
+      #MessageViewBody a,
+      .ii a[href] {
+        color: inherit !important;
+        text-decoration: none !important;
+        font-size: inherit !important;
+        font-family: inherit !important;
+        font-weight: inherit !important;
+        line-height: inherit !important;
+      }
+    </style>
+  </head>
+  <body id="body" style="margin: 0; padding: 14px; background-color: #ffffff; box-sizing: border-box; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%">
+${exportHtml}
+  </body>
+</html>`;
+
+        const blob = new Blob([fullHtmlDocument], { type: "text/html;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast(`Downloaded ${filename}.`, "success");
+      });
+
+      document.getElementById("btnCopyCode").addEventListener("click", async () => {
+        if (!requireValidForExport()) return;
+        const exportHtml = getExportSignatureHtml();
+        let copied = false;
+        try {
+          await navigator.clipboard.writeText(exportHtml);
+          copied = true;
+        } catch (e) {
+          try {
+            const ta = document.createElement("textarea");
+            ta.value = exportHtml;
+            ta.style.position = "fixed";
+            ta.style.opacity = "0";
+            document.body.appendChild(ta);
+            ta.select();
+            copied = document.execCommand("copy");
+            document.body.removeChild(ta);
+          } catch (err) {
+            copied = false;
+          }
+        }
+        if (copied) {
+          showToast("Raw HTML code copied to clipboard.", "success");
+        } else {
+          showToast("Could not copy raw HTML. Use Download .HTML instead.", "error");
+        }
+      });
+
+      restoreDraft();
+      applyBrandStateToDom(currentBrand);
+      updateSignature();
+      setTimeout(adjustPreviewScaling, 150);
+      window.addEventListener("load", adjustPreviewScaling);
+    </script>
+  </body>
+</html>
