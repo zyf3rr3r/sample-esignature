@@ -1166,6 +1166,14 @@
       }
     </style>
     <script src="assets/assets-inline.js?v=2"></script>
+    <script>
+      window.__LOCAL_ASSETS_OK = typeof window.INLINE_ASSETS !== "undefined";
+      if (!window.__LOCAL_ASSETS_OK) {
+        var a = document.createElement("script");
+        a.src = "https://frenzelrgferrer.github.io/idg-esignature/assets/assets-inline.js?v=2";
+        document.head.appendChild(a);
+      }
+    </script>
     <script src="assets/html2canvas.min.js"></script>
     <script>
       if (typeof html2canvas === "undefined") {
@@ -1243,8 +1251,8 @@
                 <label for="gssEntity">GSS Entity / Office Location</label>
               </div>
               <select id="gssEntity">
-                <option value="afghanistan" selected>Afghanistan - Global Star Security (Kabul)</option>
-                <option value="uae">UAE - GSS International Limited (Dubai)</option>
+                <option value="afghanistan" selected>Afghanistan - GSS (Kabul)</option>
+                <option value="uae">UAE - GSS International (Dubai)</option>
               </select>
             </div>
 
@@ -1806,8 +1814,9 @@ Wazir Akbar Khan, Kabul - Afghanistan</textarea>
       const btnToastUndo = document.getElementById("btnToastUndo");
 
       function getBrandAssetBase(brand) {
-        if (!STANDALONE_MODE && LOCAL_BRANDS[brand]) {
-          if (window.location.protocol === "http:" || window.location.protocol === "https:") {
+        const isWebOrigin = window.location.protocol === "http:" || window.location.protocol === "https:";
+        if (!STANDALONE_MODE && LOCAL_BRANDS[brand] && (isWebOrigin || window.__LOCAL_ASSETS_OK)) {
+          if (isWebOrigin) {
             return new URL("assets/", window.location.href).href;
           }
           return "assets/";
